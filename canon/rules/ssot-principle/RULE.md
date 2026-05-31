@@ -1,6 +1,6 @@
 ---
 name: ssot-principle
-description: Base authoring principle inherited by domain rules. Applies to writing and reviewing any artifact — docs, code (and comments), yaml, config: keep each fact in one canonical home and reference it instead of copying, keep references consistent, and cut redundancy.
+description: Base authoring principle inherited by domain rules. Applies to writing and reviewing any artifact — docs, code (and comments), yaml, config. Keep each fact in one canonical home and reference it instead of copying, keep references consistent, and cut redundancy.
 ---
 
 # SSoT principle — one canonical home

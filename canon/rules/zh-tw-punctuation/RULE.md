@@ -1,6 +1,6 @@
 ---
 name: zh-tw-punctuation
-description: zh-TW punctuation conventions — on Chinese-led lines in markdown content (documents, commit messages, PRs), convert ASCII , : ; ? to full-width; replace … with ... outside backticks. Script + tests at convert.py / convert_test.py; design rationale at Specification.md.
+description: "zh-TW punctuation conventions — on Chinese-led lines in markdown content (documents, commit messages, PRs), convert ASCII , : ; ? to full-width; replace … with ... outside backticks. Script + tests at convert.py / convert_test.py; design rationale at Specification.md."
 ---
 
 # zh-TW punctuation — full-width
