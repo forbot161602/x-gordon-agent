@@ -1,0 +1,8 @@
+{
+  "name": "dongent",
+  "description": "General-purpose agent authoring rules and slash commands, shared across projects.",
+  "author": {
+    "name": "Gordon Lai"
+  },
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "dongent",
+  "owner": {
+    "name": "Gordon Lai"
+  },
+  "description": "Reusable Claude Code agent components, shared across projects.",
+  "plugins": [
+    {
+      "name": "dongent",
+      "source": "./plugins/dongent",
+      "description": "General-purpose agent authoring rules and slash commands, shared across projects."
+    }
+  ]
+}
