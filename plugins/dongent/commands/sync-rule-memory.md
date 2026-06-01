@@ -74,7 +74,7 @@ metadata:
 
 <!-- dongent-section-start -->
 
-Canonical: [RULE.md](<absolute path to central RULE.md>)
+Canonical: `dongent/rules/<rule-folder-name>/RULE.md` in the installed dongent plugin — resolve under the plugin's current install root, not a hard-coded path (the cache keeps per-version dirs; use the active install, which Claude Code's installed-plugin record designates).
 
 > 2-5 lines distilling the rule from RULE.md: what to do, when. Don't reproduce algorithms or examples — point at the canonical RULE.md for full text.
 
