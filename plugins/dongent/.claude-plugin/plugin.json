@@ -1,6 +1,6 @@
 {
   "name": "dongent",
-  "description": "General-purpose agent authoring rules and slash commands, shared across projects.",
+  "description": "Core agent rules and tools, shared across projects.",
   "author": {
     "name": "Gordon Lai"
   },
