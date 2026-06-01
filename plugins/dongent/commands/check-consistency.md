@@ -16,8 +16,9 @@ None required. Three forms:
 - `/check-consistency` — default. Audit all staged and unstaged files in the worktree (the typical "I'm about to commit" use).
 - `/check-consistency --all` — audit the full PR-scope (use before opening a PR to catch cross-file conflicts between docs and code).
 - `/check-consistency --paths <glob...>` — audit only files matching the globs (paths are relative to the repo root). Examples: `--paths "docs/README.md"`, `--paths "**/README.md" "docs/**/*.md"`.
+- `/check-consistency --memory` — audit only the current project's agent memory, not the worktree.
 
-`--all` and `--paths` are mutually exclusive; pass at most one.
+`--all`, `--paths`, and `--memory` are mutually exclusive; pass at most one.
 
 ## Steps
 
@@ -28,12 +29,13 @@ None required. Three forms:
 - **Default**: `git status --porcelain` → keep paths whose status is not `D` (deleted).
 - **`--all`**: list every file this branch has changed since branching off its base, **including uncommitted ones (staged, unstaged, untracked)**. The agent identifies the base commit from its session context (it usually knows; it likely opened the branch and made the commits) or, when unclear, by inspecting `git log` / branch graph plus authoring metadata.
 - **`--paths`**: expand each glob against the worktree (repo-relative); deduplicate. The agent corrects malformed globs (reporting the actual interpretation used) but doesn't broaden a syntactically valid glob just because it returned zero matches.
+- **`--memory`**: the target set is the current project's agent memory folder — its index and the memory files the index points at, checked against each other. The worktree is not scanned.
 
 If the resolved set is empty, report "nothing to audit" and stop.
 
 ### 2. Identify the private layer
 
-Step 1 surfaces **mostly public files** — `git status` and `git diff` filter out gitignored content by default; glob expansion can match anywhere in principle but typical `--paths` invocations target public folders (`docs/`, `specs/`, etc.). Private content (as defined by [private-content][../rules/private-content/RULE.md]) usually doesn't make it into step 1's output, so the agent brings it in from its session context, which usually knows what's relevant to the current work.
+Step 1 surfaces **mostly public files** — `git status` and `git diff` filter out gitignored content by default; glob expansion can match anywhere in principle but typical `--paths` invocations target public folders (`docs/`, `specs/`, etc.). Private content (as defined by [private-content][../rules/private-content/RULE.md]) usually doesn't make it into step 1's output, so the agent brings it in from its session context, which usually knows what's relevant to the current work. This explicitly covers **relevant private planning and progress docs** — e.g. a gitignored personal plan recording why the work was split into these commits, or tracking their progress — which should stay consistent with what's being committed.
 
 ### 3. Per-file checks
 
