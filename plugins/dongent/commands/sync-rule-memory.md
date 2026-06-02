@@ -5,7 +5,7 @@ description: Sync this plugin's rule library into the current project's Claude m
 
 Sync this plugin's rules into the current project's Claude memory. Each rule gets a memory file at `<project-memory>/dongent_rule_<rule-name>.md`. The file follows the standard Claude memory format, with a plugin-managed region delimited by HTML markers (`<!-- dongent-section-start -->` / `<!-- dongent-section-end -->`).
 
-The frontmatter is regenerated each sync. The body has two zones: inside the markers, content is refreshed from the current `RULE.md` and merged with any compatible existing modifications (no blind overwrites); outside the markers (H1, intro, project-specific notes) is preserved as-is by default. Either zone, any conflict with the updated rule surfaces to the user for trade-off resolution — sync doesn't overwrite without consent. Outside of sync runs, this is a normal Claude memory; agents may update it as they would any memory.
+The frontmatter is refreshed on each create or update. The body has two zones: inside the markers, plugin-managed content compiled from the current `RULE.md`; outside them, project-specific content that persists across syncs. The steps below cover how each zone is written and how conflicts are resolved. Outside of sync runs, this is a normal Claude memory; agents may update it as they would any memory.
 
 ## Steps
 
@@ -14,7 +14,7 @@ The frontmatter is regenerated each sync. The body has two zones: inside the mar
 ### 1. Locate paths
 
 - **Plugin root**: the directory containing this command file's parent (`.../<plugin-root>/commands/sync-rule-memory.md` → `<plugin-root>`). Claude Code may expose this as an environment variable when the command runs; if not, derive from the command file's own location.
-- **Project memory folder**: the conventional Claude Code memory folder for the user's current project (typically `~/.claude/projects/<encoded-cwd>/memory/`). If you can't determine it, ask the user. Create the folder if it doesn't exist.
+- **Project memory folder**: the conventional Claude Code memory folder for the user's current project (typically `~/.claude/projects/<encoded-cwd>/memory/`). If it can't be determined, ask the user. Create the folder if it doesn't exist.
 
 ### 2. Discover rules
 
@@ -41,19 +41,19 @@ For each rule that should be synced:
 
 Read `RULE.md` for a `## Prerequisites` section. Prerequisites are anything that must be gathered before the compiled memory can be written — they can be questions for the user, agent-side detections (e.g. scan project files, check for a specific tool), or a mix.
 
-- Absent: nothing to resolve. The compiled memory will end at the `dongent-section-end` marker (no below-marker content).
+- Absent: nothing to resolve from Prerequisites. Unless the project has overrides to record (step 5), the compiled memory ends at the `dongent-section-end` marker.
 - Present, first-time install: work through each item — ask the user for inputs the user must provide; run detections the agent can do directly.
-- Present, update: re-resolve items new since the last sync. Also check existing body content — both inside and outside the markers — against the updated rule. If anything is stale or conflicting (e.g. a Prerequisite was reworded, an answer no longer fits the new rule's shape, custom notes contradict the updated logic, or existing marker content diverges from the latest distillation), flag it in the same batch round-trip and let the user decide the trade-off: accept the new rule (revise / discard the conflicting content) or keep what's there (and note the divergence). Merge compatible existing content into the refreshed version where possible; don't auto-overwrite without consent.
+- Present, update: re-resolve items new since the last sync, and check existing body content — both inside and outside the markers — against the updated rule. Resolve conflicts (a reworded Prerequisite, an answer that no longer fits, custom notes or project overrides contradicting the updated logic, marker content diverging from the latest distillation) using judgment — merge compatible content, re-align stale text, take the updated rule where it clearly supersedes — and report each fix in step 7. Escalate only when the conflict is genuinely undecidable: resolving would discard project-specific content whose intent can't be confirmed, or two readings are equally defensible. Never silently discard user content — when unsure, keep it and flag the divergence.
 
 **Batch all user-facing questions for the same rule into one round-trip — don't go question-by-question.**
 
-When organizing results in the compiled memory, write them **below the `dongent-section-end` marker**. The agent picks the section heading(s) freely — name them to fit the content (e.g. `## Project settings`, `## Detected tooling`, or any domain-specific label that suits).
+When organizing results in the compiled memory, write them **below the `dongent-section-end` marker**. The agent picks the section heading(s) freely — name them to fit the content (e.g. `## Project settings`, `## Project overrides`, `## Detected tooling`, or any domain-specific label that suits).
 
 ### 5. Write the compiled memory file
 
 Write the compiled memory in English by default, regardless of the conversation language — it mirrors the English rule library, and one consistent language keeps it portable.
 
-Apply [ssot-principle][../rules/ssot-principle/RULE.md] across the project's memory, not only within each file: the template below already points each file at its canonical `RULE.md` rather than copying it; on top of that, this compiled file is the canonical home for its rule's guidance, so any other memory file covering the same ground references it instead of restating, and cross-file duplication is removed.
+Apply [ssot-principle][../rules/ssot-principle/RULE.md] across the project's memory, not only within each file: the template below already points each file at its canonical `RULE.md` rather than copying it; on top of that, this compiled file is the canonical home for its rule's guidance, so any other memory file covering the same ground references it instead of restating, and cross-file duplication is removed. The same discipline covers the rule's project-specific variants (a team-style override, a local specialization): give each a single canonical home — by default below the markers here — with any other memory pointing there rather than restating, so one place states per sub-rule which authority finally applies and the wrong one isn't followed.
 
 Template — inline `<placeholders>` are slot-fills (replace with the actual value); lines starting with `>` are hints describing what to write in that block (replace the whole block with actual content):
 
@@ -82,11 +82,11 @@ Canonical: `dongent/rules/<rule-folder-name>/RULE.md` in the installed dongent p
 
 <!-- dongent-section-end -->
 
-> Below this marker: project-specific space (Prerequisites answers, custom notes, etc.) — preserved across syncs. Use whatever section headings fit the content; omit entirely if there's nothing project-specific.
+> Below this marker: the project-specific content — Prerequisites answers, project overrides, custom notes. Use whatever section headings fit it; omit entirely if there's none.
 ```
 
-- **Create**: write the whole file. Agent chooses the H1 title and intro. Fill the canonical pointer and the summary inside the `dongent-section-*` markers. Below the end marker, add Prerequisites answers (with section names you choose), or leave empty if nothing project-specific.
-- **Update**: bump `metadata.dongent.source_hash` and refresh `description` if the central `RULE.md`'s description changed. Preserve `metadata.originSessionId` (immutable after creation). Apply step 4's resolutions to the body — inside the markers gets the refreshed distillation merged with any preserved existing content; outside the markers stays as-is plus any user-approved appends, modifications, or removals.
+- **Create**: write the whole file. Agent chooses the H1 title and intro. Fill the canonical pointer and the summary inside the `dongent-section-*` markers, and any project-specific content below them.
+- **Update**: bump `metadata.dongent.source_hash` and refresh `description` if the central `RULE.md`'s description changed. Preserve `metadata.originSessionId` (immutable after creation). Re-distill the inside-marker content from the updated `RULE.md`, then apply step 4's resolutions to the body.
 
 ### 6. Update MEMORY.md index
 
@@ -108,16 +108,20 @@ These index lines are what an agent scans to decide what to load, so distil each
 
 Summarize per rule:
 
-- ✨ Created: list rule names with their compiled file paths; include any Prerequisites resolved during creation (e.g. "3 Prerequisites resolved")
-- 🔄 Updated: list rule names with a one-line note on what changed (e.g. "central RULE.md updated; 2 new Prerequisites resolved")
-- ✅ Unchanged: list rule names skipped (sync'd previously, hash matches central)
-- 📦 Available (not installed): list optional rules the user hasn't opted into yet
-- 👻 Orphan (rule removed upstream): list project memory files whose corresponding rule no longer exists in the plugin; user can decide whether to clean them
+- ✨ Created: rule name + compiled file path, plus any project-specific content captured
+- 🔄 Updated: rule name + a one-line note on what changed (e.g. RULE.md refreshed, conflicts auto-resolved, project-specific content revised)
+- ✅ Unchanged: rule name skipped (hash matches central)
+- 📦 Available (not installed): optional rules not yet opted into
+- 👻 Orphan (rule removed upstream): memory files whose rule is gone upstream; user decides whether to clean
 
-If something was unclear (couldn't locate the plugin root, couldn't determine the project memory folder, ambiguous file conflicts, etc.) — stop and ask the user instead of guessing.
+## Out of scope
+
+Reconciling the rest of project memory — beyond the rules this command syncs (step 5) — is out of scope; run [check-consistency][check-consistency.md] in `--memory` mode for that.
 
 ## References
 
 - [ssot-principle][../rules/ssot-principle/RULE.md]
+- [check-consistency][check-consistency.md]
 
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
+[check-consistency.md]: check-consistency.md
