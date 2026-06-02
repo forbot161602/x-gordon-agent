@@ -3,7 +3,9 @@ name: sync-rule-memory
 description: Sync this plugin's rule library into the current project's Claude memory. Idempotent — first run installs, later runs only update what changed in the central rules.
 ---
 
-Sync this plugin's rules into the current project's Claude memory. Each rule gets a memory file at `<project-memory>/dongent_rule_<rule-name>.md`. The file follows the standard Claude memory format, with a plugin-managed region delimited by HTML markers (`<!-- dongent-section-start -->` / `<!-- dongent-section-end -->`). The frontmatter is regenerated each sync. The body has two zones: inside the markers, content is refreshed from the current `RULE.md` and merged with any compatible existing modifications (no blind overwrites); outside the markers (H1, intro, project-specific notes) is preserved as-is by default. Either zone, any conflict with the updated rule surfaces to the user for trade-off resolution — sync doesn't overwrite without consent. Outside of sync runs, this is a normal Claude memory; agents may update it as they would any memory.
+Sync this plugin's rules into the current project's Claude memory. Each rule gets a memory file at `<project-memory>/dongent_rule_<rule-name>.md`. The file follows the standard Claude memory format, with a plugin-managed region delimited by HTML markers (`<!-- dongent-section-start -->` / `<!-- dongent-section-end -->`).
+
+The frontmatter is regenerated each sync. The body has two zones: inside the markers, content is refreshed from the current `RULE.md` and merged with any compatible existing modifications (no blind overwrites); outside the markers (H1, intro, project-specific notes) is preserved as-is by default. Either zone, any conflict with the updated rule surfaces to the user for trade-off resolution — sync doesn't overwrite without consent. Outside of sync runs, this is a normal Claude memory; agents may update it as they would any memory.
 
 ## Steps
 
@@ -88,13 +90,19 @@ Canonical: `dongent/rules/<rule-folder-name>/RULE.md` in the installed dongent p
 
 ### 6. Update MEMORY.md index
 
-In the project memory folder, ensure `MEMORY.md` exists. For each created or updated compiled file, ensure there's an index entry of the form:
+In the project memory folder, ensure `MEMORY.md` exists, with this one-line note at its top (add if missing, leave if present):
 
 ```
-- [dongent_rule_<rule-name>](dongent_rule_<rule-name>.md) — <description from frontmatter>
+<!-- dongent-note: this memory is English for portability; reply in the language of the user's prompts -->
 ```
 
-Don't duplicate; if an entry already exists for the same name, update its description if it changed but otherwise leave it.
+For each created or updated compiled file, ensure there's an index entry of the form:
+
+```
+- [dongent_rule_<rule-name>](dongent_rule_<rule-name>.md) — <concise one-line summary: what it is, when to load>
+```
+
+These index lines are what an agent scans to decide what to load, so distil each summary tightly rather than pasting the frontmatter. Don't duplicate; refresh an entry's summary when the rule changes, otherwise leave it.
 
 ### 7. Report
 
