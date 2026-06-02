@@ -1,0 +1,8 @@
+{
+  "name": "dongent-dev",
+  "description": "Agent rules and tools for dongent plugin development. Usually author-only — install when building a plugin, not in product projects.",
+  "author": {
+    "name": "Gordon Lai"
+  },
+  "license": "Apache-2.0"
+}

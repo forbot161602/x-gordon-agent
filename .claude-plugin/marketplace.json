@@ -9,6 +9,11 @@
       "name": "dongent",
       "source": "./plugins/dongent",
       "description": "Core agent rules and tools, shared across projects."
+    },
+    {
+      "name": "dongent-dev",
+      "source": "./plugins/dongent-dev",
+      "description": "Agent rules and tools for dongent plugin development. Usually author-only — install when building a plugin, not in product projects."
     }
   ]
 }
