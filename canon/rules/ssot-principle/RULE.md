@@ -42,7 +42,7 @@ Before writing or substantially editing any artifact. Also a pre-publish checkpo
 ## How to apply
 
 - **Before writing a fact**, ask whether it already lives somewhere. If so, link to it rather than restating it.
-- **When a fact could live in several places**, make its home the most foundational one — lowest layer, most-depended-on, longest-lived — and point the rest at it.
+- **When a fact could live in several places**, make its home the most foundational one — lowest layer, most-depended-on, longest-lived (based on dependency role and expected stability, not seniority; being written first doesn't make a copy authoritative) — and point the rest at it.
 - **Before changing a fact**, grep for the same fact across files; update every occurrence, or replace the duplicates with a one-line pointer to the canonical home.
 - **On rename or move**, update every link that pointed at the old name or path.
 - **When asked for "a complete summary"**, assemble it by linking, not by copying.

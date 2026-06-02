@@ -53,7 +53,7 @@ When organizing results in the compiled memory, write them **below the `dongent-
 
 Write the compiled memory in English by default, regardless of the conversation language — it mirrors the English rule library, and one consistent language keeps it portable.
 
-Apply [ssot-principle][../rules/ssot-principle/RULE.md] across the project's memory, not only within each file: the template below already points each file at its canonical `RULE.md` rather than copying it; on top of that, this compiled file is the canonical home for its rule's guidance, so any other memory file covering the same ground references it instead of restating, and cross-file duplication is removed. The same discipline covers the rule's project-specific variants (a team-style override, a local specialization): give each a single canonical home — by default below the markers here — with any other memory pointing there rather than restating, so one place states per sub-rule which authority finally applies and the wrong one isn't followed.
+Apply [ssot-principle][../rules/ssot-principle/RULE.md] across the project's memory, not only within each file: the template below already points each file at its canonical `RULE.md` rather than copying it; on top of that, this compiled file is the canonical home for its rule's guidance, so any other memory file covering the same ground references it instead of restating, and cross-file duplication is removed. The same discipline covers the rule's project-specific variants (a team-style override, a local specialization): when a variant clearly falls under this rule, consolidate it below the markers here — this file is its canonical home, with any other memory pointing here rather than restating — so one place states per sub-rule which authority finally applies. Override only when another location is, per ssot-principle, genuinely the more foundational home — e.g. a file a program or tool parses as input (the artifact itself, not a doc that describes one), or content owned by another audience (per [private-content][../rules/private-content/RULE.md]).
 
 Template — inline `<placeholders>` are slot-fills (replace with the actual value); lines starting with `>` are hints describing what to write in that block (replace the whole block with actual content):
 
@@ -121,7 +121,9 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 ## References
 
 - [ssot-principle][../rules/ssot-principle/RULE.md]
+- [private-content][../rules/private-content/RULE.md]
 - [check-consistency][check-consistency.md]
 
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
+[../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [check-consistency.md]: check-consistency.md
