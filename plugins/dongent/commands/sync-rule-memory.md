@@ -1,9 +1,9 @@
 ---
 name: sync-rule-memory
-description: Sync this plugin's rule library into the current project's Claude memory. Idempotent — first run installs, later runs only update what changed in the central rules.
+description: Sync this plugin's rule library into the current project's agent memory. Idempotent — first run installs, later runs only update what changed in the central rules.
 ---
 
-Sync this plugin's rules into the current project's Claude memory. Each rule gets a memory file at `<project-memory>/dongent_rule_<rule-name>.md`. The file follows the standard Claude memory format, with a plugin-managed region delimited by HTML markers (`<!-- dongent-section-start -->` / `<!-- dongent-section-end -->`).
+Sync this plugin's rules into the current project's agent memory. Each rule gets a memory file at `<project-memory>/dongent_rule_<rule-name>.md`. The file follows the standard Claude memory format, with a plugin-managed region delimited by HTML markers (`<!-- dongent-section-start -->` / `<!-- dongent-section-end -->`).
 
 The frontmatter is refreshed on each create or update. The body has two zones: inside the markers, plugin-managed content compiled from the current `RULE.md`; outside them, project-specific content that persists across syncs. The steps below cover how each zone is written and how conflicts are resolved. Outside of sync runs, this is a normal Claude memory; agents may update it as they would any memory.
 
@@ -25,7 +25,7 @@ Read the catalog at `<plugin-root>/rules/README.md` — it's the canonical list 
 Tier (from the catalog loaded in step 2) controls default install behavior:
 
 - **`recommended`**: always sync this rule into the current project.
-- **`optional`**: only sync if (a) the user has previously opted in (a compiled memory file already exists for this rule in this project), or (b) the user explicitly named this rule when invoking the command. **Don't prompt mid-run** — uninstalled optional rules surface in the report (step 7).
+- **`optional`**: only sync if (a) the user has previously opted in (a compiled memory file already exists for this rule in this project), or (b) the user explicitly named this rule when invoking the command. **Don't prompt mid-run** — uninstalled optional rules surface in the report (step 8).
 
 For each rule that should be synced:
 
@@ -35,7 +35,7 @@ For each rule that should be synced:
    - Exists and `metadata.dongent.source_hash` matches the computed hash → **skip**, report as unchanged
    - Exists but hash differs → **update** (step 4)
 
-**Reverse check (upstream orphans):** scan the project memory folder for files matching `dongent_rule_*.md`. For each, verify the corresponding rule still exists under `<plugin-root>/rules/`. If not → the rule was removed upstream. List it in the report (step 7); don't auto-delete, since the file may contain project-specific customizations the user still values.
+**Reverse check (upstream orphans):** scan the project memory folder for files matching `dongent_rule_*.md`. For each, verify the corresponding rule still exists under `<plugin-root>/rules/`. If not → the rule was removed upstream. List it in the report (step 8); don't auto-delete, since the file may contain project-specific customizations the user still values.
 
 ### 4. Resolve Prerequisites (if any)
 
@@ -43,17 +43,24 @@ Read `RULE.md` for a `## Prerequisites` section. Prerequisites are anything that
 
 - Absent: nothing to resolve from Prerequisites. Unless the project has overrides to record (step 5), the compiled memory ends at the `dongent-section-end` marker.
 - Present, first-time install: work through each item — ask the user for inputs the user must provide; run detections the agent can do directly.
-- Present, update: re-resolve items new since the last sync, and check existing body content — both inside and outside the markers — against the updated rule. Resolve conflicts (a reworded Prerequisite, an answer that no longer fits, custom notes or project overrides contradicting the updated logic, marker content diverging from the latest distillation) using judgment — merge compatible content, re-align stale text, take the updated rule where it clearly supersedes — and report each fix in step 7. Escalate only when the conflict is genuinely undecidable: resolving would discard project-specific content whose intent can't be confirmed, or two readings are equally defensible. Never silently discard user content — when unsure, keep it and flag the divergence.
+- Present, update: re-resolve items new since the last sync, and check existing body content — both inside and outside the markers — against the updated rule. Resolve conflicts (a reworded Prerequisite, an answer that no longer fits, project overrides or custom notes contradicting the updated logic, marker content diverging from the latest distillation) using judgment — merge compatible content, re-align stale text, take the updated rule where it clearly supersedes — and report each fix in step 8. Escalate only when the conflict is genuinely undecidable: resolving would discard project-specific content whose intent can't be confirmed, or two readings are equally defensible. Never silently discard user content — when unsure, keep it and flag the divergence.
 
 **Batch all user-facing questions for the same rule into one round-trip — don't go question-by-question.**
 
-When organizing results in the compiled memory, write them **below the `dongent-section-end` marker**. The agent picks the section heading(s) freely — name them to fit the content (e.g. `## Project settings`, `## Project overrides`, `## Detected tooling`, or any domain-specific label that suits).
+Resolved results that are project-specific go below the `dongent-section-end` marker — the content itself, or (per step 5) a pointer to its canonical home elsewhere. The agent picks the section heading(s) freely — name them to fit the content (e.g. `## Project overrides`, `## Custom notes`, `## Detected tooling`, or any domain-specific label that suits).
 
-### 5. Write the compiled memory file
+### 5. Plan each fact's canonical home across memory
+
+Apply [ssot-principle][../rules/ssot-principle/RULE.md] across the project's memory, not only within each file: the template in step 6 already points each file at its canonical `RULE.md` rather than copying it; on top of that, this compiled file is the canonical home for its rule's guidance, so any other memory file covering the same ground references it instead of restating, and cross-file duplication is removed.
+
+The same discipline covers the rule's project-specific variants (a team-style override, a local specialization). Memory is the agent-facing index: a variant's home is wherever it's actually maintained — often a human-readable place, not memory — so this file points to that home, and becomes the home itself only when there's none outside memory — staying the single index of where each variant lives and which authority finally applies. Slice by slice — locate where each is actually maintained (search the repo and committed docs; don't assume the memory file it sits in is its home), and match it by what it governs (not its label):
+
+- **Maintained outside memory** → that file is its canonical home (per ssot-principle); point straight to it from here, don't copy it in. This covers a config a program reads (the file itself, not a doc that describes one), or — per [private-content][../rules/private-content/RULE.md] — a team-owned doc (team-committed, review-gated) or the author's own gitignored notes or drafts.
+- **Only in memory, or with no home yet** (scattered across memory files, or surfaced in-session) → consolidate it below the markers here, this rule's single memory home, leaving a pointer in any memory file it was pulled from. Don't over-consolidate: a slice under no rule stays where it is.
+
+### 6. Write the compiled memory file
 
 Write the compiled memory in English by default, regardless of the conversation language — it mirrors the English rule library, and one consistent language keeps it portable.
-
-Apply [ssot-principle][../rules/ssot-principle/RULE.md] across the project's memory, not only within each file: the template below already points each file at its canonical `RULE.md` rather than copying it; on top of that, this compiled file is the canonical home for its rule's guidance, so any other memory file covering the same ground references it instead of restating, and cross-file duplication is removed. The same discipline covers the rule's project-specific variants (a team-style override, a local specialization): when a variant clearly falls under this rule, consolidate it below the markers here — this file is its canonical home, with any other memory pointing here rather than restating — so one place states per sub-rule which authority finally applies. Override only when another location is, per ssot-principle, genuinely the more foundational home — e.g. a file a program or tool parses as input (the artifact itself, not a doc that describes one), or content owned by another audience (per [private-content][../rules/private-content/RULE.md]).
 
 Template — inline `<placeholders>` are slot-fills (replace with the actual value); lines starting with `>` are hints describing what to write in that block (replace the whole block with actual content):
 
@@ -88,7 +95,7 @@ Canonical: `dongent/rules/<rule-folder-name>/RULE.md` in the installed dongent p
 - **Create**: write the whole file. Agent chooses the H1 title and intro. Fill the canonical pointer and the summary inside the `dongent-section-*` markers, and any project-specific content below them.
 - **Update**: bump `metadata.dongent.source_hash` and refresh `description` if the central `RULE.md`'s description changed. Preserve `metadata.originSessionId` (immutable after creation). Re-distill the inside-marker content from the updated `RULE.md`, then apply step 4's resolutions to the body.
 
-### 6. Update MEMORY.md index
+### 7. Update MEMORY.md index
 
 In the project memory folder, ensure `MEMORY.md` exists, with this one-line note at its top (add if missing, leave if present):
 
@@ -104,7 +111,7 @@ For each created or updated compiled file, ensure there's an index entry of the 
 
 These index lines are what an agent scans to decide what to load, so distil each summary tightly rather than pasting the frontmatter. Don't duplicate; refresh an entry's summary when the rule changes, otherwise leave it.
 
-### 7. Report
+### 8. Report
 
 Summarize per rule:
 
@@ -113,6 +120,7 @@ Summarize per rule:
 - ✅ Unchanged: rule name skipped (hash matches central)
 - 📦 Available (not installed): optional rules not yet opted into
 - 👻 Orphan (rule removed upstream): memory files whose rule is gone upstream; user decides whether to clean
+- 🗑️ Emptied (delete candidate): a memory file left holding only outward pointers after this sync and referenced by nothing else — list it for the user to confirm deletion; never auto-delete
 
 ## Out of scope
 
