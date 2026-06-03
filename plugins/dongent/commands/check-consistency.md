@@ -11,14 +11,15 @@ This command runs **mostly without author intervention**. By the time it fires, 
 
 ## Arguments
 
-None required. Three forms:
+None required. The forms:
 
 - `/check-consistency` — default. Audit all staged and unstaged files in the worktree (the typical "I'm about to commit" use).
+- `/check-consistency @<file>...` — audit only the file(s) `@`-mentioned in the prompt (from the agent client's `@` file picker).
 - `/check-consistency --all` — audit the full PR-scope (use before opening a PR to catch cross-file conflicts between docs and code).
 - `/check-consistency --paths <glob...>` — audit only files matching the globs (paths are relative to the repo root). Examples: `--paths "docs/README.md"`, `--paths "**/README.md" "docs/**/*.md"`.
 - `/check-consistency --memory` — audit only the current project's agent memory, not the worktree.
 
-`--all`, `--paths`, and `--memory` are mutually exclusive; pass at most one.
+`@<file>`, `--all`, `--paths`, and `--memory` are mutually exclusive; pass at most one form.
 
 ## Steps
 
@@ -27,6 +28,7 @@ None required. Three forms:
 ### 1. Resolve the target file set
 
 - **Default**: `git status --porcelain` → keep paths whose status is not `D` (deleted).
+- **`@<file>` mentions**: the target set is exactly the files `@`-mentioned in the arguments — each arrives as a literal `@<repo-relative-path>` token the agent client supplies. Unlike `--paths`, these are literal paths, not globs.
 - **`--all`**: list every file this branch has changed since branching off its base, **including uncommitted ones (staged, unstaged, untracked)**. The agent identifies the base commit from its session context (it usually knows; it likely opened the branch and made the commits) or, when unclear, by inspecting `git log` / branch graph plus authoring metadata.
 - **`--paths`**: expand each glob against the worktree (repo-relative); deduplicate. The agent corrects malformed globs (reporting the actual interpretation used) but doesn't broaden a syntactically valid glob just because it returned zero matches.
 - **`--memory`**: the target set is the current project's agent memory folder — its index and the memory files the index points at, checked against each other. The worktree is not scanned.
@@ -58,6 +60,10 @@ For each finding, apply the fix policy (step 5) before moving to the next file. 
 - **Same fact in multiple files**: identify the canonical home and link the rest to it.
 - **Stale references**: a name or concept has been renamed in this branch's diff but old occurrences remain elsewhere. Grep the file set for the old name and replace with the new.
 - **Private leak across files**: any public file references a private file by path or content. Remove the reference.
+
+#### Plugin-managed memory files (`--memory` only)
+
+In this mode the set includes `dongent_rule_*` files compiled by [sync-rule-memory][sync-rule-memory.md]. As an ssot-principle extension that command owns — and this audit doesn't re-decide — such a file is the fixed canonical home for its rule's facts: point other memory files into it; never point it outward, empty it to name another file the home, or edit the region between its markers.
 
 ### 5. Fix policy
 
@@ -111,9 +117,11 @@ A few patterns the audit commonly catches:
 - [prose-convention][../rules/prose-convention/RULE.md]
 - [markdown-convention][../rules/markdown-convention/RULE.md]
 - [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md]
+- [sync-rule-memory][sync-rule-memory.md]
 
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [../rules/prose-convention/RULE.md]: ../rules/prose-convention/RULE.md
 [../rules/markdown-convention/RULE.md]: ../rules/markdown-convention/RULE.md
 [../rules/zh-tw-punctuation/RULE.md]: ../rules/zh-tw-punctuation/RULE.md
+[sync-rule-memory.md]: sync-rule-memory.md
