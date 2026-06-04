@@ -1,6 +1,6 @@
 ---
 name: markdown-convention
-description: Markdown authoring conventions — prettier-ignore + compact tables, Markdown-syntax links, a reference-style References section. Defaults for private content; for public content, defer to the team style observed in nearby files and fall back to these only where it is absent. A domain rule building on the ssot-principle, private-content, and prose-convention bases.
+description: Markdown authoring conventions — valid-YAML frontmatter, compact tables, Markdown-syntax links, reference-style References. Defaults for private content; for public content, defer to the team style observed in nearby files and fall back to these only where it is absent. A domain rule building on the ssot-principle, private-content, and prose-convention bases.
 ---
 
 # Markdown conventions — authoring mechanics
@@ -10,6 +10,10 @@ Markdown-specific mechanics, layered on the [ssot-principle][../ssot-principle/R
 ## Rule
 
 The conventions below are **defaults** — for public content, the team style observed in nearby files takes precedence where it exists; see How to apply for the cascade.
+
+### Frontmatter
+
+- Frontmatter is optional; when present, it must be valid YAML. A plain scalar can't contain `": "` (a colon followed by a space) — it breaks parsing and rendering (e.g. GitHub). Reword to remove the colon, or double-quote the whole value when the colon must stay.
 
 ### Tables
 
