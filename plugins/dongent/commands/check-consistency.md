@@ -86,11 +86,11 @@ In this mode the set includes `dongent_rule_*` files compiled by [sync-rule-memo
 
 ### 6. Report
 
-Three buckets:
+Group by the rule checked — the audit runs per rule, so the report mirrors it. Three buckets; entries listed under each rule cited:
 
-- 🔄 **Auto-fixed** — changes the agent applied. Each entry: file path, line (where applicable), rule cited, one-line description.
-- ❌ **Needs decision** — items the agent escalated. **Usually empty**; non-empty signals a truly unresolvable case (see step 5). Each entry: file path, line (where applicable), rule cited, the ambiguity, options the author can pick.
-- ✅ **Clean** — files with no findings.
+- 🔄 **Auto-fixed** — under each rule: the changes applied (file path, line where applicable, one-line description per fix).
+- ❌ **Needs decision** — under each rule: escalated items (file path, line, the ambiguity, options the author can pick). **Usually empty**; non-empty signals a truly unresolvable case (see step 5).
+- ✅ **Clean** — per rule: a one-line note on what it verified across the set (no per-file listing needed).
 
 Auto-fixed entries — typically the bulk of the report — are already in the worktree as unstaged changes for `git diff` review. If "Needs decision" is non-empty, the author resolves before publishing.
 

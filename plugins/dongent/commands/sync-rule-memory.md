@@ -116,7 +116,7 @@ These index lines are what an agent scans to decide what to load, so distil each
 Summarize per rule:
 
 - ✨ Created: rule name + compiled file path, plus any project-specific content captured
-- 🔄 Updated: rule name + a one-line note on what changed (e.g. RULE.md refreshed, conflicts auto-resolved, project-specific content revised)
+- 🔄 Updated: rule name + a one-line note on what changed (e.g. `RULE.md` refreshed, conflicts auto-resolved, project-specific content revised)
 - ✅ Unchanged: rule name skipped (hash matches central)
 - 📦 Available (not installed): optional rules not yet opted into
 - 👻 Orphan (rule removed upstream): memory files whose rule is gone upstream; user decides whether to clean
