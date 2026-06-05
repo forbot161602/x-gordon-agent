@@ -97,13 +97,7 @@ Canonical: `dongent/rules/<rule-folder-name>/RULE.md` in the installed dongent p
 
 ### 7. Update MEMORY.md index
 
-In the project memory folder, ensure `MEMORY.md` exists, with this one-line note at its top (add if missing, leave if present):
-
-```
-<!-- dongent-note: this memory is English for portability; reply in the language of the user's prompts -->
-```
-
-For each created or updated compiled file, ensure there's an index entry of the form:
+In the project memory folder, ensure `MEMORY.md` exists, and for each created or updated compiled file, ensure there's an index entry of the form:
 
 ```
 - [dongent_rule_<rule-name>](dongent_rule_<rule-name>.md) — <concise one-line summary: what it is, when to load>
