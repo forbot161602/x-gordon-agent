@@ -39,7 +39,7 @@ Rules tied to specific artifact types; build on base rules.
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
 |---|---|---|
-| [`markdown-convention/`][markdown-convention/] | recommended | Markdown mechanics: valid-YAML frontmatter, compact tables, Markdown-syntax links, reference-style References |
+| [`markdown-convention/`][markdown-convention/] | recommended | Markdown authoring mechanics (tables, links, references); defers to nearby team style for public content |
 | [`commit-convention/`][commit-convention/] | recommended | Conventional commits with three-part structure (header / body / footer); messages scoped to the project's reviewers |
 | [`pr-convention/`][pr-convention/] | recommended | PR title defaults to the commit-header shape; body is terse, template-driven; cross-domain references and code snippets only when load-bearing |
 | [`zh-tw-punctuation/`][zh-tw-punctuation/] | recommended | Convert ASCII `,` `:` `;` `?` to full-width on Chinese-led lines (markdown documents, commits, PRs) |

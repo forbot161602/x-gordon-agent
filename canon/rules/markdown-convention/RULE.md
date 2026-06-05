@@ -1,6 +1,6 @@
 ---
 name: markdown-convention
-description: Markdown authoring conventions — valid-YAML frontmatter, compact tables, Markdown-syntax links, reference-style References. Defaults for private content; for public content, defer to the team style observed in nearby files and fall back to these only where it is absent. A domain rule building on the ssot-principle, private-content, and prose-convention bases.
+description: Markdown authoring conventions (tables, links, references); defaults for private content, deferring to nearby team style for public content. A domain rule building on the ssot-principle, private-content, and prose-convention bases.
 ---
 
 # Markdown conventions — authoring mechanics
@@ -9,7 +9,7 @@ Markdown-specific mechanics, layered on the [ssot-principle][../ssot-principle/R
 
 ## Rule
 
-The conventions below are **defaults** — for public content, the team style observed in nearby files takes precedence where it exists; see How to apply for the cascade.
+The conventions below are **defaults** — for public content, the team style observed in nearby files takes precedence where it exists; see [How to apply][how-to-apply] for the cascade.
 
 ### Frontmatter
 
@@ -25,6 +25,11 @@ The conventions below are **defaults** — for public content, the team style ob
 - Reference a file, document, or section with Markdown link syntax (`[link text](path)` or `[link text][id]`), never a bare path or plain prose.
 - For a reference-style link to a file or doc, the `id` is the **relative path** to the target — the same string as the link's destination (e.g. `../ssot-principle/RULE.md`, or a sibling's `config.yaml`). It's derived from the path — there's no name to invent, and none to keep consistent across files — so a rename is a clean grep of the path, and it needs no repo-root assumption. For an in-document section, the `id` is the heading's anchor slug.
 - On a rename or move, update every link to the target so none goes stale — [ssot-principle][../ssot-principle/RULE.md]'s consistency facet, applied to links.
+
+### Inline code
+
+- Mention a filename or path in inline code (`README.md`, `docs/`), not bare prose — to reference it, use a [link][links] instead.
+- Exception: a frontmatter `description` (e.g. on a skill, command, or agent doc) stays plain — a filename in it takes no backticks (house style).
 
 ### References
 
@@ -56,3 +61,5 @@ Non-markdown artifacts (yaml, config, code) — covered by the base principle di
 [../ssot-principle/RULE.md]: ../ssot-principle/RULE.md
 [../private-content/RULE.md]: ../private-content/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
+[links]: #links
+[how-to-apply]: #how-to-apply
