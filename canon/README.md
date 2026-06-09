@@ -1,6 +1,6 @@
 # canon
 
-The canonical source — the single home for the rules an agent references, and any other shared content. Each fact lives here once; whatever uses it links to this copy rather than duplicating it, so nothing drifts.
+The canonical source — the single home for the shared content an agent references. Each fact lives here once; whatever uses it links to this copy rather than duplicating it, so nothing drifts.
 
 <!-- prettier-ignore -->
 | Path | What's in there |

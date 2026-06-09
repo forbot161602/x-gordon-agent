@@ -36,7 +36,7 @@ Same caveat as update — only removes the plugin itself. State written by plugi
 <!-- prettier-ignore -->
 | Path | What's in there |
 |---|---|
-| [`canon/`][canon/] | Canonical source — the rule library and other shared content, each fact kept in one home |
+| [`canon/`][canon/] | Canonical source — the shared content an agent references, each fact kept in one home |
 | [`plugins/`][plugins/] | Plugins published by this marketplace; each links the `canon/` content it ships |
 
 ## References

@@ -1,12 +1,12 @@
 # Rule library
 
-Each subfolder under `rules/` is one rule category.
+Each subfolder under `rules/` is one rule.
 
 ## Layout
 
 ```
 rules/
-├── README.md                  # this file — rule catalog overview
+├── README.md                  # this file — rule overview
 └── <rule-name>/
     ├── RULE.md                # canonical rule (ALL-CAPS, agent reads first)
     ├── Specification.md       # optional supplementary doc (Initial-Cap)
