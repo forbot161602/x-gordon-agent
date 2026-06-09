@@ -9,7 +9,7 @@ Core agent rules and tools, shared across projects. Installed from the dongent m
 |---|---|
 | [`bedrocks/`][bedrocks/] | Bedrock conventions the rules build on; overview at [`bedrocks/README.md`][bedrocks/README.md] |
 | [`rules/`][rules/] | Rule library — one folder per rule; catalog at [`rules/README.md`][rules/README.md] |
-| [`commands/`][commands/] | Slash-command definitions; index at [`commands.md`][commands.md] |
+| [`commands/`][commands/] | Slash-command definitions; index at [`Commands.md`][Commands.md] |
 
 ## References
 
@@ -18,11 +18,11 @@ Core agent rules and tools, shared across projects. Installed from the dongent m
 - [`rules/`][rules/]
 - [`rules/README.md`][rules/README.md]
 - [`commands/`][commands/]
-- [`commands.md`][commands.md]
+- [`Commands.md`][Commands.md]
 
 [bedrocks/]: bedrocks/
 [bedrocks/README.md]: bedrocks/README.md
 [rules/]: rules/
 [rules/README.md]: rules/README.md
 [commands/]: commands/
-[commands.md]: commands.md
+[Commands.md]: Commands.md

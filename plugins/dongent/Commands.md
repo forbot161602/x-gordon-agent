@@ -1,4 +1,4 @@
-# commands
+# Commands
 
 The slash commands this plugin provides. Each is namespaced `/dongent:<name>`; the definitions live in [`commands/`][commands/].
 
