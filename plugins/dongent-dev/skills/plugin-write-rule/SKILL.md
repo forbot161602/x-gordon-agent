@@ -1,9 +1,9 @@
 ---
-name: canon-write-rule
-description: Use when authoring or editing a rule definition — a RULE.md, its frontmatter or body, or a sibling supplementary doc. A RULE.md is a shared rule an agent references when running a skill or command, mostly for dongent-style rule libraries (a canon/rules or plugins/*/rules layout). Applies the conventions for writing rules themselves. Fires on prompts such as "write a RULE.md", "add a rule to the library", or "edit a shared rule". Do NOT use for general Markdown or docs that aren't a rule definition.
+name: plugin-write-rule
+description: Use when authoring or editing a rule definition — a RULE.md, its frontmatter or body, or a sibling supplementary doc. A RULE.md is a shared rule an agent references when running a skill or command, mostly for dongent-style rule libraries (a plugins/*/rules layout). Applies the conventions for writing rules themselves. Fires on prompts such as "write a RULE.md", "add a rule to the library", or "edit a shared rule". Do NOT use for general Markdown or docs that aren't a rule definition.
 ---
 
-# Writing a canon rule
+# Writing a rule
 
 Conventions for authoring a rule definition in a dongent-style rule library. A `RULE.md` is a shared rule that must stay consistent and portable, so beyond the conventions here it still obeys the library's base rules, which ship in the `dongent` plugin (a declared dependency of this one):
 

@@ -7,10 +7,12 @@ Agent rules and tools for dongent plugin development — usually author-only. In
 <!-- prettier-ignore -->
 | Path | What's in there |
 |---|---|
-| [`skills/`][skills/] | Skills that apply while authoring a plugin, auto-triggered by context |
+| [`skills/`][skills/] | Skill definitions — apply while authoring a plugin, auto-triggered by context; index at [`skills.md`][skills.md] |
 
 ## References
 
 - [`skills/`][skills/]
+- [`skills.md`][skills.md]
 
 [skills/]: skills/
+[skills.md]: skills.md
