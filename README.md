@@ -36,15 +36,12 @@ Same caveat as update — only removes the plugin itself. State written by plugi
 <!-- prettier-ignore -->
 | Path | What's in there |
 |---|---|
-| [`canon/`][canon/] | Canonical source — the shared content an agent references, each fact kept in one home |
-| [`plugins/`][plugins/] | Plugins published by this marketplace; each links the `canon/` content it ships |
+| [`plugins/`][plugins/] | Plugins published by this marketplace — each holds the bedrocks, rules, commands, and skills it ships |
 
 ## References
 
 - [`.claude-plugin/marketplace.json`][.claude-plugin/marketplace.json]
-- [`canon/`][canon/]
 - [`plugins/`][plugins/]
 
 [.claude-plugin/marketplace.json]: .claude-plugin/marketplace.json
-[canon/]: canon/
 [plugins/]: plugins/

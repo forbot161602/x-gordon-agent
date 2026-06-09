@@ -7,18 +7,22 @@ Core agent rules and tools, shared across projects. Installed from the dongent m
 <!-- prettier-ignore -->
 | Path | What's in there |
 |---|---|
-| [`commands.md`][commands.md] | Index of the slash commands this plugin provides |
-| [`commands/`][commands/] | The command definitions |
-| [`rules/`][rules/] | Rule library — symlinks into the marketplace's `canon/`; catalog at [`rules/README.md`][rules/README.md] |
+| [`bedrocks/`][bedrocks/] | Bedrock conventions the rules build on; overview at [`bedrocks/README.md`][bedrocks/README.md] |
+| [`rules/`][rules/] | Rule library — one folder per rule; catalog at [`rules/README.md`][rules/README.md] |
+| [`commands/`][commands/] | Slash-command definitions; index at [`commands.md`][commands.md] |
 
 ## References
 
-- [`commands.md`][commands.md]
-- [`commands/`][commands/]
+- [`bedrocks/`][bedrocks/]
+- [`bedrocks/README.md`][bedrocks/README.md]
 - [`rules/`][rules/]
 - [`rules/README.md`][rules/README.md]
+- [`commands/`][commands/]
+- [`commands.md`][commands.md]
 
-[commands.md]: commands.md
-[commands/]: commands/
+[bedrocks/]: bedrocks/
+[bedrocks/README.md]: bedrocks/README.md
 [rules/]: rules/
 [rules/README.md]: rules/README.md
+[commands/]: commands/
+[commands.md]: commands.md
