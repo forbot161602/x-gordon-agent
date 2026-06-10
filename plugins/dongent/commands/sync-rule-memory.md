@@ -24,24 +24,26 @@ MUST read these first — this command relies on them:
 - **Plugin root**: the directory containing this command file's parent (`.../<plugin-root>/commands/sync-rule-memory.md` → `<plugin-root>`). Claude Code might expose this as an environment variable when the command runs; if not, derive from the command file's own location.
 - **Project memory folder**: the conventional Claude Code memory folder for the user's current project (typically `~/.claude/projects/<encoded-cwd>/memory/`). If it can't be determined, ask the user. Create the folder if it doesn't exist.
 
-### 2. Discover rules
+### 2. Discover rules and decide what to sync
 
-Read the catalog at `<plugin-root>/rules/README.md` — it's the canonical list of rules (folder name + tier + summary). Each catalogued rule corresponds to a subfolder under `<plugin-root>/rules/` containing a `RULE.md`.
-
-### 3. Decide which rules to sync, then skip / create / update each
-
-Tier (from the catalog loaded in step 2) controls default install behavior:
+Read the catalog at `<plugin-root>/rules/README.md` — the canonical list of rules (folder name + tier + summary); each catalogued rule is a subfolder under `<plugin-root>/rules/` containing a `RULE.md`. The tier decides default install behavior:
 
 - **`required`**: always sync this rule into the current project.
 - **`optional`**: only sync if (a) the user has previously opted in (a compiled memory file already exists for this rule in this project), or (b) the user explicitly named this rule when invoking the command. **Don't prompt mid-run** — uninstalled optional rules surface in the report (step 8).
 
+### 3. Create, skip, or update each (by source hash)
+
+A rule's **source hash** (hex SHA-256) covers the rule and everything it builds on, transitively: `sha256` of its `RULE.md` hash concatenated — in path-sorted order — with the `sha256` of each file reachable through `## Builds on` (follow the chain, dedupe by path; paths resolved under the plugin root). With no `## Builds on`, the `RULE.md` hash alone. The outer `sha256` keeps it a fixed 64 hex chars however large the closure.
+
+Hash each file's **content**, not its own source hash — so nothing needs syncing first; the closure is gathered by reading files directly. Transitive coverage matters because distilling a rule reads what it builds on, so a deep dependency can still shape the summary. Example — `R` builds on `R1`, and `R1` builds on `R2`: `source_hash(R) = sha256( sha256(R) + sha256(R1) + sha256(R2) )` (here the files' path order happens to be `R`, `R1`, `R2`). `R2` sits in `R`'s closure, so editing `R2` can change `R`'s own distilled summary — that summary can lean on what `R` builds on, transitively down to `R2` — so folding `R2`'s content into `R`'s hash re-distills `R`, even though `R`'s `RULE.md` is untouched. (Base rules and bedrocks rarely change, so such cascades stay uncommon.)
+
 For each rule to sync:
 
-1. Compute the SHA-256 hash of its `RULE.md` content (hex).
+1. Compute its source hash.
 2. Check whether `<project-memory>/dongent_rule_<rule-name>.md` exists.
    - Doesn't exist → **create** (step 4)
-   - Exists and `metadata.dongent.source_hash` matches the computed hash → **skip**, report as unchanged
-   - Exists but hash differs → **update** (step 4)
+   - Exists and `metadata.dongent.source_hash` matches → **skip**, report as unchanged
+   - Exists but it differs → **update** (step 4)
 
 **Reverse check (upstream orphans):** scan the project memory folder for files matching `dongent_rule_*.md`. For each, verify the corresponding rule still exists under `<plugin-root>/rules/`. If not → the rule was removed upstream. List it in the report (step 8); don't auto-delete, since the file might contain project-specific customizations the user still values.
 
@@ -82,7 +84,7 @@ metadata:
   originSessionId: <Claude session id when this memory was first created — set on create, preserved on update>
   dongent:
     source: dongent/rules/<rule-folder-name>
-    source_hash: <sha256 of central RULE.md content>
+    source_hash: <hex source hash — this rule's RULE.md folded with its Builds-on dependencies; see step 3>
 ---
 
 # <human-readable title, e.g. "zh-TW doc punctuation">
