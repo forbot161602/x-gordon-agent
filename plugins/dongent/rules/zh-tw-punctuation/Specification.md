@@ -20,7 +20,7 @@ The `…` → `...` substitution is a flat substitution outside this decision �
 ## Why this shape
 
 - **Strip first, then check.** Quoted / bracketed content and inline code are "non-prose"; what's left is the narrative voice. CJK in the narrative voice signals Chinese-led writing.
-- **Han ideograph only.** Full-width punctuation must not count, otherwise a stray 「。」 attached to an English token would fake-qualify the line.
+- **Han ideograph only.** Full-width punctuation does not count, otherwise a stray 「。」 attached to an English token would fake-qualify the line.
 - **Line-level, all-or-nothing.** Simpler than per-punctuation context detection and matches the writer's mental model: "this line is Chinese prose, so its punctuation should look Chinese."
 - **Accepted false positive.** Lines that are English in structure but include Chinese terms inline (e.g. `Click 儲存 button, and returns to 首頁.`) still flip — the rule can't tell English-led from Chinese-led structure without grammar-grade analysis.
 - **English sentence with quoted CJK stays English.** A line like `**English Only**: This line has CJK in 「中文」 elsewhere, ...` strips the quoted CJK and finds no remaining ideograph → not Chinese-led → punctuation stays half-width.

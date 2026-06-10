@@ -29,7 +29,7 @@ This refreshes the plugin itself from its source — no manual `git pull` needed
 claude plugin uninstall dongent
 ```
 
-Same caveat as update — only removes the plugin itself. State written by plugin components elsewhere remains on disk: per-project memory at `<project-memory>/dongent_*.md`, plus any other yaml / md / config files components may have generated into project folders. There's no dedicated cleanup command — if you want it gone, ask the agent to scan affected locations and remove the relevant files.
+Same caveat as update — only removes the plugin itself. State written by plugin components elsewhere remains on disk: per-project memory at `<project-memory>/dongent_*.md`, plus any other yaml / md / config files components might have generated into project folders. There's no dedicated cleanup command — if you want it gone, ask the agent to scan affected locations and remove the relevant files.
 
 ## Layout
 

@@ -1,19 +1,29 @@
 ---
 name: pr-convention
-description: Pull request convention — title defaults to the commit-header shape; body is terse and framed around the repo's PR template; cross-domain references and code snippets only when load-bearing. A domain rule building on ssot-principle, private-content, prose-convention, and commit-convention.
+description: Pull request convention — title defaults to the commit-header shape; body is terse and framed around the repo's PR template; cross-domain references and code snippets only when load-bearing.
 ---
 
 # PR convention — terse template-driven body
 
-A PR is shared prose the reviewer reads alongside the diff. Most of a PR's structure comes from the repo's PR template; this rule covers what's universal (title shape, body brevity, code-snippet policy) and inherits the rest from [ssot-principle][../ssot-principle/RULE.md], [private-content][../private-content/RULE.md], [prose-convention][../prose-convention/RULE.md], and [commit-convention][../commit-convention/RULE.md].
+A PR is shared prose the reviewer reads alongside the diff. Most of a PR's structure comes from the repo's PR template; this rule covers what's universal (title shape, body brevity, code-snippet policy) and inherits the rest from the base rules in [Builds on][builds-on].
+
+## Builds on
+
+MUST read and follow these first — this rule builds on them:
+
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+- [ssot-principle][../ssot-principle/RULE.md]
+- [private-content][../private-content/RULE.md]
+- [prose-convention][../prose-convention/RULE.md]
+- [commit-convention][../commit-convention/RULE.md]
 
 ## Rule
 
-Two principles. These are **defaults** — the repo's PR template takes precedence where it exists; see How to apply for the cascade.
+Two principles. These are **defaults** — the repo's PR template takes precedence where it exists; see [How to apply][how-to-apply] for the cascade.
 
 ### 1. Title defaults to the commit-header shape
 
-By default the PR title shares the same format constraints as the commit header in [commit-convention][../commit-convention/RULE.md] — `type(scope): description` shape, length window, imperative voice, plain-prose phrasing. Single-commit PR: title is typically the commit's header verbatim; multi-commit PR: title summarises the chain in the same shape. Teams may set a different PR-title style — see How to apply for the cascade.
+By default the PR title shares the same format constraints as the commit header in [commit-convention][../commit-convention/RULE.md] — `type(scope): description` shape, length window, imperative voice, plain-prose phrasing. Single-commit PR: title is typically the commit's header verbatim; multi-commit PR: title summarises the chain in the same shape. Teams can set a different PR-title style — see [How to apply][how-to-apply] for the cascade.
 
 **Why:** the title is `gh pr list`'s at-a-glance; reviewers scan it the same way they scan `git log --oneline`. The same shape keeps the two surfaces consistent.
 
@@ -43,19 +53,23 @@ When opening or editing any PR. Also a pre-publish checkpoint: run the audit bef
 
 ## Out of scope
 
-- PR-workflow concerns: when to open the PR, rebase cadence, reviewer assignment, `gh pr edit --body-file` mechanics.
+- Git-workflow concerns: when to open the PR, rebase cadence, reviewer assignment, `gh pr edit --body-file` mechanics.
 - Language-specific punctuation (e.g. zh-TW PRs — see [zh-tw-punctuation][../zh-tw-punctuation/RULE.md]).
 
 ## References
 
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
 - [ssot-principle][../ssot-principle/RULE.md]
 - [private-content][../private-content/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
 - [commit-convention][../commit-convention/RULE.md]
 - [zh-tw-punctuation][../zh-tw-punctuation/RULE.md]
 
+[../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
 [../ssot-principle/RULE.md]: ../ssot-principle/RULE.md
 [../private-content/RULE.md]: ../private-content/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
 [../commit-convention/RULE.md]: ../commit-convention/RULE.md
 [../zh-tw-punctuation/RULE.md]: ../zh-tw-punctuation/RULE.md
+[builds-on]: #builds-on
+[how-to-apply]: #how-to-apply

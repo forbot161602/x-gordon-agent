@@ -19,7 +19,7 @@ Each rule folder has at minimum a `RULE.md`. Other Initial-Cap markdown files (`
 
 ## Rules
 
-`Tier` controls default install behavior when a rule is being synced into a project: `recommended` installs automatically; `optional` installs only on explicit request.
+`Tier` controls default install behavior when a rule is being synced into a project: `required` installs automatically; `optional` installs only on explicit request.
 
 ### Base
 
@@ -28,9 +28,9 @@ Cross-cutting principles inherited by domain rules.
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
 |---|---|---|
-| [`ssot-principle/`][ssot-principle/] | recommended | One canonical home per fact (reference, don't copy), consistent references, no redundancy |
-| [`private-content/`][private-content/] | recommended | Private/public layer separation with one-way references (private → public) |
-| [`prose-convention/`][prose-convention/] | recommended | Shared prose remains self-contained — independent of session, clock, or team |
+| [`ssot-principle/`][ssot-principle/] | required | One canonical home per fact (reference, don't copy), consistent references, no redundancy |
+| [`private-content/`][private-content/] | required | Private/public layer separation with one-way references (private → public) |
+| [`prose-convention/`][prose-convention/] | required | Shared prose remains self-contained — independent of session, clock, or team |
 
 ### Domain
 
@@ -39,10 +39,10 @@ Rules tied to specific artifact types; build on base rules.
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
 |---|---|---|
-| [`markdown-convention/`][markdown-convention/] | recommended | Markdown authoring mechanics (tables, links, references); defers to nearby team style for public content |
-| [`commit-convention/`][commit-convention/] | recommended | Conventional commits with three-part structure (header / body / footer); messages scoped to the project's reviewers |
-| [`pr-convention/`][pr-convention/] | recommended | PR title defaults to the commit-header shape; body is terse, template-driven; cross-domain references and code snippets only when load-bearing |
-| [`zh-tw-punctuation/`][zh-tw-punctuation/] | recommended | Convert ASCII `,` `:` `;` `?` to full-width on Chinese-led lines (markdown documents, commits, PRs) |
+| [`markdown-convention/`][markdown-convention/] | required | Markdown authoring mechanics (tables, links, references); defers to nearby team style for public content |
+| [`commit-convention/`][commit-convention/] | required | Conventional commits with three-part structure (header / body / footer); messages scoped to the project's reviewers |
+| [`pr-convention/`][pr-convention/] | required | PR title defaults to the commit-header shape; body is terse, template-driven; cross-domain references and code snippets only when load-bearing |
+| [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width on Chinese-led lines (markdown documents, commits, PRs) |
 
 ## References
 

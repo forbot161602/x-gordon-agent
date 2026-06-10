@@ -5,7 +5,15 @@ description: Sync this plugin's rule library into the current project's agent me
 
 Sync this plugin's rules into the current project's agent memory. Each rule gets a memory file at `<project-memory>/dongent_rule_<rule-name>.md`. The file follows the standard Claude memory format, with a plugin-managed region delimited by HTML markers (`<!-- dongent-section-start -->` / `<!-- dongent-section-end -->`).
 
-The frontmatter is refreshed on each create or update. The body has two zones: inside the markers, plugin-managed content compiled from the current `RULE.md`; outside them, project-specific content that persists across syncs. The steps below cover how each zone is written and how conflicts are resolved. Outside of sync runs, this is a normal Claude memory; agents may update it as they would any memory.
+The frontmatter is refreshed on each create or update. The body has two zones: inside the markers, plugin-managed content compiled from the current `RULE.md`; outside them, project-specific content that persists across syncs. The steps below cover how each zone is written and how conflicts are resolved. Outside of sync runs, this is a normal Claude memory; agents can update it as they would any memory.
+
+## Read first
+
+MUST read these first — this command relies on them:
+
+- [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+- [ssot-principle][../rules/ssot-principle/RULE.md]
+- [private-content][../rules/private-content/RULE.md]
 
 ## Steps
 
@@ -13,7 +21,7 @@ The frontmatter is refreshed on each create or update. The body has two zones: i
 
 ### 1. Locate paths
 
-- **Plugin root**: the directory containing this command file's parent (`.../<plugin-root>/commands/sync-rule-memory.md` → `<plugin-root>`). Claude Code may expose this as an environment variable when the command runs; if not, derive from the command file's own location.
+- **Plugin root**: the directory containing this command file's parent (`.../<plugin-root>/commands/sync-rule-memory.md` → `<plugin-root>`). Claude Code might expose this as an environment variable when the command runs; if not, derive from the command file's own location.
 - **Project memory folder**: the conventional Claude Code memory folder for the user's current project (typically `~/.claude/projects/<encoded-cwd>/memory/`). If it can't be determined, ask the user. Create the folder if it doesn't exist.
 
 ### 2. Discover rules
@@ -24,10 +32,10 @@ Read the catalog at `<plugin-root>/rules/README.md` — it's the canonical list 
 
 Tier (from the catalog loaded in step 2) controls default install behavior:
 
-- **`recommended`**: always sync this rule into the current project.
+- **`required`**: always sync this rule into the current project.
 - **`optional`**: only sync if (a) the user has previously opted in (a compiled memory file already exists for this rule in this project), or (b) the user explicitly named this rule when invoking the command. **Don't prompt mid-run** — uninstalled optional rules surface in the report (step 8).
 
-For each rule that should be synced:
+For each rule to sync:
 
 1. Compute the SHA-256 hash of its `RULE.md` content (hex).
 2. Check whether `<project-memory>/dongent_rule_<rule-name>.md` exists.
@@ -35,15 +43,15 @@ For each rule that should be synced:
    - Exists and `metadata.dongent.source_hash` matches the computed hash → **skip**, report as unchanged
    - Exists but hash differs → **update** (step 4)
 
-**Reverse check (upstream orphans):** scan the project memory folder for files matching `dongent_rule_*.md`. For each, verify the corresponding rule still exists under `<plugin-root>/rules/`. If not → the rule was removed upstream. List it in the report (step 8); don't auto-delete, since the file may contain project-specific customizations the user still values.
+**Reverse check (upstream orphans):** scan the project memory folder for files matching `dongent_rule_*.md`. For each, verify the corresponding rule still exists under `<plugin-root>/rules/`. If not → the rule was removed upstream. List it in the report (step 8); don't auto-delete, since the file might contain project-specific customizations the user still values.
 
 ### 4. Resolve Prerequisites (if any)
 
-Read `RULE.md` for a `## Prerequisites` section. Prerequisites are anything that must be gathered before the compiled memory can be written — they can be questions for the user, agent-side detections (e.g. scan project files, check for a specific tool), or a mix.
+Read `RULE.md` for a `## Prerequisites` section. Prerequisites are anything that needs to be gathered before the compiled memory can be written — they can be questions for the user, agent-side detections (e.g. scan project files, check for a specific tool), or a mix.
 
 - Absent: nothing to resolve from Prerequisites. Unless the project has overrides to record (step 5), the compiled memory ends at the `dongent-section-end` marker.
-- Present, first-time install: work through each item — ask the user for inputs the user must provide; run detections the agent can do directly.
-- Present, update: re-resolve items new since the last sync, and check existing body content — both inside and outside the markers — against the updated rule. Resolve conflicts (a reworded Prerequisite, an answer that no longer fits, project overrides or custom notes contradicting the updated logic, marker content diverging from the latest distillation) using judgment — merge compatible content, re-align stale text, take the updated rule where it clearly supersedes — and report each fix in step 8. Escalate only when the conflict is genuinely undecidable: resolving would discard project-specific content whose intent can't be confirmed, or two readings are equally defensible. Never silently discard user content — when unsure, keep it and flag the divergence.
+- Present, first-time install: work through each item — ask the user for inputs the user needs to provide; run detections the agent can do directly.
+- Present, update: re-resolve items new since the last sync, and check existing body content — both inside and outside the markers — against the updated rule. Resolve conflicts (a reworded Prerequisite, an answer that no longer fits, project overrides or custom notes contradicting the updated logic, marker content diverging from the latest distillation) using judgment — merge compatible content, re-align stale text, take the updated rule where it clearly supersedes — and report each fix in step 8. Escalate only when the conflict is genuinely undecidable: resolving would discard project-specific content whose intent can't be confirmed, or two readings are equally defensible. NEVER silently discard user content — when unsure, keep it and flag the divergence.
 
 **Batch all user-facing questions for the same rule into one round-trip — don't go question-by-question.**
 
@@ -67,7 +75,7 @@ Template — inline `<placeholders>` are slot-fills (replace with the actual val
 ```markdown
 ---
 name: dongent_rule_<rule-name>
-description: <one-line description of when the agent should load this memory; distill from the central RULE.md's frontmatter description>
+description: <one-line description of when to load this memory; distill from the central RULE.md's frontmatter description>
 metadata:
   node_type: memory
   type: feedback
@@ -114,7 +122,7 @@ Summarize per rule:
 - ✅ Unchanged: rule name skipped (hash matches central)
 - 📦 Available (not installed): optional rules not yet opted into
 - 👻 Orphan (rule removed upstream): memory files whose rule is gone upstream; user decides whether to clean
-- 🗑️ Emptied (delete candidate): a memory file left holding only outward pointers after this sync and referenced by nothing else — list it for the user to confirm deletion; never auto-delete
+- 🗑️ Emptied (delete candidate): a memory file left holding only outward pointers after this sync and referenced by nothing else — list it for the user to confirm deletion; NEVER auto-delete
 
 ## Out of scope
 
@@ -122,10 +130,12 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 
 ## References
 
+- [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [check-consistency][check-consistency.md]
 
+[../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [check-consistency.md]: check-consistency.md

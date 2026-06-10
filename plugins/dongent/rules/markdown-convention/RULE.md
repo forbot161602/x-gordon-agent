@@ -1,11 +1,20 @@
 ---
 name: markdown-convention
-description: Markdown authoring conventions (tables, links, references); defaults for private content, deferring to nearby team style for public content. A domain rule building on the ssot-principle, private-content, and prose-convention bases.
+description: Markdown authoring conventions (tables, links, references); defaults for private content, deferring to nearby team style for public content.
 ---
 
 # Markdown conventions — authoring mechanics
 
-Markdown-specific mechanics, layered on the [ssot-principle][../ssot-principle/RULE.md], [private-content][../private-content/RULE.md], and [prose-convention][../prose-convention/RULE.md] bases.
+Markdown-specific mechanics, layered on the foundations in [Builds on][builds-on].
+
+## Builds on
+
+MUST read and follow these first — this rule builds on them:
+
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+- [ssot-principle][../ssot-principle/RULE.md]
+- [private-content][../private-content/RULE.md]
+- [prose-convention][../prose-convention/RULE.md]
 
 ## Rule
 
@@ -13,7 +22,7 @@ The conventions below are **defaults** — for public content, the team style ob
 
 ### Frontmatter
 
-- Frontmatter is optional; when present, it must be valid YAML. A plain scalar can't contain `": "` (a colon followed by a space) — it breaks parsing and rendering (e.g. GitHub). Reword to remove the colon, or double-quote the whole value when the colon must stay.
+- Frontmatter is OPTIONAL; when present, it MUST be valid YAML. A plain scalar can't contain `": "` (a colon followed by a space) — it breaks parsing and rendering (e.g. GitHub). Reword to remove the colon, or double-quote the whole value when the colon needs to stay.
 
 ### Tables
 
@@ -22,8 +31,8 @@ The conventions below are **defaults** — for public content, the team style ob
 
 ### Links
 
-- Reference a file, document, or section with Markdown link syntax (`[link text](path)` or `[link text][id]`), never a bare path or plain prose.
-- For a reference-style link to a file or doc, the `id` is the **relative path** to the target — the same string as the link's destination (e.g. `../ssot-principle/RULE.md`, or a sibling's `config.yaml`). It's derived from the path — there's no name to invent, and none to keep consistent across files — so a rename is a clean grep of the path, and it needs no repo-root assumption. For an in-document section, the `id` is the heading's anchor slug.
+- Reference a file, document, or section with Markdown link syntax (`[link text](path)` or `[link text][id]`), not a bare path or plain prose.
+- For a reference-style link to a file or doc, the `id` MUST be the **relative path** to the target — the same string as the link's destination (e.g. `../ssot-principle/RULE.md`, or a sibling's `config.yaml`). It's derived from the path — there's no name to invent, and none to keep consistent across files — so a rename is a clean grep of the path, and it needs no repo-root assumption. For an in-document section, the `id` is the heading's anchor slug.
 - On a rename or move, update every link to the target so none goes stale — [ssot-principle][../ssot-principle/RULE.md]'s consistency facet, applied to links.
 
 ### Inline code
@@ -54,12 +63,15 @@ Non-markdown artifacts (yaml, config, code) — covered by the base principle di
 
 ## References
 
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
 - [ssot-principle][../ssot-principle/RULE.md]
 - [private-content][../private-content/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
 
+[../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
 [../ssot-principle/RULE.md]: ../ssot-principle/RULE.md
 [../private-content/RULE.md]: ../private-content/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
 [links]: #links
 [how-to-apply]: #how-to-apply
+[builds-on]: #builds-on

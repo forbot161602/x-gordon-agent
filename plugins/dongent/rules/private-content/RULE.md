@@ -1,15 +1,22 @@
 ---
 name: private-content
-description: Keep private content (personal drafts, documents, memory references, internal terms) out of public artifacts. Each project declares its layers; references flow one way — private may cite public, public must not cite private. Operationalises the Scope note of ssot-principle.
+description: Keep private content (personal drafts, documents, memory references, internal terms) out of public artifacts. Each project declares its layers; references flow one way — private can cite public, but not the reverse.
 ---
 
 # Private content — one-way information flow
 
 Content separates by audience: what the author keeps to themselves lives in a **private** layer, what is shared with others lives in a **public** layer. This rule keeps the two apart and stops the private side from leaking into the public side. It operationalises the **Scope** note of [ssot-principle][../ssot-principle/RULE.md] (SSoT applies within a reference scope; references between scopes are allowed in only one direction).
 
+## Builds on
+
+MUST read and follow these first — this rule builds on them:
+
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+- [ssot-principle][../ssot-principle/RULE.md]
+
 ## Rule
 
-Three principles, applied within the layers each project declares (see Prerequisites). A _layer_ is a group of artifacts sharing an audience: **private** (author-only) or **public** (anyone else — teammates, reviewers, the world). Gitignore is the strongest practical signal of author-only intent, though not the whole story — agent memory and internal vocabulary are private but aren't gitignore-expressible.
+Three principles, applied within the layers each project declares (see [Prerequisites][prerequisites]). A _layer_ is a group of artifacts sharing an audience: **private** (author-only) or **public** (anyone else — teammates, reviewers, the world). Gitignore is the strongest practical signal of author-only intent, though not the whole story — agent memory and internal vocabulary are private but aren't gitignore-expressible.
 
 ### 1. Place content in the right layer
 
@@ -17,11 +24,11 @@ Personal drafts, internal documents, memory references, and anything the author 
 
 **Why:** the boundary is only as good as the discipline of putting content on the right side; mixing the two is how leaks start.
 
-### 2. References flow one way: public never points at private
+### 2. References flow one way: public NEVER points at private
 
-A public artifact must **never** reference the private layer — not as a path (`.me/dev-notes.md`), not as a file name (`my_draft.md`), not in prose ("see the agent's memory for auth"), not as a private-only term.
+A public artifact MUST NOT reference the private layer — not as a path (`.me/dev-notes.md`), not as a file name (`my_draft.md`), not in prose ("see the agent's memory for auth"), not as a private-only term.
 
-Agent memory itself counts as private — treat its paths and file names (e.g. Claude's `~/.claude/...`, `MEMORY.md`, `feedback_*.md`) as forbidden in any public artifact. Content from the agent's working session — conversation transcripts, personal thoughts, intermediate decisions, session shorthand (e.g. P1, Q1) — is similarly universally forbidden in public artifacts. A private artifact may reference anything — public, other private, source code, memory.
+Agent memory itself counts as private — treat its paths and file names (e.g. Claude's `~/.claude/...`, `MEMORY.md`, `feedback_*.md`) as forbidden in any public artifact. Content from the agent's working session — conversation transcripts, personal thoughts, intermediate decisions, session shorthand (e.g. P1, Q1) — is similarly universally forbidden in public artifacts. A private artifact can reference public, other private, and source code. Agent memory is the exception — only memory references everything; other private content SHOULD NOT reach into it.
 
 **Why:** the public layer is what reviewers see. A private reference exposes internal state and can leak content the author meant to keep.
 
@@ -40,7 +47,7 @@ When writing or editing any artifact, private or public. Also a pre-publish chec
 - **Before placing content**, decide its layer.
 - **Before a reference in a public artifact**, confirm the target is also public.
 - **Before publishing**, grep the public layer against the project's forbidden list; stop and fix whatever it flags.
-- **Whenever a new term surfaces that shouldn't leak** — a codename, alias, or characteristic phrasing from a private decision, description, or idea — add it to the forbidden list so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration.
+- **Whenever a new term surfaces that needs to stay private** — a codename, alias, or characteristic phrasing from a private decision, description, or idea — add it to the forbidden list so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration.
 - **When the same fact lives in both layers**, update both on change — otherwise one side goes stale and misleads future reads.
 
 ## Prerequisites
@@ -50,13 +57,16 @@ When writing or editing any artifact, private or public. Also a pre-publish chec
 
 ## Out of scope
 
-- Behaviors within a layer — see [ssot-principle][../ssot-principle/RULE.md]. This rule is about _which_ layer; ssot-principle covers what happens within one.
-- Prose quality of shared text — see [prose-convention][../prose-convention/RULE.md]. Some terms (e.g. session shorthand) are addressed by both rules from different angles.
+- Behaviors within a layer — see [ssot-principle][../ssot-principle/RULE.md]; this rule is about _which_ layer, ssot-principle covers what happens within one.
+- Prose quality of shared text — see [prose-convention][../prose-convention/RULE.md]. Some terms (e.g. session shorthand) are addressed by more than one rule from different angles.
 
 ## References
 
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
 - [ssot-principle][../ssot-principle/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
 
+[../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
 [../ssot-principle/RULE.md]: ../ssot-principle/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
+[prerequisites]: #prerequisites

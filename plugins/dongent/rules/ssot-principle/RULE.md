@@ -7,17 +7,23 @@ description: Base authoring principle inherited by domain rules. Applies to writ
 
 A base principle that domain rules build on.
 
+## Builds on
+
+MUST read and follow these first — this rule builds on them:
+
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+
 ## Rule
 
 Three principles, in priority order. A _fact_ is any unit of content — a statement, a value, a behaviour; a _link_ is any reference to its home — a document link, an import, a call, inheritance.
 
 ### 1. Single source of truth
 
-Each fact lives in exactly one canonical home; everywhere else links to it instead of copying it.
+Each fact lives in exactly one canonical home; everywhere else MUST link to it instead of copying it.
 
 **Why:** a copied fact drifts — one side gets updated, the other rots into a silent contradiction.
 
-**Scope:** "one home" is bounded by what can reference it. When a boundary between scopes allows references in only one direction (e.g. public artifacts must not point at private notes), the same fact lives once in each scope — apply these principles within each scope, and across the boundary keep the copies non-contradictory.
+**Scope:** "one home" is bounded by what can reference it. When a boundary between scopes allows references in only one direction (e.g. public artifacts can't point at private notes), the same fact lives once in each scope — apply these principles within each scope, and across the boundary keep the copies non-contradictory.
 
 ### 2. Consistency
 
@@ -54,8 +60,14 @@ Before writing or substantially editing any artifact. Also a pre-publish checkpo
 |---|---|
 | HTML / Markdown | a decision is stated once; others link to it |
 | YAML / config | a value is defined once; shared values are referenced, not re-typed across files |
-| Code | a value or behaviour has one definition that others call or import, never a copy; comments neither restate the code nor contradict it or another comment about the same thing |
+| Code | a value or behaviour has one definition that others call or import, not a copy; comments neither restate the code nor contradict it or another comment about the same thing |
 
 ## Out of scope
 
 Topics with their own rules are out of scope here — e.g. keeping private content out of reviewable artifacts (leak prevention), or medium-specific conventions (e.g. markdown).
+
+## References
+
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+
+[../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md

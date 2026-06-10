@@ -1,15 +1,21 @@
 ---
 name: prose-convention
-description: Shared prose must read without access to the original session, clock, or team. Forbids time-bound references (session shorthand, relative time) and space-bound references (in-group abbreviations, names, addressee imperatives).
+description: Shared prose reads without access to the original session, clock, or team. Forbids time-bound references (session shorthand, relative time) and space-bound references (in-group abbreviations, names, addressee imperatives).
 ---
 
 # Prose convention — self-contained shared prose
 
-Shared prose outlasts the moment of writing. The future reader is not in your session, your clock, or your team. Prose must be **self-contained** — the text alone should give the reader everything they need.
+Shared prose outlasts the moment of writing. The future reader is not in your session, your clock, or your team. Prose is **self-contained** — the text alone gives the reader everything they need.
+
+## Builds on
+
+MUST read and follow these first — this rule builds on them:
+
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
 
 ## Rule
 
-Two principles, both serving one goal: **self-contained meaning** — every claim must be decodable without access to the original context. A future reader — next session, next week, or outside your team — shouldn't have to guess or reverse-engineer what you meant.
+Two principles, both serving one goal: **self-contained meaning** — every claim MUST be decodable without access to the original context. A future reader — next session, next week, or outside your team — cannot be expected to guess or reverse-engineer what you meant.
 
 ### 1. Time-bound references are out
 
@@ -40,4 +46,12 @@ When writing or editing any shared prose (README, design doc, code comment, comm
 
 ## Out of scope
 
-Layer separation (private vs public artifacts) — see private-content rule. Some terms (e.g. session shorthand) are addressed by both rules from different angles.
+Layer separation (private vs public artifacts) — see [private-content][../private-content/RULE.md]. Some terms (e.g. session shorthand) are addressed by more than one rule from different angles.
+
+## References
+
+- [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+- [private-content][../private-content/RULE.md]
+
+[../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
+[../private-content/RULE.md]: ../private-content/RULE.md

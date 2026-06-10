@@ -5,27 +5,42 @@ description: Use when authoring or editing a rule definition — a RULE.md, its 
 
 # Writing a rule
 
-Conventions for authoring a rule definition in a dongent-style rule library. A `RULE.md` is a shared rule that must stay consistent and portable, so beyond the conventions here it still obeys the library's base rules, which ship in the `dongent` plugin (a declared dependency of this one):
+Conventions for authoring a rule definition in a dongent-style rule library — what's specific to writing rules themselves, beyond the base rules every rule obeys.
 
+## Builds on
+
+MUST read and follow these first — this skill builds on them; they ship in the `dongent` plugin (a declared dependency of this one):
+
+- [wording-rule][dongent/bedrocks/wording-rule/BEDROCK.md]
 - [ssot-principle][dongent/rules/ssot-principle/RULE.md]
 - [private-content][dongent/rules/private-content/RULE.md]
 - [prose-convention][dongent/rules/prose-convention/RULE.md]
 - [markdown-convention][dongent/rules/markdown-convention/RULE.md]
 
-This skill adds only what is specific to writing rules themselves.
-
 ## Structure
 
 ### Frontmatter
 
-`name` and `description` are required:
+`name` and `description` are REQUIRED:
 
 - **`name`** — kebab-case, matching the rule's folder name; keep it simple and precise.
-- **`description`** — a one-line summary of what the rule governs; a domain rule also names the base rules it builds on.
+- **`description`** — a one-line summary of what the rule governs. Dependencies aren't listed here — they go in `## Builds on`.
 
 ### Sections
 
-Follow the section shape of the sibling `RULE.md` files in the same library rather than inventing one — typically `## Rule`, `## When to apply`, `## How to apply`, `## Out of scope`, `## References`, plus `## Prerequisites` or domain-specific sections where the rule needs them. This is the style-consistency facet applied to rule files (per [ssot-principle][dongent/rules/ssot-principle/RULE.md]).
+Use the sections the sibling `RULE.md` files use rather than inventing new ones — this list is both the whitelist and the order: `## Builds on`, `## Rule`, `## When to apply`, `## How to apply`, `## Out of scope`, `## References`. `## Prerequisites` (when the rule needs it) sits after `## How to apply`; add domain-specific sections only where genuinely needed. This is the style-consistency facet applied to rule files (per [ssot-principle][dongent/rules/ssot-principle/RULE.md]).
+
+### Builds on
+
+When a rule has upstream dependencies — base rules or bedrocks it builds on — declare them in a `## Builds on` section (also the source for hash-dependency tracking):
+
+- Lead with `MUST read and follow these first — this rule builds on them:`, then reference-style links — **bedrocks first, then rules by importance**.
+- [wording-rule][dongent/bedrocks/wording-rule/BEDROCK.md] always leads — every rule is read under its **unmarked-defaults-to-MUST** convention.
+- **Pure links, no descriptions** — each dependency's summary lives in its own frontmatter; restating it here drifts.
+
+### Prerequisites
+
+A `## Prerequisites` section lists what must be resolved before the rule can be applied — information the user provides or the agent detects on its own. It differs from `## Builds on`: Prerequisites is per-project preconditions to resolve, while Builds on is the static upstream rules and bedrocks read first. Omit it when the rule has no preconditions.
 
 ## File shape
 
@@ -36,10 +51,11 @@ Follow the section shape of the sibling `RULE.md` files in the same library rath
 
 ## Cross-rule references
 
-Two conventions govern how one rule points at another:
+How a rule points at another:
 
-- **Express reuse in prose, not a special syntax.** When a rule builds on another, say so in words plus a reference — don't invent an inheritance field (e.g. an `extends:` in frontmatter). The verb marks the degree: `inherits from` / `building on` (wholesale) vs `shares` / `follows` (selective).
-- **Link only to a base** (a rule this one obeys or builds on) — a reference-style link, per [markdown-convention][dongent/rules/markdown-convention/RULE.md]. Cross-reference a non-base only when truly needed: plain text or inline code, not a link. E.g. `pr-convention` links its base `commit-convention`, not the reverse.
+- **No special syntax for dependencies.** A rule's upstream dependencies live in its `## Builds on` section, not in an invented frontmatter field (e.g. an `extends:`).
+- **Link direction.** Link **upstream** (the bases a rule builds on) and a **peer** rule when there's a genuine see-also worth keeping live — reference-style links, per [markdown-convention][dongent/rules/markdown-convention/RULE.md]. Don't link **downstream** (a rule that builds on this one); name it in plain prose instead. E.g. `pr-convention` links its base `commit-convention`, not the reverse.
+- **Avoid gratuitous cross-references** — link only where the pointer genuinely helps, which keeps documents loosely coupled. The same direction applies wherever a rule links, Out of scope and casual mentions included.
 
 ## Out of scope
 
@@ -49,12 +65,14 @@ Two conventions govern how one rule points at another:
 
 ## References
 
+- [wording-rule][dongent/bedrocks/wording-rule/BEDROCK.md]
 - [ssot-principle][dongent/rules/ssot-principle/RULE.md]
 - [private-content][dongent/rules/private-content/RULE.md]
 - [prose-convention][dongent/rules/prose-convention/RULE.md]
 - [markdown-convention][dongent/rules/markdown-convention/RULE.md]
 - [sync-rule-memory][dongent/commands/sync-rule-memory.md]
 
+[dongent/bedrocks/wording-rule/BEDROCK.md]: dongent/bedrocks/wording-rule/BEDROCK.md
 [dongent/rules/ssot-principle/RULE.md]: dongent/rules/ssot-principle/RULE.md
 [dongent/rules/private-content/RULE.md]: dongent/rules/private-content/RULE.md
 [dongent/rules/prose-convention/RULE.md]: dongent/rules/prose-convention/RULE.md

@@ -5,6 +5,12 @@ description: After compaction or on resuming a session, rebuild the working cont
 
 Run after `/compact`, or when picking a session back up, to reorient from durable memory. Memory is the reliable source; an in-session compaction summary, if present, is a lossy supplement.
 
+## Read first
+
+MUST read these first — this command relies on them:
+
+- [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+
 ## Steps
 
 ### 1. Read the memory
@@ -34,6 +40,8 @@ This command is read-only: it doesn't modify memory or re-sync the rule library 
 
 ## References
 
+- [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [sync-rule-memory][sync-rule-memory.md]
 
+[../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [sync-rule-memory.md]: sync-rule-memory.md
