@@ -12,6 +12,7 @@ The frontmatter is refreshed on each create or update. The body has two zones: i
 MUST read these first — this command relies on them:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+- [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 
@@ -133,11 +134,13 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 ## References
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+- [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [check-consistency][check-consistency.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
+[../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [check-consistency.md]: check-consistency.md

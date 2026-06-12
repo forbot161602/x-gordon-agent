@@ -26,6 +26,7 @@ None required. The forms:
 MUST read these first — this command relies on them:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+- [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [prose-convention][../rules/prose-convention/RULE.md]
@@ -48,7 +49,7 @@ If the resolved set is empty, report "nothing to audit" and stop.
 
 ### 2. Identify the private layer
 
-Step 1 surfaces **mostly public files** — `git status` and `git diff` filter out gitignored content by default; glob expansion can match anywhere in principle but typical `--paths` invocations target public folders (`docs/`, `specs/`, etc.). Private content (as defined by [private-content][../rules/private-content/RULE.md]) usually doesn't make it into step 1's output, so the agent brings it in from its session context, which usually knows what's relevant to the current work. This explicitly covers **relevant private planning and progress docs** — e.g. a gitignored personal plan recording why the work was split into these commits, or tracking their progress — which need to stay consistent with what's being committed.
+Step 1 surfaces **mostly public files** — `git status` and `git diff` filter out gitignored content by default; glob expansion can match anywhere in principle but typical `--paths` invocations target public folders (`docs/`, `specs/`, etc.). Private content (per [private-content][../rules/private-content/RULE.md]) usually doesn't make it into step 1's output, so the agent brings it in from its session context, which usually knows what's relevant to the current work. This explicitly covers **relevant private planning and progress docs** — e.g. a gitignored personal plan recording why the work was split into these commits, or tracking their progress — which need to stay consistent with what's being committed.
 
 ### 3. Per-file checks
 
@@ -124,6 +125,7 @@ A few patterns the audit commonly catches:
 ## References
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+- [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [prose-convention][../rules/prose-convention/RULE.md]
@@ -132,6 +134,7 @@ A few patterns the audit commonly catches:
 - [sync-rule-memory][sync-rule-memory.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
+[../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [../rules/prose-convention/RULE.md]: ../rules/prose-convention/RULE.md
