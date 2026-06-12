@@ -1,26 +1,27 @@
 ---
 name: private-content
-description: Keep private content (personal drafts, documents, memory references, internal terms) out of public artifacts. Each project declares its layers; references flow one way — private can cite public, but not the reverse.
+description: Keep private content (personal drafts, internal documents, memory references, private-only terms) out of public artifacts. Each project declares its layers; references flow one way — private can cite public, but not the reverse.
 ---
 
 # Private content — one-way information flow
 
-Content separates by audience: what the author keeps to themselves lives in a **private** layer, what is shared with others lives in a **public** layer. This rule keeps the two apart and stops the private side from leaking into the public side. It operationalises the **Scope** note of [ssot-principle][../ssot-principle/RULE.md] (SSoT applies within a reference scope; references between scopes are allowed in only one direction).
+A project's content splits into private and public layers (see [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]). This rule keeps the two apart and stops the private side from leaking into the public side. It operationalises the **Scope** note of [ssot-principle][../ssot-principle/RULE.md] (SSoT applies within a reference scope; references between scopes are allowed in only one direction).
 
 ## Builds on
 
 MUST read and follow these first — this rule builds on them:
 
 - [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+- [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]
 - [ssot-principle][../ssot-principle/RULE.md]
 
 ## Rule
 
-Three principles, applied within the layers each project declares (see [Prerequisites][prerequisites]). A _layer_ is a group of artifacts sharing an audience: **private** (author-only) or **public** (anyone else — teammates, reviewers, the world). Gitignore is the strongest practical signal of author-only intent, though not the whole story — agent memory and internal vocabulary are private but aren't gitignore-expressible.
+Three principles, applied within the private and public layers each project declares (see [Prerequisites][prerequisites]).
 
 ### 1. Place content in the right layer
 
-Personal drafts, internal documents, memory references, and anything the author does not want to publish go to **private**. Shared, committed, team-visible content goes to **public**. When in doubt, ask who should see this — if "only me", it is private.
+Decide each artifact's layer before writing it. When in doubt, ask who should see this — if "only me", it is private.
 
 **Why:** the boundary is only as good as the discipline of putting content on the right side; mixing the two is how leaks start.
 
@@ -63,10 +64,12 @@ When writing or editing any artifact, private or public. Also a pre-publish chec
 ## References
 
 - [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
+- [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]
 - [ssot-principle][../ssot-principle/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
 
 [../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
+[../../bedrocks/governance-scope/BEDROCK.md]: ../../bedrocks/governance-scope/BEDROCK.md
 [../ssot-principle/RULE.md]: ../ssot-principle/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
 [prerequisites]: #prerequisites
