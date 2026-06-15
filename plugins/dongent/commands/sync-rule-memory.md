@@ -3,7 +3,7 @@ name: sync-rule-memory
 description: Sync this plugin's rule library into the current project's agent memory — one foundational memory file holding all rules. Idempotent — first run installs, later runs only update what changed in the central rules.
 ---
 
-Sync this plugin's rules into the current project's agent memory. All rules — and the bedrocks they build on — compile into **one** file, `<project-memory>/<plugin-name>_plugin_managed_rules.md` (one per plugin). Each **source** — a rule or bedrock — is a single H2 section, ordered bedrocks first then rules per the plugin catalog, headed by its name (e.g. `ssot-principle`); its canonical path lives in the frontmatter. This file is foundational and read-first.
+Sync this plugin's rules into the current project's agent memory. All rules — and the bedrocks they build on — compile into **one** file, `<project-memory>/<plugin-name>-plugin-managed-rules.md` (one per plugin). Each **source** — a rule or bedrock — is a single H2 section, ordered bedrocks first then rules per the plugin catalog, headed by its name (e.g. `ssot-principle`); its canonical path lives in the frontmatter. This file is foundational and read-first.
 
 The **frontmatter** is plugin-managed — a `description` and the `sources` list. In the **body**, each H2 wraps a one-line distillation in `<!-- dongent-section-start -->` / `<!-- dongent-section-end -->` markers, with project-specific lines below them. Sync maintains the frontmatter and the inside-marker distillations and preserves what sits below the markers — both the managed and the project-specific content matter, and neither is discarded recklessly. The steps below cover how each is written and how conflicts resolve; outside of sync runs this is a normal agent memory, and agents edit below the markers as they would any memory.
 
@@ -24,7 +24,7 @@ MUST read these first — this command relies on them:
 
 - **Plugin root**: the directory containing this command file's parent (`.../<plugin-root>/commands/sync-rule-memory.md` → `<plugin-root>`). It may be exposed as an environment variable when the command runs; otherwise derive it from this command file's own location.
 - **Project memory folder**: the conventional agent-memory folder for the current project (e.g. Claude Code's `~/.claude/projects/<encoded-cwd>/memory/` → `<project-memory>`). If it can't be determined, ask the user. Create the folder if it doesn't exist.
-- **Memory file**: this plugin's single compiled file, `<project-memory>/<plugin-name>_plugin_managed_rules.md` — `<plugin-name>` is the plugin's name — usually the `<plugin-root>` folder name above. Create it if absent; everything below is written into this one file.
+- **Memory file**: this plugin's single compiled file, `<project-memory>/<plugin-name>-plugin-managed-rules.md` — `<plugin-name>` is the plugin's name — usually the `<plugin-root>` folder name above. Create it if absent; everything below is written into this one file.
 
 ### 2. Discover sources and decide what to sync
 
@@ -33,7 +33,7 @@ Read the catalog at `<plugin-root>/rules/README.md` — the canonical list of ru
 - **`required`**: always sync this rule into the current project.
 - **`optional`**: only sync if (a) the user has previously opted in (this rule already has a `sources` entry), or (b) the user explicitly named this rule when invoking the command. **Don't prompt mid-run** — uninstalled optional rules surface in the report (step 8).
 
-Then parse each rule's `## Builds on` to resolve its transitive closure (follow the chain, dedupe by path, sort by path) — the path-ordered list step 3 hashes. A **bedrock** a rule builds on is pulled in this way: it's a **`required`** source too, no tier or opt-in. The file's sources are the deduped union of those closures, laid out in **catalog order** — bedrocks then rules as `bedrocks/README.md` and `rules/README.md` list them (not the hash's path sort). This is the order of the `sources` list and the H2 sections.
+Then parse each rule's `## Builds on` to resolve its transitive closure (follow the chain, dedupe by path, sort by path) — the path-ordered list step 3 hashes. A **bedrock** enters the file only when some synced rule builds on it (transitively) — pulled in as a **`required`** source, no tier or opt-in. The file's sources are the deduped union of those closures, laid out in **catalog order** — bedrocks then rules as `bedrocks/README.md` and `rules/README.md` list them (not the hash's path sort). This is the order of the `sources` list and the H2 sections.
 
 ### 3. Create, skip, or update each (by source hash)
 
@@ -82,12 +82,11 @@ Template — follow it as written: reproduce everything verbatim except inline `
 
 ```markdown
 ---
-name: <plugin-name>_plugin_managed_rules
-description: Foundational <plugin-name> rules; canonical home of <the source names in `sources` order, comma-separated>. Read when writing or reviewing ANY artifact.
+name: <plugin-name>-plugin-managed-rules
+description: Foundational <plugin-name> rules; canonical home of <the source names in `sources` order, comma-separated, kept in sync with `sources`>. MUST be read when writing or reviewing ANY artifact.
 metadata:
   node_type: memory
   type: feedback
-  originSessionId: <the agent session id when this file was first created — set on create, preserved on update>
   dongent:
     sources:
       - name: ssot-principle
@@ -119,26 +118,24 @@ A bedrock's section takes the same shape but has no Prerequisites; a source with
 - **Add a source**: insert its H2 and `sources` entry at its place in the step-2 order; leave the other sources untouched.
 - **Update a source** (already synced): bump its `hash` in `sources`, re-distill inside its markers, and apply step 4's resolutions to the lines below; leave other sources untouched.
 
-In every case, keep the `description`'s source-name list matching the current `sources`, and preserve `metadata.originSessionId` — set when the file is first created, unchanged thereafter.
-
 ### 7. Update MEMORY.md index
 
 In the project memory folder, ensure `MEMORY.md` exists with a single index entry for this file, placed **first** (it's foundational, read before any authoring or review). This line is what an agent scans to decide whether to load the file; use the file's frontmatter `description` verbatim as its summary — one canonical wording, refreshed here whenever that `description` changes:
 
 ```
-- [<plugin-name> rules](<plugin-name>_plugin_managed_rules.md) — <the file's `description`, verbatim>
+- [<plugin-name>-rules](<plugin-name>-plugin-managed-rules.md) — <the file's `description`, verbatim>
 ```
 
 ### 8. Report
 
-Summarize per source, one line each:
+Group by status — under each bucket, list the sources that fall in it (one line each); omit empty buckets:
 
-- ✨ Created: source name, plus any project-specific content captured
-- 🔄 Updated: source name + what changed (distillation re-distilled, conflicts auto-resolved, project-specific content revised)
-- ✅ Unchanged: source name skipped (hash matches central)
-- 📦 Available (not installed): optional rules not yet opted into
-- 👻 Orphan (removed upstream): sections whose source is gone upstream; user decides whether to clean — NEVER auto-delete, the section may hold project content below its markers
-- 🗑️ Emptied (delete candidate): a section left holding only outward pointers after this sync and referenced by nothing else — list it for the user to confirm removal; NEVER auto-delete
+- ✨ **Created** — source name, plus any project-specific content captured.
+- 🔄 **Updated** — source name + what changed (distillation re-distilled, conflicts auto-resolved, project-specific content revised).
+- ✅ **Unchanged** — source name skipped (hash matches central).
+- 📦 **Available (not installed)** — optional rules not yet opted into.
+- 👻 **Orphan (removed upstream)** — sections whose source is gone upstream; the user decides whether to clean — NEVER auto-delete, the section may hold project content below its markers.
+- 🗑️ **Emptied (delete candidate)** — a section left holding only outward pointers after this sync and referenced by nothing else; list it for the user to confirm removal — NEVER auto-delete.
 
 ## Out of scope
 

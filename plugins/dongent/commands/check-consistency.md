@@ -75,7 +75,7 @@ For each finding, apply the fix policy (step 5) before moving to the next file. 
 
 #### Plugin-managed memory files (`--memory` only)
 
-In this mode the set includes the plugin-managed rules files (one per plugin, `<plugin-name>_plugin_managed_rules.md`) compiled by [sync-rule-memory][sync-rule-memory.md]. As an `ssot-principle` extension that command owns — and this audit doesn't re-decide — each source's section there is the fixed canonical home for that rule's facts: point other memory files into the section; NEVER point it outward, empty it to name another home, or edit the region between its markers.
+In this mode the set includes the plugin-managed rules files compiled by [sync-rule-memory][sync-rule-memory.md]. As an `ssot-principle` extension that command owns — and this audit doesn't re-decide — each source's section there is the fixed canonical home for that rule's facts: point other memory files into the section; NEVER point it outward, empty it to name another home, or edit the region between its markers.
 
 ### 5. Fix policy
 

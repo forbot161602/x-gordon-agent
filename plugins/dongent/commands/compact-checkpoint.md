@@ -38,7 +38,10 @@ Write the distilled fact into that home, keeping it consistent within and across
 
 ### 4. Report
 
-Group by the file written, each marked ✨ created or 🔄 updated, with the facts captured into it listed underneath, one terse line each. Skipped facts (already in the durable record) need no entry.
+Group by status — under each bucket, list the files written (one line each) with the facts captured underneath; omit empty buckets and skip facts already in the durable record:
+
+- ✨ **Created** — a new memory file, with the facts placed in it.
+- 🔄 **Updated** — an existing file, with what was added or changed.
 
 ## Out of scope
 
