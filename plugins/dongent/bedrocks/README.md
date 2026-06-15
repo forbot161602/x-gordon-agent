@@ -15,7 +15,11 @@ Each bedrock folder has at minimum a `BEDROCK.md`; any supplementary docs (Initi
 
 ## Bedrocks
 
-Foundational conventions that other docs are written and read against — each cross-cutting convention lives here once and is referenced rather than restated.
+Foundational conventions that other docs are written and read against — each cross-cutting convention lives here once and is referenced rather than restated. Bedrocks are grouped by what they govern; within a group they run from the most foundational outward (general before specific).
+
+### Core
+
+Cross-cutting foundations every rule and document builds on; tied to no particular artifact type.
 
 <!-- prettier-ignore -->
 | Folder | Summary |

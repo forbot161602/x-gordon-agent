@@ -19,11 +19,11 @@ Each rule folder has at minimum a `RULE.md`. Other Initial-Cap markdown files (`
 
 ## Rules
 
-`Tier` controls default install behavior when a rule is being synced into a project: `required` installs automatically; `optional` installs only on explicit request.
+Rules are grouped by what they govern; within a group they run from the most foundational outward (general before specific). `Tier` controls default install behavior when a rule is being synced into a project: `required` installs automatically; `optional` installs only on explicit request.
 
-### Base
+### Core
 
-Cross-cutting principles inherited by domain rules.
+Cross-cutting principles every other rule builds on; tied to no particular artifact type.
 
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
@@ -32,17 +32,25 @@ Cross-cutting principles inherited by domain rules.
 | [`private-content/`][private-content/] | required | Private/public layer separation with one-way references (private → public) |
 | [`prose-convention/`][prose-convention/] | required | Shared prose remains self-contained — independent of session, clock, or team |
 
-### Domain
+### Document
 
-Rules tied to specific artifact types; build on base rules.
+Rules for written documents — prose and markup.
 
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
 |---|---|---|
 | [`markdown-convention/`][markdown-convention/] | required | Markdown authoring mechanics (tables, links, references) |
+| [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width on Chinese-led lines (markdown documents, commits, PRs) |
+
+### Git
+
+Rules for git artifacts — commits and PRs.
+
+<!-- prettier-ignore -->
+| Folder | Tier | Summary |
+|---|---|---|
 | [`commit-convention/`][commit-convention/] | required | Conventional commits with three-part structure (header / body / footer); messages scoped to the project's reviewers |
 | [`pr-convention/`][pr-convention/] | required | PR title defaults to the commit-header shape; body is terse, template-driven; cross-domain references and code snippets only when load-bearing |
-| [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width on Chinese-led lines (markdown documents, commits, PRs) |
 
 ## References
 
@@ -50,14 +58,14 @@ Rules tied to specific artifact types; build on base rules.
 - [`private-content/`][private-content/]
 - [`prose-convention/`][prose-convention/]
 - [`markdown-convention/`][markdown-convention/]
+- [`zh-tw-punctuation/`][zh-tw-punctuation/]
 - [`commit-convention/`][commit-convention/]
 - [`pr-convention/`][pr-convention/]
-- [`zh-tw-punctuation/`][zh-tw-punctuation/]
 
 [ssot-principle/]: ssot-principle/
 [private-content/]: private-content/
 [prose-convention/]: prose-convention/
 [markdown-convention/]: markdown-convention/
+[zh-tw-punctuation/]: zh-tw-punctuation/
 [commit-convention/]: commit-convention/
 [pr-convention/]: pr-convention/
-[zh-tw-punctuation/]: zh-tw-punctuation/

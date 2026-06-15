@@ -29,7 +29,7 @@ Decide each artifact's layer before writing it. When in doubt, ask who should se
 
 A public artifact MUST NOT reference the private layer — not as a path (`.me/dev-notes.md`), not as a file name (`my_draft.md`), not in prose ("see the agent's memory for auth"), not as a private-only term.
 
-Agent memory itself counts as private — treat its paths and file names (e.g. Claude's `~/.claude/...`, `MEMORY.md`, `feedback_*.md`) as forbidden in any public artifact. Content from the agent's working session — conversation transcripts, personal thoughts, intermediate decisions, session shorthand (e.g. P1, Q1) — is similarly universally forbidden in public artifacts. A private artifact can reference public, other private, and source code. Agent memory is the exception — only memory references everything; other private content SHOULD NOT reach into it.
+Agent memory itself counts as private — treat its paths and file names (e.g. Claude Code's `~/.claude/...`, `MEMORY.md`, `feedback_*.md`) as forbidden in any public artifact. Content from the agent's working session — conversation transcripts, personal thoughts, intermediate decisions, session shorthand (e.g. P1, Q1) — is similarly universally forbidden in public artifacts. A private artifact can reference public, other private, and source code. Agent memory is the exception — only memory references everything; other private content SHOULD NOT reach into it.
 
 **Why:** the public layer is what reviewers see. A private reference exposes internal state and can leak content the author meant to keep.
 
@@ -54,7 +54,7 @@ When writing or editing any artifact, private or public. Also a pre-publish chec
 ## Prerequisites
 
 - Scan this project's `.gitignore` and the user's `~/.gitignore_global` for private paths.
-- Locate the project's agent memory directory (e.g. Claude's `~/.claude/projects/<encoded-cwd>/memory/`).
+- Locate the project's agent memory directory (e.g. Claude Code's `~/.claude/projects/<encoded-cwd>/memory/`).
 
 ## Out of scope
 
