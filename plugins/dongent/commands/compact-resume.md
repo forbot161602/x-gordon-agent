@@ -10,6 +10,7 @@ Run after `/compact`, or when picking a session back up, to reorient from durabl
 MUST read these first — this command relies on them:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 
 ## Steps
 
@@ -41,7 +42,9 @@ This command is read-only: it doesn't modify memory or re-sync the rule library 
 ## References
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [sync-rule-memory][sync-rule-memory.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
+[../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
 [sync-rule-memory.md]: sync-rule-memory.md

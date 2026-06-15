@@ -27,6 +27,7 @@ MUST read these first — this command relies on them:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [prose-convention][../rules/prose-convention/RULE.md]
@@ -126,6 +127,7 @@ A few patterns the audit commonly catches:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [prose-convention][../rules/prose-convention/RULE.md]
@@ -135,6 +137,7 @@ A few patterns the audit commonly catches:
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
+[../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [../rules/prose-convention/RULE.md]: ../rules/prose-convention/RULE.md

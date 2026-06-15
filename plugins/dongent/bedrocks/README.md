@@ -26,11 +26,14 @@ Cross-cutting foundations every rule and document builds on; tied to no particul
 |---|---|
 | [`wording-rule/`][wording-rule] | Requirement-level keywords (MUST / SHOULD / …) and behavior-trigger words, each with one fixed meaning |
 | [`governance-scope/`][governance-scope] | Whose conventions content follows — the plugin's own defaults for private (author-only) content, the team's established rules for public (shared) content |
+| [`reply-language/`][reply-language] | Reply to the user in their customary language — separate from the language of the artifacts produced |
 
 ## References
 
 - [`wording-rule/`][wording-rule]
 - [`governance-scope/`][governance-scope]
+- [`reply-language/`][reply-language]
 
 [wording-rule]: wording-rule/
 [governance-scope]: governance-scope/
+[reply-language]: reply-language/

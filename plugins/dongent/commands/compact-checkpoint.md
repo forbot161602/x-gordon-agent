@@ -11,6 +11,7 @@ MUST read these first — this command relies on them:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 
@@ -51,12 +52,14 @@ Syncing the rule library into memory — that's [sync-rule-memory][sync-rule-mem
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [sync-rule-memory][sync-rule-memory.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
+[../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [sync-rule-memory.md]: sync-rule-memory.md

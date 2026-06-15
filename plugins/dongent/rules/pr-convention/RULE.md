@@ -63,15 +63,15 @@ When opening or editing any PR. Also a pre-publish checkpoint: run the audit bef
 - [ssot-principle][../ssot-principle/RULE.md]
 - [private-content][../private-content/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
-- [commit-convention][../commit-convention/RULE.md]
 - [zh-tw-punctuation][../zh-tw-punctuation/RULE.md]
+- [commit-convention][../commit-convention/RULE.md]
 
 [../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
 [../../bedrocks/governance-scope/BEDROCK.md]: ../../bedrocks/governance-scope/BEDROCK.md
 [../ssot-principle/RULE.md]: ../ssot-principle/RULE.md
 [../private-content/RULE.md]: ../private-content/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
-[../commit-convention/RULE.md]: ../commit-convention/RULE.md
 [../zh-tw-punctuation/RULE.md]: ../zh-tw-punctuation/RULE.md
+[../commit-convention/RULE.md]: ../commit-convention/RULE.md
 [builds-on]: #builds-on
 [how-to-apply]: #how-to-apply

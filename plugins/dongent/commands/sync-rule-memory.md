@@ -13,6 +13,7 @@ MUST read these first — this command relies on them:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 
@@ -145,6 +146,7 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
+- [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [check-consistency][check-consistency.md]
@@ -152,6 +154,7 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
+[../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [check-consistency.md]: check-consistency.md
