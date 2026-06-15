@@ -30,7 +30,7 @@ Keep only **durable and important** facts that a lossy summary might drop and th
 
 ### 2. Find each fact's canonical home
 
-Find each fact's canonical home — the most foundational existing place it belongs, per [ssot-principle][../rules/ssot-principle/RULE.md]. The default home is the project's agent memory; defer to private content — the user's drafts or plan / progress notes (per [private-content][../rules/private-content/RULE.md]) — only when it is a fact's more canonical home than memory. A checkpoint stashes only into these private homes, NEVER into public content (which is published and reviewed separately); if no existing home fits, create a memory file under the standard conventions. Memory can also hold plugin-managed `dongent_*` files — synced rules owned by [sync-rule-memory][sync-rule-memory.md] — so keep session state in the ordinary memory files, not there.
+Find each fact's canonical home — the most foundational existing place it belongs, per [ssot-principle][../rules/ssot-principle/RULE.md]. The default home is the project's agent memory; defer to private content — the user's drafts or plan / progress notes (per [private-content][../rules/private-content/RULE.md]) — only when it is a fact's more canonical home than memory. A checkpoint stashes only into these private homes, NEVER into public content (which is published and reviewed separately); if no existing home fits, create a memory file under the standard conventions. Memory can also hold plugin-managed rules files — synced rules owned by [sync-rule-memory][sync-rule-memory.md] — so keep session state in the ordinary memory files, not there.
 
 ### 3. Record the fact
 

@@ -15,7 +15,7 @@ MUST read these first — this command relies on them:
 
 ### 1. Read the memory
 
-Read the project's agent memory: the index, the checkpoint state, and the rule-related memories — whatever their prefix, not only the plugin-managed `dongent_rule_*` files (synced rules owned by [sync-rule-memory][sync-rule-memory.md]).
+Read the project's agent memory: the index, the checkpoint state, and the rule-related memories — whatever their prefix, not only the plugin-managed rules files (synced rules owned by [sync-rule-memory][sync-rule-memory.md]).
 
 ### 2. Reconstruct the context
 
