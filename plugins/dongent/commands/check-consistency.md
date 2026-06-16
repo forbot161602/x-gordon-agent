@@ -42,7 +42,7 @@ MUST read these first — this command relies on them:
 
 - **Default**: `git status --porcelain` → keep paths whose status is not `D` (deleted).
 - **`@<file>` mentions**: the target set is exactly the files `@`-mentioned in the arguments — each arrives as a literal `@<repo-relative-path>` token the agent client supplies. Unlike `--paths`, these are literal paths, not globs.
-- **`--all`**: list every file this branch has changed since branching off its base, **including uncommitted ones (staged, unstaged, untracked)**. The agent identifies the base commit from its session context (it usually knows; it likely opened the branch and made the commits) or, when unclear, by inspecting `git log` / branch graph plus authoring metadata.
+- **`--all`**: audit the PR scope — every file changed on HEAD since it diverged from its base (the local standing branch it forked from), **plus uncommitted changes (staged, unstaged, untracked)**. The agent identifies the base from session context or the local branch graph. With no base found, or no commits ahead of it, there is no PR scope — fall back to the default target set and note it.
 - **`--paths`**: expand each glob against the worktree (repo-relative); deduplicate. The agent corrects malformed globs (reporting the actual interpretation used) but doesn't broaden a syntactically valid glob just because it returned zero matches.
 - **`--memory`**: the target set is the project's agent memory — its index and the files the index points at, including the plugin-managed rules files compiled by [sync-rule-memory][sync-rule-memory.md].
 

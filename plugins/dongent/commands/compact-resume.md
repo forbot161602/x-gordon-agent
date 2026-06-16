@@ -20,7 +20,7 @@ Read the project's agent memory: the index, the checkpoint state, and the rule-r
 
 ### 2. Reconstruct the context
 
-From what you read, re-establish: the current task and goal, progress and the next step, pending items, open questions and key decisions, and the rules in play.
+From the memory just read, re-establish: the current task and goal, progress and the next step, pending items, open questions and key decisions, and the rules in play.
 
 ### 3. Report
 
