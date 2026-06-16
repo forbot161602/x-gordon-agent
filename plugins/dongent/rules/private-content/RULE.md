@@ -23,13 +23,15 @@ Three principles, applied within the private and public layers each project decl
 
 Decide each artifact's layer before writing it. When in doubt, ask who should see this — if "only me", it is private.
 
+The private layer has two kinds, distinguished by who they face: **agent memory** — the agent-facing index (e.g. Claude Code's `~/.claude/...`, `MEMORY.md`, `feedback_*.md`, plus working-session content: conversation transcripts, personal thoughts, intermediate decisions, session shorthand like P1, Q1) — and **personal content** — the author-facing private docs (drafts, plans, notes, resident docs).
+
 **Why:** the boundary is only as good as the discipline of putting content on the right side; mixing the two is how leaks start.
 
 ### 2. References flow one way: public NEVER points at private
 
-A public artifact MUST NOT reference the private layer — not as a path (`.me/dev-notes.md`), not as a file name (`my_draft.md`), not in prose ("see the agent's memory for auth"), not as a private-only term.
+A public artifact MUST NOT reference the private layer — not as a path (`.me/dev-notes.md`), not as a file name (`my_draft.md`), not in prose ("see the agent's memory for auth"), not as a private-only term. This covers **agent memory** in full — its paths, file names, and working-session content are forbidden in any public artifact.
 
-Agent memory itself counts as private — treat its paths and file names (e.g. Claude Code's `~/.claude/...`, `MEMORY.md`, `feedback_*.md`) as forbidden in any public artifact. Content from the agent's working session — conversation transcripts, personal thoughts, intermediate decisions, session shorthand (e.g. P1, Q1) — is similarly universally forbidden in public artifacts. A private artifact can reference public, other private, and source code. Agent memory is the exception — only memory references everything; other private content SHOULD NOT reach into it.
+Within the private layer the same one-way discipline holds for agent memory: it can reference anything, but **personal content MUST NOT reach into it** — a personal doc pointing into the agent-facing index inverts that role. That one exception aside, private content references freely — public artifacts, source code, and other private content.
 
 **Why:** the public layer is what reviewers see. A private reference exposes internal state and can leak content the author meant to keep.
 
