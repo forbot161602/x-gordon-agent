@@ -39,7 +39,7 @@ Rules for written documents — prose and markup.
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
 |---|---|---|
-| [`markdown-convention/`][markdown-convention/] | required | Markdown authoring mechanics (tables, links, references) |
+| [`markdown-convention/`][markdown-convention/] | required | Markdown authoring mechanics — document structure and element formatting (headings, lists, tables, links, code, images) |
 | [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width on Chinese-led lines (markdown documents, commits, PRs) |
 
 ### Git

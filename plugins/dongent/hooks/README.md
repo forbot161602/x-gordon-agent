@@ -1,6 +1,6 @@
 # Hooks
 
-Event hooks this plugin ships. Claude Code auto-loads [`hooks.json`][hooks.json] when the plugin is installed — no setup — and drops it when the plugin is removed.
+Event hooks this plugin ships. The harness auto-loads [`hooks.json`][hooks.json] when the plugin is installed — no setup — and drops it when the plugin is removed.
 
 ## Contents
 
