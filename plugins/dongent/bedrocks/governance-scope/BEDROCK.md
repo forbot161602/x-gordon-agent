@@ -22,8 +22,14 @@ Gitignore is the strongest practical signal of author-only intent, though not th
 ### Whose conventions apply
 
 - **Private** → the plugin's own defaults, applied directly.
-- **Public** → the team's established convention takes precedence over the plugin defaults, but only when it exists and meets at least a basic industry standard (judged from the relevant shared artifacts — nearby files, recent commits, templates, and the like). With no qualifying convention, fall back to the plugin defaults.
+- **Public** → the team's established convention takes precedence over the plugin defaults; with none that qualifies, the defaults apply.
 
-**Why:** public content belongs to the team that reads and maintains it, so it follows their established way; the author's private content answers only to the defaults.
+**Why:** public content belongs to the team that reads and maintains it, so a convention they have actually established wins; private content answers only to the defaults.
+
+### When a team convention applies
+
+A team convention overrides a default only on **positive evidence** the team does it differently — an explicit team style guide, or a consistent contrary pattern across the relevant shared artifacts (nearby files, recent commits, templates) that also clears at least a basic industry standard; not finding the default's convention nearby is NEVER such evidence. It overrides only the specific defaults that evidence actually speaks to; every other default holds — whether the team is silent there or the signal is genuinely ambiguous.
+
+**Why:** the defaults exist to govern wherever the team has not spoken; reading deference into silence invents a team rule that isn't there and discards a sound default for nothing.
 
 A rule that builds on this supplies the rest for its own domain — what counts as "the relevant artifacts" to observe, and what its own defaults are.
