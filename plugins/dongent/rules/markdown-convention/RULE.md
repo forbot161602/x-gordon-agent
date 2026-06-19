@@ -1,6 +1,6 @@
 ---
 name: markdown-convention
-description: Markdown authoring conventions — document structure and element formatting (headings, lists, tables, links, code, images, emphasis); defaults for private and public content, deferring to nearby team style for public.
+description: Markdown-specific authoring mechanics layered on document-convention — frontmatter, lists, tables, reference-style links, fenced code, and the references section; defaults for private and public content, deferring to nearby team style for public.
 ---
 
 # Markdown conventions — authoring mechanics
@@ -16,38 +16,23 @@ MUST read and follow these first — this rule builds on them:
 - [ssot-principle][../ssot-principle/RULE.md]
 - [private-content][../private-content/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
+- [document-convention][../document-convention/RULE.md]
 
 ## Rule
 
-The conventions below are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether public content yields to team style — see [How to apply][how-to-apply] for what markdown observes.
+The conventions below are the **Markdown-specific** layer over the format-agnostic conventions in [document-convention][../document-convention/RULE.md] — file shape, document format, and authoring discipline live there; only Markdown's own mechanics are restated here. They are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether public content yields to team style — see [How to apply][how-to-apply].
 
 ### Frontmatter
 
 - Frontmatter is OPTIONAL; when present, it MUST be valid YAML. A plain scalar can't contain `": "` (a colon followed by a space) — it breaks parsing and rendering (e.g. GitHub). Reword to remove the colon, or double-quote the whole value when the colon needs to stay.
 
-### Sections
-
-- Sections run in this order: the H1 and its intro, an optional TOC, the body sections, then `## References` last when present.
-
-### H1
-
-- Exactly one H1, with at least a one-line intro under it.
-- The H1 echoes the file name in Sentence case, except a generic-marker name like README.md.
-- The intro overviews the whole document; an overview overlaps the content by nature, so distil the essence and reword rather than copy verbatim (per [ssot-principle][../ssot-principle/RULE.md]).
-
-### TOC
-
-- OPTIONAL — add a TOC only when the user asks; skip it by default, and NEVER for an agent-facing doc (e.g. project memory).
-- When present, it sits directly under the H1 intro, in the VSCode **Markdown All in One** auto-generated format.
-
 ### Headings
 
-- A blank line follows each heading.
-- Don't skip levels — an H3 sits under an H2.
+- The top-level title is the H1 (`#`); each deeper heading level adds one `#` (`##`, `###`, …).
 
-### Paragraphs
+### Table of contents
 
-- A blank line between paragraphs.
+- When a table of contents is included, keep it in sync with the document's headings, in the VSCode **Markdown All in One** format.
 
 ### Lists
 
@@ -64,20 +49,11 @@ The conventions below are this domain's **defaults**; [governance-scope][../../b
 - For a reference-style link to a file or doc, the `id` MUST be the **relative path** to the target — the same string as the link's destination (e.g. `../ssot-principle/RULE.md`, or a sibling's `config.yaml`). It's derived from the path — there's no name to invent, and none to keep consistent across files — so a rename is a clean grep of the path, and it needs no repo-root assumption. For an in-document section, the `id` is the heading's anchor slug.
 - On a rename or move, update every link to the target so none goes stale — [ssot-principle][../ssot-principle/RULE.md]'s consistency facet, applied to links.
 
-### Images
-
-- Surround an image with text describing it.
-- An image file takes a kebab-case name in a sibling folder (e.g. `images/`).
-- Render a structural diagram (flow, architecture, ER) as an inline Mermaid fenced block.
-
 ### Code
 
 - Mention a filename or path in inline code (`README.md`, `docs/`), not bare prose — to reference it, use a [link][links] instead; a frontmatter `description` is the exception, where a filename stays plain (house style).
 - Fence multi-line code or output; tag the fence with its language when it has one (Python, YAML, …), and leave it bare for language-less content (plain text, command output, a file tree).
-
-### Emphasis
-
-- Bold for keywords; italic only for foreign terms or proper nouns.
+- Render a structural diagram (flow, architecture, ER) as an inline Mermaid fenced block.
 
 ### References
 
@@ -91,10 +67,10 @@ When writing or editing any markdown document. Also a pre-publish checkpoint: re
 
 ## How to apply
 
-- **Before writing**, place the document by layer ([private-content][../private-content/RULE.md]), then run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its two domain inputs:
-  - **The team style to observe** lives in **nearby files**: read 2-3 (sibling files, the same-folder README, a docs/ index) and defer to what they do, judged per convention independently — inline links, spread-out tables, no prettier-ignore are all respected.
-  - **The defaults** to fall back to are the conventions above.
-- **Before publishing**, the agent re-checks each convention against whichever source won its cascade; fix anything flagged.
+Follow [document-convention][../document-convention/RULE.md]'s How to apply; for Markdown its two domain inputs are:
+
+- **The team style to observe** — the conventions nearby Markdown files follow (sibling `.md` files, a same-folder `README.md`, a `docs/` index).
+- **The defaults** to fall back to — the conventions above.
 
 ## Out of scope
 
@@ -107,12 +83,14 @@ Non-markdown artifacts (yaml, config, code) — covered by the base principle di
 - [ssot-principle][../ssot-principle/RULE.md]
 - [private-content][../private-content/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
+- [document-convention][../document-convention/RULE.md]
 
 [../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
 [../../bedrocks/governance-scope/BEDROCK.md]: ../../bedrocks/governance-scope/BEDROCK.md
 [../ssot-principle/RULE.md]: ../ssot-principle/RULE.md
 [../private-content/RULE.md]: ../private-content/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
+[../document-convention/RULE.md]: ../document-convention/RULE.md
 [links]: #links
 [how-to-apply]: #how-to-apply
 [builds-on]: #builds-on

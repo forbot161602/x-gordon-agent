@@ -31,6 +31,7 @@ MUST read these first — this command relies on them:
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [prose-convention][../rules/prose-convention/RULE.md]
+- [document-convention][../rules/document-convention/RULE.md]
 - [markdown-convention][../rules/markdown-convention/RULE.md]
 - [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md]
 
@@ -59,10 +60,11 @@ For each target file, run these checks. The **Run order** column gives the execu
 <!-- prettier-ignore -->
 | Source rule | Detection method | Applies to | Run order |
 |---|---|---|---|
-| [ssot-principle][../rules/ssot-principle/RULE.md] | agent inspection for restated facts, duplicated passages, and conflicting extensions within the file | All files | 5 |
+| [ssot-principle][../rules/ssot-principle/RULE.md] | agent inspection for restated facts, duplicated passages, and conflicting extensions within the file | All files | 6 |
 | [private-content][../rules/private-content/RULE.md] | grep against the project's forbidden list (private paths, names, internal vocab) | Public-layer files | 2 |
 | [prose-convention][../rules/prose-convention/RULE.md] | grep against the project's forbidden list; agent inspection per the rule's principles | All files | 3 |
-| [markdown-convention][../rules/markdown-convention/RULE.md] | Per the rule's How to apply — its private/public style cascade. | All files | 4 |
+| [document-convention][../rules/document-convention/RULE.md] | Agent inspection of file shape, document format, and authoring discipline, per the rule's How to apply cascade | All files | 4 |
+| [markdown-convention][../rules/markdown-convention/RULE.md] | Per the rule's How to apply — its private/public style cascade. | All files | 5 |
 | [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md] | Run the rule's `convert.py --check` from the rule folder | Chinese-led lines | 1 |
 
 For each finding, apply the fix policy (step 5) before moving to the next file. Don't list every instance of the same violation in the final report — collapse to one example plus a count.
@@ -124,7 +126,7 @@ A few patterns the audit commonly catches:
 
 - File-level destruction — out of scope; the audit edits content only.
 - Build / type-check / test runs — separate tooling.
-- Style enforcement against team norms — [markdown-convention][../rules/markdown-convention/RULE.md] already defers to observed team style; this command honors that and won't auto-fix into a team-conflicting style.
+- Style enforcement against team norms — [document-convention][../rules/document-convention/RULE.md] already defers to observed team style; this command honors that and won't auto-fix into a team-conflicting style.
 
 ## References
 
@@ -134,6 +136,7 @@ A few patterns the audit commonly catches:
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [prose-convention][../rules/prose-convention/RULE.md]
+- [document-convention][../rules/document-convention/RULE.md]
 - [markdown-convention][../rules/markdown-convention/RULE.md]
 - [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md]
 - [sync-rule-memory][sync-rule-memory.md]
@@ -144,6 +147,7 @@ A few patterns the audit commonly catches:
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [../rules/prose-convention/RULE.md]: ../rules/prose-convention/RULE.md
+[../rules/document-convention/RULE.md]: ../rules/document-convention/RULE.md
 [../rules/markdown-convention/RULE.md]: ../rules/markdown-convention/RULE.md
 [../rules/zh-tw-punctuation/RULE.md]: ../rules/zh-tw-punctuation/RULE.md
 [sync-rule-memory.md]: sync-rule-memory.md

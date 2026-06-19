@@ -39,7 +39,8 @@ Rules for written documents — prose and markup.
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
 |---|---|---|
-| [`markdown-convention/`][markdown-convention/] | required | Markdown authoring mechanics — document structure and element formatting (headings, lists, tables, links, code, images) |
+| [`document-convention/`][document-convention/] | required | Format-agnostic document authoring — file shape, document format, and authoring discipline; the base that format rules build on |
+| [`markdown-convention/`][markdown-convention/] | required | Markdown-specific mechanics layered on document-convention — frontmatter, lists, tables, reference-style links, fenced code |
 | [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width on Chinese-led lines (markdown documents, commits, PRs) |
 
 ### Git
@@ -57,6 +58,7 @@ Rules for git artifacts — commits and PRs.
 - [`ssot-principle/`][ssot-principle/]
 - [`private-content/`][private-content/]
 - [`prose-convention/`][prose-convention/]
+- [`document-convention/`][document-convention/]
 - [`markdown-convention/`][markdown-convention/]
 - [`zh-tw-punctuation/`][zh-tw-punctuation/]
 - [`commit-convention/`][commit-convention/]
@@ -65,6 +67,7 @@ Rules for git artifacts — commits and PRs.
 [ssot-principle/]: ssot-principle/
 [private-content/]: private-content/
 [prose-convention/]: prose-convention/
+[document-convention/]: document-convention/
 [markdown-convention/]: markdown-convention/
 [zh-tw-punctuation/]: zh-tw-punctuation/
 [commit-convention/]: commit-convention/
