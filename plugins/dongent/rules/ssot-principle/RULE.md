@@ -28,15 +28,15 @@ Each fact lives in exactly one canonical home; everywhere else MUST link to it i
 ### 2. Consistency
 
 - _fact_ — two separate checks: (1) every occurrence of a fact agrees, no contradictions; (2) every reference stays live — a rename or move updates all links so none goes stale.
-- _style_ — a new file follows its same-type siblings. Docs: heading structure, tone, frontmatter shape. Code: naming conventions, error-handling patterns, test layout.
+- _style_ — a new file follows its same-type siblings in naming, structure, order, and conventions (a doc's section order, tone, terminology; code's error-handling, module layout, tests).
 
 **Why:** contradictory facts mislead the reader; a stale link wastes their time; mismatched style inflates reading cost.
 
 ### 3. No redundancy
 
-Keep content concise and precise. Cut:
+Keep content concise and precise. Where a fact already has a canonical home and appears again, decide by context: link to the home, or cut a redundant copy or link. Cut outright:
 
-- **"just in case" additions** — a fact copied defensively rather than linked, or structure built for a scope you don't have yet.
+- **speculative structure** — built for a scope you don't have yet (a "just in case").
 - **zero-information filler** — a line that only restates the title or states the obvious.
 
 **Why:** padding and vagueness make the reader work harder; every redundant copy is a future inconsistency, and unused complexity is dead weight to maintain.
@@ -48,8 +48,9 @@ Before writing or substantially editing any artifact. Also a pre-publish checkpo
 ## How to apply
 
 - **Before writing a fact**, ask whether it already lives somewhere. If so, link to it rather than restating it.
-- **When a fact could live in several places**, make its home the most foundational one — lowest layer, most-depended-on, longest-lived (based on dependency role and expected stability, not seniority; being written first doesn't make a copy authoritative) — and point the rest at it.
-- **Before changing a fact**, grep for the same fact across files; update every occurrence, or replace the duplicates with a one-line pointer to the canonical home.
+- **When a fact could live in several places**, make its home the most foundational one — lowest layer, most-depended-on, longest-lived (based on dependency role and expected stability, not seniority; being written first doesn't make a copy authoritative).
+- **When a fact already sits in several places**, resolve the duplicates against the canonical home — link where a reference is needed, cut where it isn't.
+- **Before changing a fact**, grep for it across files and update every occurrence so no copy drifts.
 - **On rename or move**, update every link that pointed at the old name or path.
 - **When asked for "a complete summary"**, assemble it by linking, not by copying.
 

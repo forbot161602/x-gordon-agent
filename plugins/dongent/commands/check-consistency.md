@@ -72,7 +72,7 @@ For each finding, apply the fix policy (step 5) before moving to the next file. 
 ### 4. Cross-file checks
 
 - **Conflicting extensions**: a canonical fact is extended or rephrased elsewhere (different contexts call for different framings), but the extensions contradict each other or the canonical. The agent compares related references across the file set and aligns the divergent text with the canonical.
-- **Same fact in multiple files**: identify the canonical home and link the rest to it.
+- **Same fact in multiple files**: identify the canonical home; link to it where the reference is load-bearing, and cut a redundant copy or link where it isn't.
 - **Stale references**: a name or concept has been renamed in this branch's diff but old occurrences remain elsewhere. Grep the file set for the old name and replace with the new.
 - **Private leak across files**: any public file references a private file by path or content. Remove the reference.
 
