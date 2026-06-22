@@ -15,6 +15,7 @@ MUST read and follow these first — this skill builds on them; they ship in the
 - [ssot-principle][dongent/rules/ssot-principle/RULE.md]
 - [private-content][dongent/rules/private-content/RULE.md]
 - [prose-convention][dongent/rules/prose-convention/RULE.md]
+- [document-convention][dongent/rules/document-convention/RULE.md]
 - [markdown-convention][dongent/rules/markdown-convention/RULE.md]
 
 ## Structure
@@ -37,6 +38,7 @@ When a rule has upstream dependencies — base rules or bedrocks it builds on �
 - Lead with `MUST read and follow these first — this rule builds on them:`, then reference-style links — **bedrocks first, then rules by importance**.
 - [wording-rule][dongent/bedrocks/wording-rule/BEDROCK.md] always leads — every rule is read under its **unmarked-defaults-to-MUST** convention.
 - **Pure links, no descriptions** — each dependency's summary lives in its own frontmatter; restating it here drifts.
+- **No special field** — dependencies live in this section, not an invented frontmatter field (e.g. an `extends:`).
 
 ### Prerequisites
 
@@ -44,18 +46,11 @@ A `## Prerequisites` section lists what must be resolved before the rule can be 
 
 ## File shape
 
+Layered on [document-convention][dongent/rules/document-convention/RULE.md]'s File shape; a rule folder adds these role tiers:
+
 - `RULE.md` (ALL-CAPS) is the canonical rule — the file an agent reads first. Keep it concise and on-topic — only what the rule itself needs.
 - Long supplementary material (full algorithms, rationale, large examples) goes in a separate Initial-Cap doc beside it (e.g. `Specification.md` or `Design-Rationale.md`).
 - Helpers such as scripts, templates, fixtures are lowercase. Pair any logic-carrying file with a test (e.g. `helper.py` and `helper_test.py`) so its behaviour stays verifiable.
-- Group files of the same kind or purpose into a subfolder (e.g. `references/`, `scripts/`) once they grow numerous and interdependent.
-
-## Cross-rule references
-
-How a rule points at another:
-
-- **No special syntax for dependencies.** A rule's upstream dependencies live in its `## Builds on` section, not in an invented frontmatter field (e.g. an `extends:`).
-- **Link direction.** Link **upstream** (the bases a rule builds on) and a **peer** rule when there's a genuine see-also worth keeping live — reference-style links, per [markdown-convention][dongent/rules/markdown-convention/RULE.md]. Don't link **downstream** (a rule that builds on this one); name it in plain prose instead. E.g. `pr-convention` links its base `commit-convention`, not the reverse.
-- **Avoid gratuitous cross-references** — link only where the pointer genuinely helps, which keeps documents loosely coupled. The same direction applies wherever a rule links, Out of scope and casual mentions included.
 
 ## Out of scope
 
@@ -69,6 +64,7 @@ How a rule points at another:
 - [ssot-principle][dongent/rules/ssot-principle/RULE.md]
 - [private-content][dongent/rules/private-content/RULE.md]
 - [prose-convention][dongent/rules/prose-convention/RULE.md]
+- [document-convention][dongent/rules/document-convention/RULE.md]
 - [markdown-convention][dongent/rules/markdown-convention/RULE.md]
 - [sync-rule-memory][dongent/commands/sync-rule-memory.md]
 
@@ -76,5 +72,6 @@ How a rule points at another:
 [dongent/rules/ssot-principle/RULE.md]: dongent/rules/ssot-principle/RULE.md
 [dongent/rules/private-content/RULE.md]: dongent/rules/private-content/RULE.md
 [dongent/rules/prose-convention/RULE.md]: dongent/rules/prose-convention/RULE.md
+[dongent/rules/document-convention/RULE.md]: dongent/rules/document-convention/RULE.md
 [dongent/rules/markdown-convention/RULE.md]: dongent/rules/markdown-convention/RULE.md
 [dongent/commands/sync-rule-memory.md]: dongent/commands/sync-rule-memory.md

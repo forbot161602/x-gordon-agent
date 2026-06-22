@@ -69,7 +69,7 @@ The document system SHOULD lay out its files and folders as follows:
 Apply [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]'s requirement-level keywords at write-time, so each statement reads at the strength intended.
 
 - Unmarked already reads as MUST, so leave most prose unmarked; add an explicit level only where emphasis earns its place — e.g. an especially important requirement, or one agents repeatedly get wrong.
-- Pick the level by its real strength: MUST is inviolable, SHOULD a strong default that genuinely bends, MAY a free choice — and the prohibitions (MUST NOT, SHOULD NOT) mirror them. Before SHOULD, check there is real give; with none, it is MUST.
+- Pick the level by the requirement's real strength — write MUST when it is inviolable, SHOULD when it is a strong default that genuinely bends, MAY when it is a free choice; the prohibitions (MUST NOT, SHOULD NOT) mirror these. Before writing SHOULD, confirm there is real give; with none, it is MUST.
 - When stating a level, use only `wording-rule`'s keyword, in uppercase — not a lowercase form, a vaguer synonym, or an out-of-set keyword (e.g. SHALL, MANDATORY), each of which blunts the signal; within a sentence, hoist one keyword to govern a list rather than repeating it.
 - Don't scatter levels where none is needed and blur the focus — reword the rest to plain phrasing (has to, needs to, is meant to); but don't go the other way either, flattening a genuine requirement into a bare statement (is, are) or a near-synonym (needed) to dodge its keyword. A real requirement takes the keyword.
 
