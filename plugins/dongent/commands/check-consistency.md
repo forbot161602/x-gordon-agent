@@ -1,6 +1,6 @@
 ---
 name: check-consistency
-description: Pre-publish audit. Verify the target file set obeys ssot-principle, private-content, prose-convention, markdown-convention, and zh-tw-punctuation before publishing. Designed to run mostly without author intervention.
+description: Pre-publish audit. Verify the target file set obeys ssot-principle, private-content, prose-convention, document-convention, markdown-convention, and zh-tw-punctuation before publishing. Designed to run mostly without author intervention.
 ---
 
 Run before declaring work ready to leave the private workspace.
