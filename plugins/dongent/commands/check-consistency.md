@@ -78,7 +78,7 @@ For each finding, apply the fix policy (step 5) before moving to the next file. 
 
 #### Private layer and plugin-managed rules (`--memory`)
 
-Among the memory files, the plugin-managed rules files are owned by the [sync-rule-memory][sync-rule-memory.md] command as an `ssot-principle` extension this audit doesn't re-decide: each source's section is the fixed canonical home for that rule's facts — point other memory files into the section; NEVER point it outward, empty it to name another home, or edit the region between its markers.
+Among the memory files, the plugin-managed rules files are owned by the [sync-rule-memory][sync-rule-memory.md] command as an `ssot-principle` extension this audit doesn't re-decide: each section is the fixed canonical home for the facts it holds — point other memory files into the section; NEVER point it outward, empty it to name another home, or edit the region between its markers.
 
 Beyond those sections, the private layer is **personal-first** by default — personal content is the canonical home, and per [private-content][../rules/private-content/RULE.md] a dedup pointer runs only from memory to it, NEVER back. `--fold` inverts this for **tightly-bound rule content** (the scope the `sync-rule-memory` command dedups — bound to one rule): the plugin-managed rules file becomes canonical — a personal copy of a rule the plugin already provides is the redundancy `--fold` removes. Content spanning several rules or covered by none stays personal-first unless the invocation explicitly extends `--fold` to it.
 
