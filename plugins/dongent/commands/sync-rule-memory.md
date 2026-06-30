@@ -100,7 +100,7 @@ metadata:
   dongent:
     sources:
       - name: ssot-principle
-        path: dongent/rules/ssot-principle/RULE.md
+        path: plugin:dongent/rules/ssot-principle/RULE.md
         hash: <hex source hash; see step 3>
       # … one entry per source
 ---

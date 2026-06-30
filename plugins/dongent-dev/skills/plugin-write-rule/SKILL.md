@@ -11,12 +11,12 @@ Conventions for authoring a rule definition in a dongent-style rule library — 
 
 MUST read and follow these first — this skill builds on them; they ship in the `dongent` plugin (a declared dependency of this one):
 
-- [wording-rule][dongent/bedrocks/wording-rule/BEDROCK.md]
-- [ssot-principle][dongent/rules/ssot-principle/RULE.md]
-- [private-content][dongent/rules/private-content/RULE.md]
-- [prose-convention][dongent/rules/prose-convention/RULE.md]
-- [document-convention][dongent/rules/document-convention/RULE.md]
-- [markdown-convention][dongent/rules/markdown-convention/RULE.md]
+- [wording-rule][plugin:dongent/bedrocks/wording-rule/BEDROCK.md]
+- [ssot-principle][plugin:dongent/rules/ssot-principle/RULE.md]
+- [private-content][plugin:dongent/rules/private-content/RULE.md]
+- [prose-convention][plugin:dongent/rules/prose-convention/RULE.md]
+- [document-convention][plugin:dongent/rules/document-convention/RULE.md]
+- [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
 
 ## Structure
 
@@ -29,14 +29,14 @@ MUST read and follow these first — this skill builds on them; they ship in the
 
 ### Sections
 
-Use the sections the sibling `RULE.md` files use rather than inventing new ones — this list is both the whitelist and the order: `## Builds on`, `## Rule`, `## When to apply`, `## How to apply`, `## Out of scope`, `## References`. `## Prerequisites` (when the rule needs it) sits after `## How to apply`; add domain-specific sections only where genuinely needed. This is the style-consistency facet applied to rule files (per [ssot-principle][dongent/rules/ssot-principle/RULE.md]).
+Use the sections the sibling `RULE.md` files use rather than inventing new ones — this list is both the whitelist and the order: `## Builds on`, `## Rule`, `## When to apply`, `## How to apply`, `## Out of scope`, `## References`. `## Prerequisites` (when the rule needs it) sits after `## How to apply`; add domain-specific sections only where genuinely needed. This is the style-consistency facet applied to rule files (per [ssot-principle][plugin:dongent/rules/ssot-principle/RULE.md]).
 
 ### Builds on
 
 When a rule has upstream dependencies — base rules or bedrocks it builds on — declare them in a `## Builds on` section (also the source for hash-dependency tracking):
 
 - Lead with `MUST read and follow these first — this rule builds on them:`, then reference-style links — **bedrocks first, then rules by importance**.
-- [wording-rule][dongent/bedrocks/wording-rule/BEDROCK.md] always leads — every rule is read under its **unmarked-defaults-to-MUST** convention.
+- [wording-rule][plugin:dongent/bedrocks/wording-rule/BEDROCK.md] always leads — every rule is read under its **unmarked-defaults-to-MUST** convention.
 - **Pure links, no descriptions** — each dependency's summary lives in its own frontmatter; restating it here drifts.
 - **No special field** — dependencies live in this section, not an invented frontmatter field (e.g. an `extends:`).
 
@@ -46,7 +46,7 @@ A `## Prerequisites` section lists what must be resolved before the rule can be 
 
 ## File shape
 
-Layered on [document-convention][dongent/rules/document-convention/RULE.md]'s File shape; a rule folder adds these role tiers:
+Layered on [document-convention][plugin:dongent/rules/document-convention/RULE.md]'s File shape; a rule folder adds these role tiers:
 
 - `RULE.md` (ALL-CAPS) is the canonical rule — the file an agent reads first. Keep it concise and on-topic — only what the rule itself needs.
 - Long supplementary material (full algorithms, rationale, large examples) goes in a separate Initial-Cap doc beside it (e.g. `Specification.md` or `Design-Rationale.md`).
@@ -55,23 +55,23 @@ Layered on [document-convention][dongent/rules/document-convention/RULE.md]'s Fi
 ## Out of scope
 
 - Product or application code, and a plugin's non-rule parts (agents, skills, commands) — this skill is about `RULE.md` only.
-- The base rules themselves — not restated here; e.g. keep the body self-contained — generic example paths (`docs/`, `tests/`), per [prose-convention][dongent/rules/prose-convention/RULE.md]; private detail described generically, per [private-content][dongent/rules/private-content/RULE.md].
-- Compiling a rule into project memory — that's the [sync-rule-memory][dongent/commands/sync-rule-memory.md] command, run later; this skill covers write-time authoring only.
+- The base rules themselves — not restated here; e.g. keep the body self-contained — generic example paths (`docs/`, `tests/`), per [prose-convention][plugin:dongent/rules/prose-convention/RULE.md]; private detail described generically, per [private-content][plugin:dongent/rules/private-content/RULE.md].
+- Compiling a rule into project memory — that's the [sync-rule-memory][plugin:dongent/commands/sync-rule-memory.md] command, run later; this skill covers write-time authoring only.
 
 ## References
 
-- [wording-rule][dongent/bedrocks/wording-rule/BEDROCK.md]
-- [ssot-principle][dongent/rules/ssot-principle/RULE.md]
-- [private-content][dongent/rules/private-content/RULE.md]
-- [prose-convention][dongent/rules/prose-convention/RULE.md]
-- [document-convention][dongent/rules/document-convention/RULE.md]
-- [markdown-convention][dongent/rules/markdown-convention/RULE.md]
-- [sync-rule-memory][dongent/commands/sync-rule-memory.md]
+- [wording-rule][plugin:dongent/bedrocks/wording-rule/BEDROCK.md]
+- [ssot-principle][plugin:dongent/rules/ssot-principle/RULE.md]
+- [private-content][plugin:dongent/rules/private-content/RULE.md]
+- [prose-convention][plugin:dongent/rules/prose-convention/RULE.md]
+- [document-convention][plugin:dongent/rules/document-convention/RULE.md]
+- [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
+- [sync-rule-memory][plugin:dongent/commands/sync-rule-memory.md]
 
-[dongent/bedrocks/wording-rule/BEDROCK.md]: dongent/bedrocks/wording-rule/BEDROCK.md
-[dongent/rules/ssot-principle/RULE.md]: dongent/rules/ssot-principle/RULE.md
-[dongent/rules/private-content/RULE.md]: dongent/rules/private-content/RULE.md
-[dongent/rules/prose-convention/RULE.md]: dongent/rules/prose-convention/RULE.md
-[dongent/rules/document-convention/RULE.md]: dongent/rules/document-convention/RULE.md
-[dongent/rules/markdown-convention/RULE.md]: dongent/rules/markdown-convention/RULE.md
-[dongent/commands/sync-rule-memory.md]: dongent/commands/sync-rule-memory.md
+[plugin:dongent/bedrocks/wording-rule/BEDROCK.md]: plugin:dongent/bedrocks/wording-rule/BEDROCK.md
+[plugin:dongent/rules/ssot-principle/RULE.md]: plugin:dongent/rules/ssot-principle/RULE.md
+[plugin:dongent/rules/private-content/RULE.md]: plugin:dongent/rules/private-content/RULE.md
+[plugin:dongent/rules/prose-convention/RULE.md]: plugin:dongent/rules/prose-convention/RULE.md
+[plugin:dongent/rules/document-convention/RULE.md]: plugin:dongent/rules/document-convention/RULE.md
+[plugin:dongent/rules/markdown-convention/RULE.md]: plugin:dongent/rules/markdown-convention/RULE.md
+[plugin:dongent/commands/sync-rule-memory.md]: plugin:dongent/commands/sync-rule-memory.md
