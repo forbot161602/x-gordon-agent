@@ -5,7 +5,7 @@ description: Pre-publish audit. Verify the target file set obeys ssot-principle,
 
 Run before declaring work ready to leave the private workspace.
 
-This command runs **mostly without author intervention**. By the time it fires, the facts have already been confirmed (typically post-design or post-implementation) and the session context holds the ground truth. The audit primarily reconciles the **written content** against that truth — docs, specs, plans, memory — since code logic is validated by tests and CI while prose lags behind and accumulates drift (often from grep-based edit passes that miss occurrences). The agent therefore **fixes findings using its own judgement** rather than pausing to ask. Escalation to the author is the rare exception.
+This command runs **mostly without author intervention**. By the time it fires, the facts have already been confirmed (typically post-design or post-implementation) and the session context holds the ground truth. The audit primarily reconciles the **written content** against that truth — docs, specs, plans, memory — since prose lags behind and accumulates drift (often from grep-based edit passes that miss occurrences). It still reads this change's code logic to see which side drifted — a green CI proves the code runs, not that it matches the docs. The agent therefore **fixes findings using its own judgement** rather than pausing to ask. Escalation to the author is the rare exception.
 
 **Publish** here means any moment the content crosses the private→public boundary. Examples: `git commit` / `git stage` / `git push`, `gh pr create` / `gh pr edit`, posting to Confluence / external wiki / a technical blog, sending email, sharing presentation slides. Most invocations are pre-commit, but the audit applies to the broader publish moment.
 
@@ -39,19 +39,21 @@ MUST read these first — this command relies on them:
 
 > **Prerequisite for every step below**: read each rule cited in steps 3 and 4 (`RULE.md` files) **in full** before applying its check. This command lists detection methods; the rule body carries the principles, nuances, examples, and edge cases that this command does not restate. **Skipping this step is the most common reason audits miss real violations.**
 
-### 1. Resolve the target file set
+The **target set** is every file this audit covers — a primary source plus the private layer, audited as one set. The set stays open: a relevant file that surfaces as the audit runs joins it and is audited too.
 
-- **Default**: the target set is every worktree path `git status --porcelain` reports, except deletions (status `D`).
-- **`@<file>` mentions**: the target set is exactly the files `@`-mentioned in the arguments — each arrives as a literal `@<repo-relative-path>` token the agent client supplies. Unlike `--paths`, these are literal paths, not globs.
-- **`--all`**: the target set is the PR scope — every file changed on HEAD since it diverged from its base (the local standing branch it forked from), **plus uncommitted changes (staged, unstaged, untracked)**. The agent identifies the base from session context or the local branch graph. With no base found, or no commits ahead of it, there is no PR scope — fall back to the default target set and note it.
-- **`--paths`**: the target set is the worktree files matching the globs (repo-relative), deduplicated. The agent corrects malformed globs (reporting the actual interpretation used) but doesn't broaden a syntactically valid glob just because it returned zero matches.
-- **`--memory`**: the target set is the project's agent memory — its index and the files the index points at, including the plugin-managed rules files compiled by [sync-rule-memory][sync-rule-memory.md].
+### 1. Resolve the primary source
 
-If the resolved set is empty, report "nothing to audit" and stop.
+- **Default**: every worktree path `git status --porcelain` reports, except deletions (status `D`).
+- **`@<file>` mentions**: exactly the files `@`-mentioned in the arguments — each arrives as a literal `@<repo-relative-path>` token the agent client supplies. Unlike `--paths`, these are literal paths, not globs.
+- **`--all`**: the PR scope — every file changed on HEAD since it diverged from its base (the local standing branch it forked from), **plus uncommitted changes (staged, unstaged, untracked)**. The agent identifies the base from session context or the local branch graph. With no base found, or no commits ahead of it, there is no PR scope — fall back to the default source and note it.
+- **`--paths`**: the worktree files matching the globs (repo-relative), deduplicated. The agent corrects malformed globs (reporting the actual interpretation used) but doesn't broaden a syntactically valid glob just because it returned zero matches.
+- **`--memory`**: the project's agent memory — its index and the files the index points at, including the plugin-managed rules files compiled by [sync-rule-memory][sync-rule-memory.md].
 
 ### 2. Identify the private layer
 
-Step 1 surfaces **mostly public files** in the worktree modes (default, `--all`, `--paths`, `@`) — `git status` and `git diff` filter out gitignored content by default; file mention and glob expansion can match anywhere in principle but in practice target public folders (`docs/`, `specs/`, etc.). Private content (per [private-content][../rules/private-content/RULE.md]) usually doesn't make it into step 1's output, so — in every mode — the agent always pulls the relevant private content into scope from its session context. This covers both **relevant private planning and progress docs** — e.g. a gitignored personal plan recording why the work was split into these commits, or tracking their progress — and **resident private docs** — a personal doc holding house rules, project-architecture notes, and the like. Both need to stay consistent with what's being published. Here *relevant* means active to the current work — pull in every such doc, even one no diff has touched. In `--memory` mode this same step is how the private worktree docs join the memory folder to form the whole-private target set.
+Step 1 surfaces **mostly public files** in the worktree modes (default, `--all`, `--paths`, `@`) — `git status` and `git diff` filter out gitignored content by default; file mention and glob expansion can match anywhere in principle but in practice target public folders (`docs/`, `specs/`, etc.). Private content (per [private-content][../rules/private-content/RULE.md]) usually doesn't make it into step 1's output, so — in every mode — the agent always pulls the relevant private content into the target set from its session context. This covers both **private planning and progress docs** — e.g. a gitignored personal plan recording why the work was split into these commits, or tracking their progress — and **resident private docs** — a personal doc holding house rules, project-architecture notes, and the like. Both need to stay consistent with what's being published. Here *relevant* means active to the current work — for either kind: pull in every such doc even if no diff touched it, and look through the folders in play for related siblings. In `--memory` mode this same step is how the private worktree docs join the memory folder to form the whole-private target set.
+
+If the target set is empty — neither source contributes — report "nothing to audit" and stop.
 
 ### 3. Per-file checks
 
@@ -90,8 +92,8 @@ Beyond those sections, the private layer is **personal-first** by default — pe
 
 **When facts conflict or are unclear, investigate.** Most ambiguities resolve under investigation. Gather evidence from sources the target file set might not contain:
 
-- **Source code** — search and read the implementation the docs describe; code is usually closer to ground truth than its surrounding prose.
-- **Tests** — test names / assertions encode contracts; a docs claim contradicting a green test is usually the docs being stale.
+- **Source code** — search and read the implementation the docs describe; its actual behavior is direct evidence for resolving the conflict.
+- **Tests** — test names / assertions encode the contract in force; a relevant one usually settles the question.
 - **Related docs** — README, architecture docs, sibling specs, parent-folder overview docs; canonical facts might live one folder up.
 - **Git history** — `git log -p <file>` for context; `git blame` for when a line was introduced and why; `git log --diff-filter=R --summary` for prior renames.
 - **External sources** — when the repo doesn't carry enough context: web docs (framework / API references), GitHub PR / issue threads, cloud-resource inspection (AWS / GCP / Azure), internal wikis (Confluence / Notion), ticket trackers (Linear / Jira), production telemetry (logs / metrics). The agent picks the right channel based on what the conflict points at.
@@ -105,12 +107,12 @@ Beyond those sections, the private layer is **personal-first** by default — pe
 
 The report has two groups — **Coverage**, then the audit's **Findings** — each a top-level heading. The sections within a group are one heading level below, so both groups share one shape.
 
-**Coverage** — a complete ledger: every target file appears under one section, so under-coverage shows outright rather than by absence.
+🗂️ **Coverage** — a complete ledger: every target file appears under one section, so under-coverage shows outright rather than by absence.
 
 - 📖 **Read in full** — the files read top-to-EOF this run.
-- 🧭 **Covered another way** — every remaining target file, each with a one-line note on how it was covered short of a full read.
+- 🧭 **Covered another way** — large code files or binaries, where a full read is disproportionate or doesn't apply; each with a one-line note on how it was covered instead of a full read.
 
-**Findings** — the four buckets below; in Auto-fixed and Needs decision, group entries by the rule they came from (the audit runs per rule), then by file — one line per finding, with its line number where it has one. Auto-fixed entries are typically the bulk, already in the worktree as unstaged changes for `git diff` review; where "Needs decision" or "Delete candidates" is non-empty, the author MAY resolve them before publishing.
+🔍 **Findings** — the four buckets below; in Auto-fixed and Needs decision, group entries by the rule they came from (the audit runs per rule), then by file — one line per finding, with its line number where it has one. Auto-fixed entries are typically the bulk, already in the worktree as unstaged changes for `git diff` review; where "Needs decision" or "Delete candidates" is non-empty, the author MAY resolve them before publishing.
 
 - 🔄 **Auto-fixed** — the changes applied (file path, line where applicable, one-line description per fix).
 - ❌ **Needs decision** — escalated items (file path, line, the ambiguity, options the author can pick). **Usually empty**; non-empty signals a truly unresolvable case (see step 5).
