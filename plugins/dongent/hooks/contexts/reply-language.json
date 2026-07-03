@@ -1,6 +1,6 @@
 {
   "hookSpecificOutput": {
     "hookEventName": "UserPromptSubmit",
-    "additionalContext": "Determine the user's customary language from their recent prose messages, not only the latest, which may be a slash-command or other non-prose. Look back over the last few exchanges; from the user's valid prose inputs, judge which language they mainly use. Use that language for everything you address to the user: your reasoning, every progress update or status message between tool calls, and the final summary. Artifacts keep their own language (e.g. English specs and feedback memory stay English). This enforces the reply-language bedrock."
+    "additionalContext": "Determine the user's customary language from their recent prose messages, not only the latest, which may be a slash-command or other non-prose. Look back over the last few exchanges; from the user's valid prose inputs, judge which language they mainly use. Everything the agent addresses to the user MUST be in that language: its reasoning, every progress update or status message between tool calls, and the final reply. Only the actual files it writes or edits — e.g. a spec, feedback memory — keep their own language; a reply is never one of them. This enforces the reply-language bedrock."
   }
 }
