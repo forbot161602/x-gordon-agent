@@ -1,5 +1,5 @@
 ---
-name: plugin-write-rule
+name: plugin-rule-write
 description: Use when authoring or editing a rule definition — a RULE.md, its frontmatter or body, or a sibling supplementary doc. A RULE.md is a shared rule an agent references when running a skill or command, mostly for dongent-style rule libraries (a plugins/*/rules layout). Applies the conventions for writing rules themselves. Fires on prompts such as "write a RULE.md", "add a rule to the library", or "edit a shared rule". Do NOT use for general Markdown or docs that aren't a rule definition.
 ---
 
@@ -56,7 +56,7 @@ Layered on [document-convention][plugin:dongent/rules/document-convention/RULE.m
 
 - Product or application code, and a plugin's non-rule parts (agents, skills, commands) — this skill is about `RULE.md` only.
 - The base rules themselves — not restated here; e.g. keep the body self-contained — generic example paths (`docs/`, `tests/`), per [prose-convention][plugin:dongent/rules/prose-convention/RULE.md]; private detail described generically, per [private-content][plugin:dongent/rules/private-content/RULE.md].
-- Compiling a rule into project memory — that's the [sync-rule-memory][plugin:dongent/commands/sync-rule-memory.md] command, run later; this skill covers write-time authoring only.
+- Compiling a rule into project memory — that's the [memory-sync][plugin:dongent/commands/memory-sync.md] command, run later; this skill covers write-time authoring only.
 
 ## References
 
@@ -66,7 +66,7 @@ Layered on [document-convention][plugin:dongent/rules/document-convention/RULE.m
 - [prose-convention][plugin:dongent/rules/prose-convention/RULE.md]
 - [document-convention][plugin:dongent/rules/document-convention/RULE.md]
 - [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
-- [sync-rule-memory][plugin:dongent/commands/sync-rule-memory.md]
+- [memory-sync][plugin:dongent/commands/memory-sync.md]
 
 [plugin:dongent/bedrocks/wording-rule/BEDROCK.md]: plugin:dongent/bedrocks/wording-rule/BEDROCK.md
 [plugin:dongent/rules/ssot-principle/RULE.md]: plugin:dongent/rules/ssot-principle/RULE.md
@@ -74,4 +74,4 @@ Layered on [document-convention][plugin:dongent/rules/document-convention/RULE.m
 [plugin:dongent/rules/prose-convention/RULE.md]: plugin:dongent/rules/prose-convention/RULE.md
 [plugin:dongent/rules/document-convention/RULE.md]: plugin:dongent/rules/document-convention/RULE.md
 [plugin:dongent/rules/markdown-convention/RULE.md]: plugin:dongent/rules/markdown-convention/RULE.md
-[plugin:dongent/commands/sync-rule-memory.md]: plugin:dongent/commands/sync-rule-memory.md
+[plugin:dongent/commands/memory-sync.md]: plugin:dongent/commands/memory-sync.md

@@ -21,7 +21,7 @@ claude plugin install dongent@dongent
 claude plugin update dongent
 ```
 
-This refreshes the plugin itself from its source — no manual `git pull` needed. **But distributed state stays at the version produced by the last sync**: per-project state written by plugin components like `sync-rule-memory` (e.g. memory files) doesn't update automatically. Re-run the relevant components in each affected project after a plugin update.
+This refreshes the plugin itself from its source — no manual `git pull` needed. **But distributed state stays at the version produced by the last sync**: per-project state written by plugin components like `memory-sync` (e.g. memory files) doesn't update automatically. Re-run the relevant components in each affected project after a plugin update.
 
 ### Uninstall
 

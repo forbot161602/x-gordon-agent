@@ -16,7 +16,7 @@ MUST read these first — this command relies on them:
 
 ### 1. Read the memory
 
-Read the project's agent memory: the index, the checkpoint state, and the rule-related memories — whatever their prefix, not only the plugin-managed rules files (synced rules owned by [sync-rule-memory][sync-rule-memory.md]).
+Read the project's agent memory: the index, the checkpoint state, and the rule-related memories — whatever their prefix, not only the plugin-managed rules files (synced rules owned by [memory-sync][memory-sync.md]).
 
 ### 2. Reconstruct the context
 
@@ -37,14 +37,14 @@ Produce a readable brief — under each heading below, in this order, a few bull
 
 ## Out of scope
 
-This command is read-only: it doesn't modify memory or re-sync the rule library (that's [sync-rule-memory][sync-rule-memory.md]).
+This command is read-only: it doesn't modify memory or re-sync the rule library (that's [memory-sync][memory-sync.md]).
 
 ## References
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [reply-language][../bedrocks/reply-language/BEDROCK.md]
-- [sync-rule-memory][sync-rule-memory.md]
+- [memory-sync][memory-sync.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
-[sync-rule-memory.md]: sync-rule-memory.md
+[memory-sync.md]: memory-sync.md

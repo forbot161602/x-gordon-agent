@@ -1,5 +1,5 @@
 ---
-name: sync-rule-memory
+name: memory-sync
 description: Sync this plugin's rule library into the current project's agent memory — one foundational memory file holding all rules. Idempotent — first run installs, later runs only update what changed in the central rules.
 ---
 
@@ -23,7 +23,7 @@ MUST read these first — this command relies on them:
 
 ### 1. Locate paths
 
-- **Plugin root**: the directory containing this command file's parent (`.../<plugin-root>/commands/sync-rule-memory.md` → `<plugin-root>`). It might be exposed as an environment variable when the command runs; otherwise derive it from this command file's own location.
+- **Plugin root**: the directory containing this command file's parent (`.../<plugin-root>/commands/memory-sync.md` → `<plugin-root>`). It might be exposed as an environment variable when the command runs; otherwise derive it from this command file's own location.
 - **Project memory folder**: the conventional agent-memory folder for the current project (e.g. Claude Code's `~/.claude/projects/<encoded-cwd>/memory/` → `<project-memory>`). If it can't be determined, ask the user. Create the folder if it doesn't exist.
 - **Memory file**: this plugin's single compiled file, `<project-memory>/<plugin-name>-plugin-managed-rules.md` — `<plugin-name>` is the plugin's name — usually the `<plugin-root>` folder name above. Create it if absent; everything below is written into this one file.
 
@@ -161,7 +161,7 @@ Group by status — under each bucket, list the sources that fall in it (one lin
 
 ## Out of scope
 
-Reconciling the rest of project memory — beyond the rules this command syncs (step 5) — is out of scope; run [check-consistency][check-consistency.md] in `--memory` mode for that, and [compact-checkpoint][compact-checkpoint.md] to land session-surfaced facts in memory.
+Reconciling the rest of project memory — beyond the rules this command syncs (step 5) — is out of scope; run [publish-check][publish-check.md] in `--memory` mode for that, and [compact-checkpoint][compact-checkpoint.md] to land session-surfaced facts in memory.
 
 ## References
 
@@ -170,7 +170,7 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 - [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
-- [check-consistency][check-consistency.md]
+- [publish-check][publish-check.md]
 - [compact-checkpoint][compact-checkpoint.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
@@ -178,5 +178,5 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 [../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
-[check-consistency.md]: check-consistency.md
+[publish-check.md]: publish-check.md
 [compact-checkpoint.md]: compact-checkpoint.md

@@ -1,5 +1,5 @@
 ---
-name: check-consistency
+name: publish-check
 description: Pre-publish audit. Verify the target file set obeys ssot-principle, private-content, prose-convention, document-convention, markdown-convention, and zh-tw-punctuation before publishing. Designed to run mostly without author intervention.
 ---
 
@@ -13,11 +13,11 @@ This command runs **mostly without author intervention**. By the time it fires, 
 
 None required. The forms:
 
-- `/check-consistency` — default. Audit all staged and unstaged files in the worktree (the typical "I'm about to commit" use).
-- `/check-consistency @<file>...` — audit only the file(s) `@`-mentioned in the prompt (from the agent client's `@` file picker).
-- `/check-consistency --all` — audit the full scope before opening a PR or publishing (e.g. catch cross-file conflicts across a PR's docs and code).
-- `/check-consistency --paths <glob...>` — audit only files matching the globs (paths are relative to the repo root). Examples: `--paths "docs/README.md"`, `--paths "**/README.md" "docs/**/*.md"`.
-- `/check-consistency --memory [--fold]` — audit the project's agent memory for internal consistency. Add `--fold` to reconcile tightly-bound rule content against the plugin-managed rules file as canonical.
+- `/publish-check` — default. Audit all staged and unstaged files in the worktree (the typical "I'm about to commit" use).
+- `/publish-check @<file>...` — audit only the file(s) `@`-mentioned in the prompt (from the agent client's `@` file picker).
+- `/publish-check --all` — audit the full scope before opening a PR or publishing (e.g. catch cross-file conflicts across a PR's docs and code).
+- `/publish-check --paths <glob...>` — audit only files matching the globs (paths are relative to the repo root). Examples: `--paths "docs/README.md"`, `--paths "**/README.md" "docs/**/*.md"`.
+- `/publish-check --memory [--fold]` — audit the project's agent memory for internal consistency. Add `--fold` to reconcile tightly-bound rule content against the plugin-managed rules file as canonical.
 
 `@<file>`, `--all`, `--paths`, and `--memory` are mutually exclusive; pass at most one form.
 
@@ -47,7 +47,7 @@ The **target set** is every file this audit covers — a primary source plus the
 - **`@<file>` mentions**: exactly the files `@`-mentioned in the arguments — each arrives as a literal `@<repo-relative-path>` token the agent client supplies. Unlike `--paths`, these are literal paths, not globs.
 - **`--all`**: the PR scope — every file changed on HEAD since it diverged from its base (the local standing branch it forked from), **plus uncommitted changes (staged, unstaged, untracked)**. The agent identifies the base from session context or the local branch graph. With no base found, or no commits ahead of it, there is no PR scope — fall back to the default source and note it.
 - **`--paths`**: the worktree files matching the globs (repo-relative), deduplicated. The agent corrects malformed globs (reporting the actual interpretation used) but doesn't broaden a syntactically valid glob just because it returned zero matches.
-- **`--memory`**: the project's agent memory — its index and the files the index points at, including the plugin-managed rules files compiled by [sync-rule-memory][sync-rule-memory.md].
+- **`--memory`**: the project's agent memory — its index and the files the index points at, including the plugin-managed rules files compiled by [memory-sync][memory-sync.md].
 
 ### 2. Identify the private layer
 
@@ -80,9 +80,9 @@ For each finding, apply the fix policy (step 5) before moving to the next file. 
 
 #### Private layer and plugin-managed rules (`--memory`)
 
-Among the memory files, the plugin-managed rules files are owned by the [sync-rule-memory][sync-rule-memory.md] command as an `ssot-principle` extension this audit doesn't re-decide: each section is the fixed canonical home for the facts it holds — point other memory files into the section; NEVER point it outward, empty it to name another home, or edit the region between its markers.
+Among the memory files, the plugin-managed rules files are owned by the [memory-sync][memory-sync.md] command as an `ssot-principle` extension this audit doesn't re-decide: each section is the fixed canonical home for the facts it holds — point other memory files into the section; NEVER point it outward, empty it to name another home, or edit the region between its markers.
 
-Beyond those sections, the private layer is **personal-first** by default — personal content is the canonical home, and per [private-content][../rules/private-content/RULE.md] a dedup pointer runs only from memory to it, NEVER back. `--fold` inverts this for **tightly-bound rule content** (the scope the `sync-rule-memory` command dedups — bound to one rule): the plugin-managed rules file becomes canonical — a personal copy of a rule the plugin already provides is the redundancy `--fold` removes. Content spanning several rules or covered by none stays personal-first unless the invocation explicitly extends `--fold` to it.
+Beyond those sections, the private layer is **personal-first** by default — personal content is the canonical home, and per [private-content][../rules/private-content/RULE.md] a dedup pointer runs only from memory to it, NEVER back. `--fold` inverts this for **tightly-bound rule content** (the scope the `memory-sync` command dedups — bound to one rule): the plugin-managed rules file becomes canonical — a personal copy of a rule the plugin already provides is the redundancy `--fold` removes. Content spanning several rules or covered by none stays personal-first unless the invocation explicitly extends `--fold` to it.
 
 ### 5. Fix policy
 
@@ -147,7 +147,7 @@ A few patterns the audit commonly catches:
 - [document-convention][../rules/document-convention/RULE.md]
 - [markdown-convention][../rules/markdown-convention/RULE.md]
 - [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md]
-- [sync-rule-memory][sync-rule-memory.md]
+- [memory-sync][memory-sync.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
@@ -158,4 +158,4 @@ A few patterns the audit commonly catches:
 [../rules/document-convention/RULE.md]: ../rules/document-convention/RULE.md
 [../rules/markdown-convention/RULE.md]: ../rules/markdown-convention/RULE.md
 [../rules/zh-tw-punctuation/RULE.md]: ../rules/zh-tw-punctuation/RULE.md
-[sync-rule-memory.md]: sync-rule-memory.md
+[memory-sync.md]: memory-sync.md

@@ -31,7 +31,7 @@ Keep only **durable and important** facts that a lossy summary might drop and th
 
 ### 2. Find each fact's canonical home
 
-Find each fact's canonical home — the most foundational existing place it belongs, per [ssot-principle][../rules/ssot-principle/RULE.md]. The default home is the project's agent memory; defer to personal content — the user's drafts or plan / progress notes (per [private-content][../rules/private-content/RULE.md]) — only when it is a fact's more canonical home than memory. A checkpoint stashes only into these private homes, NEVER into public content (which is published and reviewed separately); if no existing home fits, create a memory file under the standard conventions. Memory can also hold plugin-managed rules files — synced rules owned by [sync-rule-memory][sync-rule-memory.md] — so keep session state in the ordinary memory files, not there.
+Find each fact's canonical home — the most foundational existing place it belongs, per [ssot-principle][../rules/ssot-principle/RULE.md]. The default home is the project's agent memory; defer to personal content — the user's drafts or plan / progress notes (per [private-content][../rules/private-content/RULE.md]) — only when it is a fact's more canonical home than memory. A checkpoint stashes only into these private homes, NEVER into public content (which is published and reviewed separately); if no existing home fits, create a memory file under the standard conventions. Memory can also hold plugin-managed rules files — synced rules owned by [memory-sync][memory-sync.md] — so keep session state in the ordinary memory files, not there.
 
 ### 3. Record the fact
 
@@ -46,7 +46,7 @@ Group by status — under each bucket, list the files written (one line each) wi
 
 ## Out of scope
 
-Syncing the rule library into memory — that's [sync-rule-memory][sync-rule-memory.md]. This captures session-derived facts — mainly work state, sometimes new corrections or conventions — not the published rule library.
+Syncing the rule library into memory — that's [memory-sync][memory-sync.md]. This captures session-derived facts — mainly work state, sometimes new corrections or conventions — not the published rule library.
 
 ## References
 
@@ -55,11 +55,11 @@ Syncing the rule library into memory — that's [sync-rule-memory][sync-rule-mem
 - [reply-language][../bedrocks/reply-language/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
-- [sync-rule-memory][sync-rule-memory.md]
+- [memory-sync][memory-sync.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
 [../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
-[sync-rule-memory.md]: sync-rule-memory.md
+[memory-sync.md]: memory-sync.md
