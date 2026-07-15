@@ -26,7 +26,7 @@ Two principles. A commit message has three semantic parts with different format 
 - **Header** — the single line at the top (shown in `git log --oneline`). Concise, structured, imperative.
   - Format: `type(scope): description` (conventional commits); a `type` is usually included (common values: `feat` / `fix` / `docs` / `refactor` / `test` / `chore` / `perf` / `build` / `ci` / `style` / `revert`); `scope` is OPTIONAL.
   - Length: typically 6-12 English words (or equivalent in the writing system used; CJK roughly 12-24 characters).
-  - Phrasing: imperative mood; one main action — additional actions go in the body.
+  - Phrasing: imperative mood; name the primary change's **purpose or scope** — what it is for, not a list of what changed — leaving secondary changes to the body.
   - Symbols: reads as plain prose; avoid `+`, `/`, and similar symbols unless necessary.
 - **Body** — paragraphs of context, motivation, trade-offs. Free prose; no length cap; symbols allowed when they communicate better than words, not forced out. Soft-wrap: one line per paragraph, no hard breaks mid-paragraph, a blank line between paragraphs.
 - **Footer** — when an agent assisted, MUST include a `Co-Authored-By:` trailer (e.g. `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`); other standard trailers per project policy.
