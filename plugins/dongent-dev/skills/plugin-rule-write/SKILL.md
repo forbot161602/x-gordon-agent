@@ -9,7 +9,7 @@ Conventions for authoring a rule definition in a dongent-style rule library — 
 
 ## Read first
 
-MUST read and follow these first — this skill builds on them; they ship in the `dongent` plugin (a declared dependency of this one):
+MUST read these first — this skill relies on them:
 
 - [wording-rule][plugin:dongent/bedrocks/wording-rule/BEDROCK.md]
 - [ssot-principle][plugin:dongent/rules/ssot-principle/RULE.md]
@@ -19,15 +19,13 @@ MUST read and follow these first — this skill builds on them; they ship in the
 - [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
 - [file-naming][plugin:dongent/references/units/file-naming.md]
 - [file-structure][plugin:dongent/references/units/file-structure.md]
+- [markdown-frontmatter][plugin:dongent/references/units/markdown-frontmatter.md]
 
 ## Structure
 
 ### Frontmatter
 
-`name` and `description` are REQUIRED:
-
-- **`name`** — kebab-case, matching the rule's folder name, per [file-naming][plugin:dongent/references/units/file-naming.md]; keep it simple and precise.
-- **`description`** — a one-line summary of what the rule governs. Dependencies aren't listed here — they go in `## Builds on`.
+A rule's frontmatter follows the unit [markdown-frontmatter][plugin:dongent/references/units/markdown-frontmatter.md]; `name` and `description` are both REQUIRED. Keep dependencies out of the `description` — they go in `## Builds on`.
 
 ### Sections
 
@@ -67,6 +65,7 @@ A rule folder follows the unit [file-structure][plugin:dongent/references/units/
 - [memory-sync][plugin:dongent/commands/memory-sync.md]
 - [file-naming][plugin:dongent/references/units/file-naming.md]
 - [file-structure][plugin:dongent/references/units/file-structure.md]
+- [markdown-frontmatter][plugin:dongent/references/units/markdown-frontmatter.md]
 
 [plugin:dongent/bedrocks/wording-rule/BEDROCK.md]: plugin:dongent/bedrocks/wording-rule/BEDROCK.md
 [plugin:dongent/rules/ssot-principle/RULE.md]: plugin:dongent/rules/ssot-principle/RULE.md
@@ -77,3 +76,4 @@ A rule folder follows the unit [file-structure][plugin:dongent/references/units/
 [plugin:dongent/commands/memory-sync.md]: plugin:dongent/commands/memory-sync.md
 [plugin:dongent/references/units/file-naming.md]: plugin:dongent/references/units/file-naming.md
 [plugin:dongent/references/units/file-structure.md]: plugin:dongent/references/units/file-structure.md
+[plugin:dongent/references/units/markdown-frontmatter.md]: plugin:dongent/references/units/markdown-frontmatter.md
