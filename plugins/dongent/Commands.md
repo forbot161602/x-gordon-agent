@@ -2,6 +2,8 @@
 
 The slash commands this plugin provides. Each is namespaced `/dongent:<name>`; the definitions live in [`commands/`][commands/].
 
+## Contents
+
 <!-- prettier-ignore -->
 | Command | What it does |
 |---|---|

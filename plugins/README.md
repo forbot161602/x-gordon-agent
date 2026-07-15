@@ -2,6 +2,8 @@
 
 The plugins published by the `dongent` marketplace. Each subfolder is a self-contained plugin (with its own `.claude-plugin/plugin.json`), installed with `claude plugin install <name>@dongent`.
 
+## Contents
+
 <!-- prettier-ignore -->
 | Plugin | What it is |
 |---|---|

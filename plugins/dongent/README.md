@@ -11,6 +11,7 @@ Core agent rules and tools, shared across projects. Installed from the dongent m
 | [`rules/`][rules/] | Rule library — one folder per rule; catalog at [`rules/README.md`][rules/README.md] |
 | [`commands/`][commands/] | Slash-command definitions; index at [`Commands.md`][Commands.md] |
 | [`hooks/`][hooks/] | Event hooks the plugin ships; overview at [`hooks/README.md`][hooks/README.md] |
+| [`references/`][references/] | Reference material on how the tools are governed, structured, and run; overview at [`references/README.md`][references/README.md] |
 
 ## References
 
@@ -22,6 +23,8 @@ Core agent rules and tools, shared across projects. Installed from the dongent m
 - [`Commands.md`][Commands.md]
 - [`hooks/`][hooks/]
 - [`hooks/README.md`][hooks/README.md]
+- [`references/`][references/]
+- [`references/README.md`][references/README.md]
 
 [bedrocks/]: bedrocks/
 [bedrocks/README.md]: bedrocks/README.md
@@ -31,3 +34,5 @@ Core agent rules and tools, shared across projects. Installed from the dongent m
 [Commands.md]: Commands.md
 [hooks/]: hooks/
 [hooks/README.md]: hooks/README.md
+[references/]: references/
+[references/README.md]: references/README.md

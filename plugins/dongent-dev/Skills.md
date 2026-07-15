@@ -2,6 +2,8 @@
 
 The skills this plugin provides. Each auto-triggers when its `description` matches, and is also invocable as `/dongent-dev:<name>`; the definitions live in [`skills/`][skills/].
 
+## Contents
+
 <!-- prettier-ignore -->
 | Skill | What it does |
 |---|---|
