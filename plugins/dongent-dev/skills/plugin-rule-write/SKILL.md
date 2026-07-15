@@ -7,7 +7,7 @@ description: Use when authoring or editing a rule definition — a RULE.md, its 
 
 Conventions for authoring a rule definition in a dongent-style rule library — what's specific to writing rules themselves, beyond the base rules every rule obeys.
 
-## Builds on
+## Read first
 
 MUST read and follow these first — this skill builds on them; they ship in the `dongent` plugin (a declared dependency of this one):
 
@@ -17,6 +17,8 @@ MUST read and follow these first — this skill builds on them; they ship in the
 - [prose-convention][plugin:dongent/rules/prose-convention/RULE.md]
 - [document-convention][plugin:dongent/rules/document-convention/RULE.md]
 - [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
+- [file-naming][plugin:dongent/references/units/file-naming.md]
+- [file-structure][plugin:dongent/references/units/file-structure.md]
 
 ## Structure
 
@@ -24,7 +26,7 @@ MUST read and follow these first — this skill builds on them; they ship in the
 
 `name` and `description` are REQUIRED:
 
-- **`name`** — kebab-case, matching the rule's folder name; keep it simple and precise.
+- **`name`** — kebab-case, matching the rule's folder name, per [file-naming][plugin:dongent/references/units/file-naming.md]; keep it simple and precise.
 - **`description`** — a one-line summary of what the rule governs. Dependencies aren't listed here — they go in `## Builds on`.
 
 ### Sections
@@ -46,11 +48,7 @@ A `## Prerequisites` section lists what must be resolved before the rule can be 
 
 ## File shape
 
-Layered on [document-convention][plugin:dongent/rules/document-convention/RULE.md]'s File shape; a rule folder adds these role tiers:
-
-- `RULE.md` (ALL-CAPS) is the canonical rule — the file an agent reads first. Keep it concise and on-topic — only what the rule itself needs.
-- Long supplementary material (full algorithms, rationale, large examples) goes in a separate Initial-Cap doc beside it (e.g. `Specification.md` or `Design-Rationale.md`).
-- Helpers such as scripts, templates, fixtures are lowercase. Pair any logic-carrying file with a test (e.g. `helper.py` and `helper_test.py`) so its behaviour stays verifiable.
+A rule folder follows the unit [file-structure][plugin:dongent/references/units/file-structure.md]; its entry doc is `RULE.md`, the canonical rule an agent reads first — keep it concise and on-topic, only what the rule itself needs.
 
 ## Out of scope
 
@@ -67,6 +65,8 @@ Layered on [document-convention][plugin:dongent/rules/document-convention/RULE.m
 - [document-convention][plugin:dongent/rules/document-convention/RULE.md]
 - [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
 - [memory-sync][plugin:dongent/commands/memory-sync.md]
+- [file-naming][plugin:dongent/references/units/file-naming.md]
+- [file-structure][plugin:dongent/references/units/file-structure.md]
 
 [plugin:dongent/bedrocks/wording-rule/BEDROCK.md]: plugin:dongent/bedrocks/wording-rule/BEDROCK.md
 [plugin:dongent/rules/ssot-principle/RULE.md]: plugin:dongent/rules/ssot-principle/RULE.md
@@ -75,3 +75,5 @@ Layered on [document-convention][plugin:dongent/rules/document-convention/RULE.m
 [plugin:dongent/rules/document-convention/RULE.md]: plugin:dongent/rules/document-convention/RULE.md
 [plugin:dongent/rules/markdown-convention/RULE.md]: plugin:dongent/rules/markdown-convention/RULE.md
 [plugin:dongent/commands/memory-sync.md]: plugin:dongent/commands/memory-sync.md
+[plugin:dongent/references/units/file-naming.md]: plugin:dongent/references/units/file-naming.md
+[plugin:dongent/references/units/file-structure.md]: plugin:dongent/references/units/file-structure.md

@@ -1,6 +1,6 @@
 # Unit conventions
 
-Conventions for a unit or doc — a rule, a skill, and so on. With the rule libraries, they make up the core set; each doc states only what it adds on top of what it builds on.
+Conventions for a unit — a rule, a skill, a spec, and so on. With the rule libraries, they make up the core set; each doc states only what it adds on top of what it builds on.
 
 ## Contents
 
