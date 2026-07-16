@@ -7,12 +7,12 @@ Reference material on the tools — rules, skills, and the like — covering how
 <!-- prettier-ignore -->
 | Path | What's in there |
 |---|---|
-| [`units/`][units/] | Conventions for a unit or doc; overview at [`units/README.md`][units/README.md] |
+| [`unit/`][unit/] | Conventions for a unit or doc; overview at [`unit/README.md`][unit/README.md] |
 
 ## References
 
-- [`units/`][units/]
-- [`units/README.md`][units/README.md]
+- [`unit/`][unit/]
+- [`unit/README.md`][unit/README.md]
 
-[units/]: units/
-[units/README.md]: units/README.md
+[unit/]: unit/
+[unit/README.md]: unit/README.md

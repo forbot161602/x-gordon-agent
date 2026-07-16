@@ -17,15 +17,16 @@ MUST read these first — this skill relies on them:
 - [prose-convention][plugin:dongent/rules/prose-convention/RULE.md]
 - [document-convention][plugin:dongent/rules/document-convention/RULE.md]
 - [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
-- [file-naming][plugin:dongent/references/units/file-naming.md]
-- [file-structure][plugin:dongent/references/units/file-structure.md]
-- [markdown-frontmatter][plugin:dongent/references/units/markdown-frontmatter.md]
+- [file-naming][plugin:dongent/references/unit/file-naming.md]
+- [file-structure][plugin:dongent/references/unit/file-structure.md]
+- [markdown-frontmatter][plugin:dongent/references/unit/markdown-frontmatter.md]
+- [reference-link][plugin:dongent/references/unit/plugin/reference-link.md]
 
 ## Structure
 
 ### Frontmatter
 
-A rule's frontmatter follows the unit [markdown-frontmatter][plugin:dongent/references/units/markdown-frontmatter.md]; `name` and `description` are both REQUIRED. Keep dependencies out of the `description` — they go in `## Builds on`.
+A rule's frontmatter follows the unit [markdown-frontmatter][plugin:dongent/references/unit/markdown-frontmatter.md]; `name` and `description` are both REQUIRED. Keep dependencies out of the `description` — they go in `## Builds on`.
 
 ### Sections
 
@@ -46,7 +47,7 @@ A `## Prerequisites` section lists what must be resolved before the rule can be 
 
 ## File shape
 
-A rule folder follows the unit [file-structure][plugin:dongent/references/units/file-structure.md]; its entry doc is `RULE.md`, the canonical rule an agent reads first — keep it concise and on-topic, only what the rule itself needs.
+A rule folder follows the unit [file-structure][plugin:dongent/references/unit/file-structure.md]; its entry doc is `RULE.md`, the canonical rule an agent reads first — keep it concise and on-topic, only what the rule itself needs.
 
 ## Out of scope
 
@@ -63,9 +64,10 @@ A rule folder follows the unit [file-structure][plugin:dongent/references/units/
 - [document-convention][plugin:dongent/rules/document-convention/RULE.md]
 - [markdown-convention][plugin:dongent/rules/markdown-convention/RULE.md]
 - [memory-sync][plugin:dongent/commands/memory-sync.md]
-- [file-naming][plugin:dongent/references/units/file-naming.md]
-- [file-structure][plugin:dongent/references/units/file-structure.md]
-- [markdown-frontmatter][plugin:dongent/references/units/markdown-frontmatter.md]
+- [file-naming][plugin:dongent/references/unit/file-naming.md]
+- [file-structure][plugin:dongent/references/unit/file-structure.md]
+- [markdown-frontmatter][plugin:dongent/references/unit/markdown-frontmatter.md]
+- [reference-link][plugin:dongent/references/unit/plugin/reference-link.md]
 
 [plugin:dongent/bedrocks/wording-rule/BEDROCK.md]: plugin:dongent/bedrocks/wording-rule/BEDROCK.md
 [plugin:dongent/rules/ssot-principle/RULE.md]: plugin:dongent/rules/ssot-principle/RULE.md
@@ -74,6 +76,7 @@ A rule folder follows the unit [file-structure][plugin:dongent/references/units/
 [plugin:dongent/rules/document-convention/RULE.md]: plugin:dongent/rules/document-convention/RULE.md
 [plugin:dongent/rules/markdown-convention/RULE.md]: plugin:dongent/rules/markdown-convention/RULE.md
 [plugin:dongent/commands/memory-sync.md]: plugin:dongent/commands/memory-sync.md
-[plugin:dongent/references/units/file-naming.md]: plugin:dongent/references/units/file-naming.md
-[plugin:dongent/references/units/file-structure.md]: plugin:dongent/references/units/file-structure.md
-[plugin:dongent/references/units/markdown-frontmatter.md]: plugin:dongent/references/units/markdown-frontmatter.md
+[plugin:dongent/references/unit/file-naming.md]: plugin:dongent/references/unit/file-naming.md
+[plugin:dongent/references/unit/file-structure.md]: plugin:dongent/references/unit/file-structure.md
+[plugin:dongent/references/unit/markdown-frontmatter.md]: plugin:dongent/references/unit/markdown-frontmatter.md
+[plugin:dongent/references/unit/plugin/reference-link.md]: plugin:dongent/references/unit/plugin/reference-link.md
