@@ -37,8 +37,6 @@ MUST read these first — this command relies on them:
 
 ## Steps
 
-> **Prerequisite for every step below**: read each rule cited in steps 3 and 4 (`RULE.md` files) **in full** before applying its check. This command lists detection methods; the rule body carries the principles, nuances, examples, and edge cases that this command does not restate. **Skipping this step is the most common reason audits miss real violations.**
-
 The **target set** is every file this audit covers — a primary source plus the private layer, audited as one set. The set stays open: a relevant file that surfaces as the audit runs joins it and is audited too.
 
 ### 1. Resolve the primary source
@@ -55,9 +53,9 @@ Step 1 surfaces **mostly public files** in the worktree modes (default, `--all`,
 
 If the target set is empty — neither source contributes — report "nothing to audit" and stop.
 
-### 3. Per-file checks
+### 3. Read the rules and gather the inputs
 
-Across the target files, **read every written-content one in full — top to EOF, in this run** (docs, specs, plans, memory; prose can also live in code comments and docstrings). Any partial pass — grep, scripts, another targeted search, or earlier / same-session reading — only **seeds** findings; it NEVER substitutes for this read, and a drifted spot can sit anywhere in such a file. **No in-scope file is skipped — for any reason.** Treat every run as a fresh first run: prior coverage — an earlier run, or content already seen or edited earlier this session through a prompt, a command, or the like — NEVER drops a file from this run's full read. Then run the checks below per file; the **Run order** column gives the execution sequence — cheap checks (grep, scripts) run first, agent inspection on what they didn't resolve.
+Read each rule in the table below — the `RULE.md` files — **in full** before applying its check. This command lists detection methods; the rule body carries the principles, nuances, examples, and edge cases that this command does not restate. **Skipping this step is the most common reason audits miss real violations.**
 
 <!-- prettier-ignore -->
 | Source rule | Detection method | Applies to | Run order |
@@ -69,9 +67,15 @@ Across the target files, **read every written-content one in full — top to EOF
 | [markdown-convention][../rules/markdown-convention/RULE.md] | Per the rule's How to apply — its private/public style cascade | All files | 5 |
 | [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md] | Run the rule's `convert.py --check` from the rule folder | Chinese-led lines | 1 |
 
-For each finding, apply the fix policy (step 5) before moving to the next file. Don't list every instance of the same violation in the final report — collapse to one example plus a count.
+The **project's forbidden list** the grep checks use is assembled at audit time, not fixed here: gather it from these rules plus the project's agent memory — where, per [private-content][../rules/private-content/RULE.md] and [prose-convention][../rules/prose-convention/RULE.md], the project records the terms it must keep out — walking the memory index so no recorded term is missed.
 
-### 4. Cross-file checks
+### 4. Per-file checks
+
+Across the target files, **read every written-content one in full — top to EOF, in this run** (docs, specs, plans, memory; prose can also live in code comments and docstrings). Any partial pass — grep, scripts, another targeted search, or earlier / same-session reading — only **seeds** findings; it NEVER substitutes for this read, and a drifted spot can sit anywhere in such a file. **No in-scope file is skipped — for any reason.** Treat every run as a fresh first run: prior coverage — an earlier run, or content already seen or edited earlier this session through a prompt, a command, or the like — NEVER drops a file from this run's full read. Then run step 3's checks per file, in the **Run order** its table gives — cheap checks (grep, scripts) run first, agent inspection on what they didn't resolve.
+
+For each finding, apply the fix policy (step 6) before moving to the next file. Don't list every instance of the same violation in the final report — collapse to one example plus a count.
+
+### 5. Cross-file checks
 
 - **Conflicting extensions**: a canonical fact is extended or rephrased elsewhere (different contexts call for different framings), but the extensions contradict each other or the canonical. The agent compares related references across the file set and aligns the divergent text with the canonical.
 - **Same fact in multiple files**: identify the canonical home; link to it where the reference is load-bearing, and cut a redundant copy or link where it isn't.
@@ -84,11 +88,11 @@ Among the memory files, the plugin-managed rules files are owned by the [memory-
 
 Beyond those sections, the private layer is **personal-first** by default — personal content is the canonical home, and per [private-content][../rules/private-content/RULE.md] a dedup pointer runs only from memory to it, NEVER back. `--fold` inverts this for **tightly-bound rule content** (the scope the `memory-sync` command dedups — bound to one rule): the plugin-managed rules file becomes canonical — a personal copy of a rule the plugin already provides is the redundancy `--fold` removes. Content spanning several rules or covered by none stays personal-first unless the invocation explicitly extends `--fold` to it.
 
-### 5. Fix policy
+### 6. Fix policy
 
 **Default: fix.** When uncertain, prefer fixing with a brief justification in the report.
 
-**Boundary: edit content, not files.** Editing content is in bounds — including removing a duplicated passage. What stays out of bounds is file-level destruction: NEVER delete, rename, or move a file, or hollow one down to an unreferenced stub. Surface those as delete candidates for the author to confirm (step 6).
+**Boundary: edit content, not files.** Editing content is in bounds — including removing a duplicated passage. What stays out of bounds is file-level destruction: NEVER delete, rename, or move a file, or hollow one down to an unreferenced stub. Surface those as delete candidates for the author to confirm (step 7).
 
 **When facts conflict or are unclear, investigate.** Most ambiguities resolve under investigation. Gather evidence from sources the target file set might not contain:
 
@@ -103,7 +107,7 @@ Beyond those sections, the private layer is **personal-first** by default — pe
 - **Genuinely ambiguous canonical home** — two files state contradicting or independent versions of the same fact; consolidating them would lose information.
 - **Undocumented context** — the deciding context was never recorded in any file, history, or accessible external source.
 
-### 6. Report
+### 7. Report
 
 The report has two groups — **Coverage**, then the audit's **Findings** — each a top-level heading. The sections within a group are one heading level below, so both groups share one shape.
 
@@ -115,8 +119,8 @@ The report has two groups — **Coverage**, then the audit's **Findings** — ea
 🔍 **Findings** — the four buckets below; in Auto-fixed and Needs decision, group entries by the rule they came from (the audit runs per rule), then by file — one line per finding, with its line number where it has one. Auto-fixed entries are typically the bulk, already in the worktree as unstaged changes for `git diff` review; where "Needs decision" or "Delete candidates" is non-empty, the author MAY resolve them before publishing.
 
 - 🔄 **Auto-fixed** — the changes applied (file path, line where applicable, one-line description per fix).
-- ❌ **Needs decision** — escalated items (file path, line, the ambiguity, options the author can pick). **Usually empty**; non-empty signals a truly unresolvable case (see step 5).
-- 🗑️ **Delete candidates** — by file, not rule: a file a fix left as only outward pointers (or empty) and referenced by nothing; NEVER auto-deleted (step 5's boundary), listed for the author to confirm removal.
+- ❌ **Needs decision** — escalated items (file path, line, the ambiguity, options the author can pick). **Usually empty**; non-empty signals a truly unresolvable case (see step 6).
+- 🗑️ **Delete candidates** — by file, not rule: a file a fix left as only outward pointers (or empty) and referenced by nothing; NEVER auto-deleted (step 6's boundary), listed for the author to confirm removal.
 - ✅ **Clean** — a one-line note on what it verified across the set (no per-file listing needed).
 
 **No silent truncation**: if any bucket is capped to keep the report scannable (e.g. "first 10 SSoT findings"), state it with `... and N more` so the author knows coverage isn't complete.

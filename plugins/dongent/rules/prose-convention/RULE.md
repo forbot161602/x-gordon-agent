@@ -41,8 +41,8 @@ When writing or editing any shared prose (README, design doc, code comment, comm
 - **Before writing**, ask: would a reader who lacks my session, my clock, and my team understand this? If not, restate it.
 - **Before publishing**, run the audit:
   - Agent reads each shared artifact and checks against both principles; flag anything that depends on outside context.
-  - Cheap pass: grep against the project's forbidden list (initially empty; grows from past mistakes).
-- **Whenever a violation slips through and surfaces later**, add the specific term or pattern to the forbidden list — future audits catch it cheaply by grep. The list is **memory of past mistakes**, not a pre-seeded enumeration.
+  - Cheap pass: grep against the project's forbidden list.
+- **Whenever a violation slips through and surfaces later**, add the specific term or pattern to the forbidden list **in the project's agent memory** so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration; the pre-publish grep assembles it from there.
 
 ## Out of scope
 
