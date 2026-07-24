@@ -56,7 +56,7 @@ For each source from step 2:
 
 ### 4. Distill or re-distill each source
 
-Each source's distillation is the prose between its markers — the rule's operative core. Build it from the source itself (not from memory) in two moves:
+Each source's distillation is the prose between its markers — the rule's operative core, the standard that holds for every project. The per-project inputs step 5 resolves are not distilled — they are the section's project-specific content. Build it from the source itself (not from memory) in two moves:
 
 1. **Enumerate, then weave** — NEVER weave from one gestalt read of the source; that silently drops points. First walk the whole source clause by clause and enumerate every **requirement**; this list — working scratch, not written to the file — is the contract the woven distillation MUST honor. A requirement is the atomic unit — each distinct demand the source makes (and each facet when one splits into several), whether stated as a **rule clause**, a **trigger** (when it fires), or a **practice** (how to apply it). Each requirement carries:
    - **Level** (required) — how binding it is: an explicit MUST, SHOULD, MAY, or prohibition, or an unmarked default (which reads as MUST).

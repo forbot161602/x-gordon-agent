@@ -42,7 +42,7 @@ When writing or editing any shared prose (README, design doc, code comment, comm
 - **Before publishing**, run the audit:
   - Agent reads each shared artifact and checks against both principles; flag anything that depends on outside context.
   - Cheap pass: grep against the project's forbidden list.
-- **Whenever a violation slips through and surfaces later**, add the specific term or pattern to the forbidden list **in the project's agent memory** so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration; the pre-publish grep assembles it from there.
+- **Whenever a violation slips through and surfaces later**, add the specific term or pattern to the project's forbidden list — anchored in agent memory (inline or by pointer) — so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration; the pre-publish grep assembles it from there.
 
 ## Out of scope
 

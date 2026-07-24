@@ -50,7 +50,7 @@ When writing or editing any artifact, private or public. Also a pre-publish chec
 - **Before placing content**, decide its layer.
 - **Before a reference in a public artifact**, confirm the target is also public.
 - **Before publishing**, grep the public layer against the project's forbidden list; stop and fix whatever it flags.
-- **Whenever a new term surfaces that needs to stay private** — a codename, alias, or characteristic phrasing from a private decision, description, or idea — add it to the forbidden list **in the project's agent memory** so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration; the pre-publish grep assembles it from there.
+- **Whenever a new term surfaces that needs to stay private** — a codename, alias, or characteristic phrasing from a private decision, description, or idea — add it to the project's forbidden list — anchored in agent memory (inline or by pointer) — so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration; the pre-publish grep assembles it from there.
 - **When the same fact lives in both layers**, update both on change — otherwise one side goes stale and misleads future reads.
 
 ## Prerequisites
