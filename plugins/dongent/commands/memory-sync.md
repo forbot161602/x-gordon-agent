@@ -19,7 +19,7 @@ MUST read these first — this command relies on them:
 
 ## Steps
 
-**The work splits by reader.** Each source's rule-grounded work (steps 4-6) goes to one subagent: it reads the source together with the closure it builds on, distills the rule, resolves the Prerequisites it can detect itself, and drafts the source's project-specific content from the rule and the memory it bears on — returning a drafted section, and flagging any Prerequisite only the user can answer. The main agent sets up and dispatches, batches any necessary clarifying questions, reconciles the drafts across memory, then writes, verifies, indexes, and reports — working from the returns, so it holds the global shape, not every rule's detail.
+**The work splits by reader.** Each source's rule-grounded work (steps 4-7) goes to one subagent: it reads the source together with the closure it builds on, distills the rule, resolves the Prerequisites it can detect itself, and drafts the source's project-specific content — returning a drafted section, and flagging any Prerequisite only the user can answer. The main agent sets up and dispatches, batches any necessary clarifying questions, checks the drafts against memory and reconciles across them, then writes, verifies, indexes, and reports — working from the returns, so it holds the global shape, not every rule's detail.
 
 > **Per-source atomicity**: each source is processed independently across the steps below. If any step fails for a source (e.g. `RULE.md` unreadable, file write fails), stop and report — don't write partial state for that source's section; leave its existing section intact. Sources handled earlier in the same run keep their updated sections; the failing source retries on the next sync.
 
@@ -34,13 +34,13 @@ MUST read these first — this command relies on them:
 Read the catalog at `<plugin-root>/rules/README.md` — the canonical list of rules (folder name + tier + summary); each catalogued rule is a subfolder under `<plugin-root>/rules/` containing a `RULE.md`. The tier decides default install behavior:
 
 - **`required`**: always sync this rule into the current project.
-- **`optional`**: only sync if (a) the user has previously opted in (this rule already has a `sources` entry), or (b) the user explicitly named this rule when invoking the command. **Don't prompt mid-run** — uninstalled optional rules surface in the report (step 10).
+- **`optional`**: only sync if (a) the user has previously opted in (this rule already has a `sources` entry), or (b) the user explicitly named this rule when invoking the command. **Don't prompt mid-run** — uninstalled optional rules surface in the report (step 11).
 
 Then parse each rule's `## Builds on` to resolve its transitive closure (follow the chain, dedupe by path, sort by path) — the path-ordered list step 3 hashes. A **bedrock** enters the file only when some synced rule builds on it (transitively) — pulled in as a **`required`** source, no tier or opt-in. The file's sources are the deduped union of those closures, laid out in **catalog order** — bedrocks then rules as `bedrocks/README.md` and `rules/README.md` list them (not the hash's path sort). This is the order of the `sources` list and the H2 sections.
 
 ### 3. Create, skip, or update each (by source hash)
 
-A source's **source hash** (hex SHA-256) covers this command file together with its step-2 closure: take the `sha256` of this command file, then the `sha256` of each closure file's content in path order, concatenate them in that order, and `sha256` the result. With no `## Builds on`, the closure is just the source's own file. The outer `sha256` keeps it a fixed 64 hex chars however large the closure.
+A source's **source hash** (hex SHA-256) covers this command file together with its step-2 closure: take each file's hex `sha256` digest — the command file first, then each closure file in path order — join those 64-char hex strings end to end, and `sha256` the joined string. With no `## Builds on`, the closure is just the source's own file. The outer `sha256` keeps it a fixed 64 hex chars however large the closure.
 
 Hash each file's **content**, not its own source hash — so nothing needs syncing first; the closure is gathered by reading files directly. Transitive coverage matters because distilling a rule reads what it builds on, so a deep dependency can still shape the summary. This command file is folded in for the same reason — its distillation guidance shapes the summary too, so editing it re-distills even when no rule changed. Example — let `C` be this command file; `R` builds on `R1`, and `R1` builds on `R2`: `source_hash(R) = sha256( sha256(C) + sha256(R) + sha256(R1) + sha256(R2) )` (`C` leads; here the closure files' path order happens to be `R`, `R1`, `R2`). `R2` sits in `R`'s closure, so editing `R2` can change `R`'s own distilled summary — that summary can lean on what `R` builds on, transitively down to `R2` — so folding `R2`'s content into `R`'s hash re-distills `R`, even though `R`'s `RULE.md` is untouched. (Base rules and bedrocks rarely change, so such cascades stay uncommon.)
 
@@ -52,7 +52,7 @@ For each source from step 2:
    - Section exists and the recorded `hash` matches → **skip**, report as unchanged
    - Section exists but the hash differs → **update** the section (step 4)
 
-**Reverse check (upstream orphans):** scan the `sources` list (and the body's H2 sections) for an entry whose source no longer exists upstream. If any → it was removed upstream. List it in the report (step 10); don't auto-delete, since the section might hold project-specific content below its markers that the user still values.
+**Reverse check (upstream orphans):** scan the `sources` list (and the body's H2 sections) for an entry whose source no longer exists upstream. If any → it was removed upstream. List it in the report (step 11); don't auto-delete, since the section might hold project-specific content below its markers that the user still values.
 
 ### 4. Distill or re-distill each source
 
@@ -65,15 +65,13 @@ Each source's distillation is the prose between its markers — the rule's opera
 
 ### 5. Resolve Prerequisites (if any)
 
-In the same `RULE.md`, read its `## Prerequisites` section. Prerequisites are anything that needs to be gathered before the compiled memory can be written — they can be questions for the user, agent-side detections (e.g. scan project files, check for a specific tool), or a mix.
+In the same source, read its `## Prerequisites` section. Prerequisites are anything that needs to be gathered before the compiled memory can be written — they can be questions for the user, agent-side detections (e.g. scan project and memory files, check for a specific tool), or a mix.
 
-- Absent: nothing to resolve from Prerequisites. Unless the project has overrides to record (step 6), the source's section is just its distillation inside the markers.
+- Absent: nothing to resolve from Prerequisites.
 - Present, first-time install: work through each item — ask the user for inputs the user needs to provide; run detections the agent can do directly.
-- Present, update: re-resolve items new since the last sync, and check existing body content — both inside and outside the markers — against the updated rule. Resolve conflicts (a reworded Prerequisite, an answer that no longer fits, project overrides or custom notes contradicting the updated logic, marker content diverging from the latest distillation) using judgment — merge compatible content, re-align stale text, take the updated rule where it clearly supersedes — and report each fix in step 10. Escalate only when the conflict is genuinely undecidable: resolving would discard project-specific content whose intent can't be confirmed, or two readings are equally defensible. NEVER silently discard user content — when unsure, keep it and flag the divergence.
+- Present, update: re-resolve items new since the last sync; existing content is reconciled against the updated rule in step 7.
 
 **Batch all user-facing questions for the same rule into one round-trip — don't go question-by-question.**
-
-Resolved results that are project-specific go below the source's `<!-- dongent-section-end -->` marker (before the next H2) as one-line `- **key**: …` entries — the content itself, or (per step 6) pointers to its canonical home(s) elsewhere; several can share one line. Pick a fitting bold key per line (e.g. `prerequisite`, `project override`, `custom notes`, `detected tooling`); don't add new H2 (reserved for source names), and use H3 only where a section genuinely needs sub-structure.
 
 ### 6. Plan each fact's canonical home across memory
 
@@ -84,15 +82,15 @@ The same discipline covers the rule's project-specific variants (a team-style ov
 - **Maintained outside memory** → that file is its canonical home (per [ssot-principle][../rules/ssot-principle/RULE.md]); point straight to it from the source's section, don't copy it in. This covers a config a program reads (the file itself, not a doc that describes one), or — per [private-content][../rules/private-content/RULE.md] — a team-owned doc (team-committed, review-gated) or the author's own personal content (gitignored notes, drafts).
 - **Only in memory, or with no home yet** (scattered across memory files, or surfaced in-session) → if it's **tightly bound to this one rule**, add it below that rule's markers as a one-line entry (or merge into a matching one), leaving a pointer in any memory file it was pulled from. Content **not specific to one rule** (e.g. a project convention, a user reminder, or feedback — whether spanning several rules or covered by none) is out of this command's scope: leave it alone. Only where it already lives in a memory file and bears on this rule, point to it from the source's section.
 
-#### Fill from a grounded check
+### 7. Assemble the project-specific content
 
-A source's project-specific lines are filled from an actual check — the source's rule, plus a walk of the memory it bears on — not a guess or a default. Empty is itself a finding: it holds only when that check genuinely turns up none, NEVER because the check was skipped.
+A source's **project-specific content** sits below its markers — the Prerequisite answers and detections from step 5, and the project-specific variants from step 6. Write each as a one-line `- **key**: …` entry — the content itself, or (per step 6) pointers to its canonical home(s) elsewhere; several can share one line. Pick a fitting bold key per line (e.g. `prerequisite`, `detected tooling`, `project override`, `external links`, `custom notes`, etc.); don't add new H2 (reserved for source names), and use H3 only where a section genuinely needs sub-structure.
 
-#### Keeping the file lean
+**Fill from a grounded check.** A source's project-specific lines are filled from an actual check — the source's rule, a full read of the memory it bears on, and a search of the project files — not a guess or a default. Empty is itself a finding: it holds only when that check genuinely turns up none, NEVER because the check was skipped.
 
-It loads whole when recalled, so keep it from bloating — but the lever is below-marker content, not the distillations: when a source's below-marker content grows to dominate its section — dwarfing the distillation — move the bulky parts to their own memory file and leave a one-line pointer; what each sync re-derives — the distillation and the Prerequisites answers — stays in the section. That split-out file is ordinary project memory, not plugin-managed: name it `<plugin-name>-<source-name>-<topic>` so its origin stays traceable, give it standard memory frontmatter (`type: feedback`, matching the rest of the rule memory), point it back at the source's section, and index it in `MEMORY.md`. Judge by relevance and size, and prune as the rules evolve.
+**Reconcile on update.** On an update run, check the project-specific content against the updated rule in the source. Resolve conflicts (a reworded Prerequisite, an answer that no longer fits, project overrides or custom notes contradicting the updated logic, an entry diverging from the latest distillation) using judgment — merge compatible content, re-align stale text, take the updated rule where it clearly supersedes — and report each fix in step 11. Escalate only when the conflict is genuinely undecidable: resolving would discard project-specific content whose intent can't be confirmed, or two readings are equally defensible. NEVER silently discard user content — when unsure, keep it and flag the divergence.
 
-### 7. Write the foundational memory file
+### 8. Write the foundational memory file
 
 Write the compiled memory in English by default, regardless of the conversation language — it mirrors the English rule library, and one consistent language keeps it portable.
 
@@ -132,12 +130,14 @@ This is `<plugin-name>`'s foundational rule memory. Each H2 is a source's name; 
 
 A bedrock's section takes the same shape but has no Prerequisites; a source with no project-specific content has nothing below its markers.
 
-For each source to create or update (per step 3 — a skipped source is already done, leave it), **distill or re-distill it from scratch per step 4** — always enumerate the source afresh, never keep or merely re-verify an existing distillation — and write it between its markers; then, by case:
+For each source to create or update (per step 3 — a skipped source is already done, leave it), **write the from-scratch distillation (step 4)** between its markers — never a kept or merely re-verified one; then, by case:
 
 - **Create the section** (new): insert its H2 and `sources` entry at its place in the step-2 order, with any project-specific lines below.
-- **Update the section** (already synced): bump its `hash` and re-apply step 5's resolutions to the lines below.
+- **Update the section** (already synced): bump its `hash` and write the project-specific content reconciled in step 7.
 
-### 8. Verify each distillation against its source
+**Keeping the file lean.** It loads whole when recalled, so keep it from bloating — but the lever is the project-specific content, not the distillations: when it grows to dominate a source's section — dwarfing the distillation — move the bulky parts to their own memory file and leave a one-line pointer; what each sync re-derives or reconciles — the distillation and the Prerequisite answers — stays in the section. That split-out file is ordinary project memory, not plugin-managed: name it `<plugin-name>-<source-name>[-<topic>]` so its origin stays traceable, give it standard memory frontmatter (`type: feedback`, matching the rest of the rule memory), point it back at the source's section, and index it in `MEMORY.md`. One file per source by default; when that file itself grows too big, split its bulkiest parts into a `-<topic>` file. Judge by relevance and size, and prune as the rules evolve.
+
+### 9. Verify each distillation against its source
 
 Check each created or updated section's distillation is a faithful **proxy** for its source — judged by behaviour, not wording: **an agent acting on the distillation alone MUST decide every situation the full source and its closure would — and decide each the same way.** Verify adversarially — read as a skeptical fresh reader hunting for flaws, not as the author re-reading own work.
 
@@ -148,7 +148,7 @@ Run both passes **independently** — work from the source and the distillation 
 
 Where a pass flags an issue, fix it and re-check until the section passes clean — realign the requirement to its source strength, and cut the exaggerated wording.
 
-### 9. Update MEMORY.md index
+### 10. Update MEMORY.md index
 
 In the project memory folder, ensure `MEMORY.md` exists with a single index entry for this file, placed **first** (it's foundational, read before any authoring or review). This line is what an agent scans to decide whether to load the file; use the file's frontmatter `description` verbatim as its summary — one canonical wording, refreshed here whenever that `description` changes:
 
@@ -156,7 +156,7 @@ In the project memory folder, ensure `MEMORY.md` exists with a single index entr
 - [<plugin-name>-rules](<plugin-name>-plugin-managed-rules.md) — <the file's `description`, verbatim>
 ```
 
-### 10. Report
+### 11. Report
 
 Group by status — under each bucket, list the sources that fall in it (one line each); omit empty buckets:
 
