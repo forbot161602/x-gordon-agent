@@ -19,7 +19,7 @@ MUST read these first — this command relies on them:
 
 ## Steps
 
-**The work splits by reader.** Each source's rule-grounded work (steps 4-7) goes to one subagent: it reads the source together with the closure it builds on, distills the rule, resolves the Prerequisites it can detect itself, and drafts the source's project-specific content — returning a drafted section, and flagging any Prerequisite only the user can answer. The main agent sets up and dispatches, batches any necessary clarifying questions, checks the drafts against memory and reconciles across them, then writes, verifies, indexes, and reports — working from the returns, so it holds the global shape, not every rule's detail.
+**The work splits by reader.** Each source's rule-grounded work (steps 4-7) goes to one subagent: it reads the source with its closure as background, distills the rule, resolves the Prerequisites it can detect itself, and drafts the source's project-specific content — returning a drafted section, and flagging any Prerequisite only the user can answer. The main agent sets up and dispatches, batches any necessary clarifying questions, checks the drafts against memory and reconciles across them, then writes, verifies, indexes, and reports — working from the returns, so it holds the global shape, not every rule's detail.
 
 > **Per-source atomicity**: each source is processed independently across the steps below. If any step fails for a source (e.g. `RULE.md` unreadable, file write fails), stop and report — don't write partial state for that source's section; leave its existing section intact. Sources handled earlier in the same run keep their updated sections; the failing source retries on the next sync.
 
@@ -56,7 +56,7 @@ For each source from step 2:
 
 ### 4. Distill or re-distill each source
 
-Each source's distillation is the prose between its markers — the rule's operative core, the standard that holds for every project. The per-project inputs step 5 resolves are not distilled — they are the section's project-specific content. Build it from the source itself (not from memory) in two moves:
+Each source's distillation is the prose between its markers — the rule's operative core, the standard that holds for every project. The per-project inputs step 5 resolves are not distilled — they are the section's project-specific content. **Distill only this source, not its closure or memory**: read the closure to understand this source correctly, but every closure member is itself a separate source with its own section in this file, so distill only what traces back to a span in this source's own file — name a closure rule where its content bears (e.g. "per ssot-principle"), never restate it, which would duplicate another section (per [ssot-principle][../rules/ssot-principle/RULE.md]). Build it in two moves:
 
 1. **Enumerate, then weave** — NEVER weave from one gestalt read of the source; that silently drops points. First walk the whole source clause by clause and enumerate every **requirement**; this list — working scratch, not written to the file — is the contract the woven distillation MUST honor. A requirement is the atomic unit — each distinct demand the source makes (and each facet when one splits into several), whether stated as a **rule clause**, a **trigger** (when it fires), or a **practice** (how to apply it). Each requirement carries:
    - **Level** (required) — how binding it is: an explicit MUST, SHOULD, MAY, or prohibition, or an unmarked default (which reads as MUST).
