@@ -138,7 +138,7 @@ A few patterns the audit commonly catches:
 
 - File-level destruction — out of scope; the audit edits content only.
 - Build / type-check / test runs — separate tooling.
-- Style enforcement against team norms — [document-convention][../rules/document-convention/RULE.md] already defers to observed team style; this command honors that and won't auto-fix into a team-conflicting style.
+- Style enforcement against an established style — [document-convention][../rules/document-convention/RULE.md] already defers to the style observed in the content's own layer; this command honors that and won't auto-fix into a conflicting style.
 
 ## References
 

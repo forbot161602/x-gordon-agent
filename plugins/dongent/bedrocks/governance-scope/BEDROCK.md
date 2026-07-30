@@ -26,11 +26,11 @@ Within either layer, an **established convention** — one the layer's own artif
 - **Private** → the **author's own** established convention, drawn from the author-only artifacts.
 - **Public** → the **team's** established convention, drawn from the shared artifacts.
 
-**Why:** public content belongs to the team that reads and maintains it, so a convention they have actually established wins; private content likewise answers to the author's own.
+**Why:** private content answers to the author's own established habits; public content belongs to the team that reads and maintains it, so a convention they have actually established wins.
 
 ### When an established convention applies
 
-An established convention — the team's in the public layer, the author's own in the private one — overrides a default only on **positive evidence** they do it differently — an explicit style guide, or a consistent contrary pattern across the relevant artifacts (nearby files, recent commits, templates) that also clears at least a basic industry standard; not finding the default's convention nearby is NEVER such evidence. It overrides only the specific defaults that evidence actually speaks to; every other default holds — whether the layer is silent there or the signal is genuinely ambiguous.
+An established convention — the author's own in the private layer, the team's in the public one — overrides a default only on **positive evidence** they do it differently — an explicit style guide, or a consistent contrary pattern across the relevant artifacts (nearby files, recent commits, templates) that also clears at least a basic industry standard; not finding the default's convention nearby is NEVER such evidence. It overrides only the specific defaults that evidence actually speaks to; every other default holds — whether the layer is silent there or the signal is genuinely ambiguous.
 
 **Why:** the defaults exist to govern wherever the layer has not spoken; reading deference into silence invents a rule that isn't there and discards a sound default for nothing.
 

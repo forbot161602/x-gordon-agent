@@ -1,6 +1,6 @@
 ---
 name: document-convention
-description: Format-agnostic conventions for authoring any document — the file shape of the document system (casing, asset folders, folder grouping), its document format (title, sections, table of contents, headings, paragraphs, images, emphasis), and its authoring discipline (requirement levels, generic statements, impersonal prose, outward references); defaults for private and public content, deferring to nearby team style for public.
+description: Format-agnostic conventions for authoring any document — the file shape of the document system (casing, asset folders, folder grouping), its document format (title, sections, table of contents, headings, paragraphs, images, emphasis), and its authoring discipline (requirement levels, generic statements, impersonal prose, outward references); defaults for both layers, deferring to the established style nearby — the author's own for private content, the team's for public.
 ---
 
 # Document conventions — format-agnostic authoring
@@ -19,7 +19,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-The conventions below are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether public content yields to team style — see [How to apply][how-to-apply]. They fall in three groups: the **file shape** of the document system (how its files and folders are laid out), the **document format** (how a document is structured and presented), and the **authoring discipline** every document observes.
+The conventions below are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether an established style in the document's own layer takes precedence — see [How to apply][how-to-apply]. They fall in three groups: the **file shape** of the document system (how its files and folders are laid out), the **document format** (how a document is structured and presented), and the **authoring discipline** every document observes.
 
 ### File shape
 
@@ -96,10 +96,10 @@ When writing or editing any document, in any format. Also a pre-publish checkpoi
 ## How to apply
 
 - **Before writing**, place the document by layer ([private-content][../private-content/RULE.md]), then run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its two domain inputs:
-  - **The team style to observe** — the conventions the nearby shared artifacts follow (sibling documents, a same-folder README, an index doc).
+  - **The established style to observe** — the conventions the nearby artifacts in the document's own layer follow (sibling documents, a same-folder README, an index doc): the **author-only** artifacts for a private document, the **shared** ones for a public one.
   - **The defaults** to fall back to — the conventions above.
 - **Before publishing**, re-check each convention against whichever source won its cascade; fix anything flagged.
-- **Either way**, summarise the team's style from the nearby artifacts once, not convention by convention or line by line — then resolve each convention against that summary. When a signal is genuinely ambiguous, weigh impact — apply a default that renders identically or sits orthogonal to the team's house voice, and reserve deference for a clearly contrary convention.
+- **Either way**, summarise the observed style from the nearby artifacts once, not convention by convention or line by line — then resolve each convention against that summary. When a signal is genuinely ambiguous, weigh impact — apply a default that renders identically or sits orthogonal to the observed house voice, and reserve deference for a clearly contrary convention.
 
 ## Out of scope
 

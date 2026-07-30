@@ -1,6 +1,6 @@
 ---
 name: markdown-convention
-description: Markdown-specific authoring mechanics layered on document-convention — frontmatter, lists, tables, reference-style links, fenced code, and the references section; defaults for private and public content, deferring to nearby team style for public.
+description: Markdown-specific authoring mechanics layered on document-convention — frontmatter, lists, tables, reference-style links, fenced code, and the references section; defaults for both layers, deferring to the established style nearby — the author's own for private content, the team's for public.
 ---
 
 # Markdown conventions — authoring mechanics
@@ -20,7 +20,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-The conventions below are the **Markdown-specific** layer over the format-agnostic conventions in [document-convention][../document-convention/RULE.md] — file shape, document format, and authoring discipline live there; only Markdown's own mechanics are restated here. They are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether public content yields to team style — see [How to apply][how-to-apply].
+The conventions below are the **Markdown-specific** layer over the format-agnostic conventions in [document-convention][../document-convention/RULE.md] — file shape, document format, and authoring discipline live there; only Markdown's own mechanics are restated here. They are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether an established style in the document's own layer takes precedence — see [How to apply][how-to-apply].
 
 ### Frontmatter
 
@@ -69,7 +69,7 @@ When writing or editing any markdown document. Also a pre-publish checkpoint: re
 
 Follow [document-convention][../document-convention/RULE.md]'s How to apply; for Markdown its two domain inputs are:
 
-- **The team style to observe** — the conventions nearby Markdown files follow (sibling `.md` files, a same-folder `README.md`, a `docs/` index).
+- **The established style to observe** — the conventions the nearby Markdown files in the document's own layer follow (sibling `.md` files, a same-folder `README.md`, a `docs/` index): the **author-only** files for a private document, the **shared** ones for a public one.
 - **The defaults** to fall back to — the conventions above.
 
 ## Out of scope
