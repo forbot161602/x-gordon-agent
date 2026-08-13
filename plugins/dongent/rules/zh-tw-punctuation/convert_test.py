@@ -347,13 +347,19 @@ class TestCodeBlocks(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
-# Ellipsis — unconditional substitution
+# Ellipsis — same line-level gate as , : ; ?
 # ---------------------------------------------------------------------------
 
 
 class TestEllipsis(unittest.TestCase):
     def test_unicode_to_ascii_dots(self):
         self.assertEqual(convert('這裡略… 還有更多…'), '這裡略... 還有更多...')
+
+    def test_pure_english_line_keeps_ellipsis(self):
+        """No Han ideograph in the prose → the line is English, where `…` is
+        legitimate typography rather than a zh-TW punctuation slip."""
+        line = 'Requirement levels (MUST / SHOULD / …) are uppercase.'
+        self.assertEqual(convert(line), line)
 
     def test_ellipsis_inside_code_block_preserved(self):
         """Inside fenced code, `…` is preserved — code is sacred, consistent

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Convert ASCII punctuation to full-width on zh-TW lines.
+Convert punctuation to its zh-TW form on Chinese-led lines.
 
 Usage: python3 convert.py [--check] <file.md>
 
@@ -69,13 +69,14 @@ def is_ascii_technical(ch, prev_ch, next_ch):
     return False
 
 
-FULL = {',': '，', ':': '：', ';': '；', '?': '？'}
+ZH_TW_FORM = {',': '，', ':': '：', ';': '；', '?': '？', '…': '...'}
 
 
 def convert(text):
     """Per line: when the prose has a Han ideograph (see prose_has_cjk),
-    convert ASCII , : ; ? to full-width — except ASCII technical patterns,
-    and content inside backticks / fenced code which is preserved verbatim."""
+    rewrite ASCII , : ; ? to full-width and … to ... — except ASCII technical
+    patterns, and content inside backticks / fenced code which is preserved
+    verbatim."""
     out_lines = []
     in_fence = False
     for line in text.split('\n'):
@@ -103,16 +104,12 @@ def convert(text):
                 out_chars.append(ch)
                 continue
 
-            if ch == '…':
-                out_chars.extend('...')
-                continue
-
-            if ch in ',:;?':
+            if ch in ',:;?…':
                 if is_ascii_technical(ch, prev_ch, next_ch):
                     out_chars.append(ch)
                     continue
                 if has_cjk_prose:
-                    out_chars.append(FULL[ch])
+                    out_chars.append(ZH_TW_FORM[ch])
                 else:
                     out_chars.append(ch)
                 continue
@@ -151,7 +148,7 @@ def main():
     if check:
         pending = changed_lines(text, converted)
         for n in pending:
-            print(f"{path}:{n}: would convert to full-width")
+            print(f"{path}:{n}: would convert punctuation")
         sys.exit(1 if pending else 0)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(converted)

@@ -13,9 +13,9 @@ Per candidate ASCII punctuation, three checks in order:
 
 1. **ASCII technical pattern → keep half-width.** See [Skip when][skip-when] below. Fires regardless of other checks.
 2. **Compute once per line: does the prose have a Han ideograph?** Strip matched quote/bracket pairs (`"..."`, `()`, `[]`, `{}`, `「」`, `『』`, `（）`, `《》`, `【】`) and inline backtick spans from the line. The remaining text is the "prose". A Han ideograph is `0x4E00–0x9FFF` or `0x3400–0x4DBF` — full-width punctuation does NOT count.
-3. **If yes → convert; otherwise keep.** All-or-nothing per line: apply the four ASCII mappings from [RULE.md][RULE.md].
+3. **If yes → convert; otherwise keep.** All-or-nothing per line: apply the mappings from [RULE.md][RULE.md].
 
-The `…` → `...` substitution is a flat substitution outside this decision — see [RULE.md][RULE.md].
+The `…` → `...` substitution runs through this same decision, so a pure-English line keeps its ellipsis: there it is English typography, not a zh-TW punctuation slip.
 
 ## Why this shape
 
