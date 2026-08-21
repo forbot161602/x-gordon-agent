@@ -1,11 +1,11 @@
 ---
 name: zh-tw-punctuation
-description: "zh-TW punctuation conventions — on Chinese-led lines in markdown content (documents, commit messages, PRs), convert ASCII , : ; ? to full-width and the ellipsis character to ASCII dots. Script + tests at convert.py / convert_test.py; design rationale at Specification.md."
+description: "zh-TW punctuation conventions — in Chinese-led markdown content (documents, commit messages, PRs), convert ASCII , : ; ? to full-width and the ellipsis character to ASCII dots. Script + tests at convert.py / convert_test.py; design rationale at Specification.md."
 ---
 
 # zh-TW punctuation — full-width
 
-On a Chinese-led line, zh-TW prose wants full-width punctuation, not the ASCII forms. This rule sets which punctuation converts and when — applied deterministically by a script, not judged by eye.
+Chinese-led zh-TW prose wants full-width punctuation, not the ASCII forms. This rule sets which punctuation converts and when — applied deterministically by a script, not judged by eye.
 
 ## Builds on
 
@@ -15,7 +15,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-On zh-TW markdown lines that are Chinese-led (see [Algorithm summary][algorithm-summary]):
+In zh-TW markdown text that is Chinese-led (see [Algorithm summary][algorithm-summary]):
 
 - ASCII `,` → 「，」
 - ASCII `:` → 「：」 (including after markdown bold prefixes like `**標題**:`)
@@ -37,7 +37,7 @@ Converting rewrites the whole file, so read what changed before keeping it. `--c
 
 ## Algorithm summary
 
-Per line: strip matched quote/bracket pairs and inline backtick spans; if any Han ideograph remains in the prose, the line is **Chinese-led** and every eligible punctuation in it converts (except ASCII technical patterns). Full algorithm, bracket set, rationale in [Specification.md][Specification.md]; behavior matrix in [convert_test.py][convert_test.py].
+Per span: set aside the nested spans — matched quote, bracket and emphasis pairs — along with inline backtick spans; if any Han ideograph remains in what the span itself says, it is **Chinese-led** and every eligible punctuation in that text converts (except ASCII technical patterns). A line is the outermost span, and each nested one is judged the same way on its own text, so a Chinese aside inside an English sentence — or the reverse — keeps its own punctuation. Full algorithm, delimiter set, rationale in [Specification.md][Specification.md]; behavior matrix in [convert_test.py][convert_test.py].
 
 ## Out of scope
 
@@ -46,7 +46,7 @@ NEVER convert:
 - Anything inside fenced code blocks or inline backticks
 - ASCII technical patterns: `1,000`, `7:1`, `3:45`, `App.css:24`, `https://`, `A:B`, `cfg?.theme`, and similar (full categories in [Specification.md][Specification.md])
 - ASCII `(`, `.`, `!` and any punctuation the Rule section doesn't list — they collide with English/code/URL contexts
-- Pure English lines (no Han ideograph in prose after stripping)
+- Pure English prose (no Han ideograph left in the span's own text)
 
 ## References
 

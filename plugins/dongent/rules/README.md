@@ -41,7 +41,7 @@ Rules for written documents — prose and markup.
 |---|---|---|
 | [`document-convention/`][document-convention/] | required | Format-agnostic document authoring — file shape, document format, and authoring discipline; the base that format rules build on |
 | [`markdown-convention/`][markdown-convention/] | required | Markdown-specific mechanics layered on document-convention — frontmatter, lists, tables, reference-style links, fenced code |
-| [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width and `…` to ASCII dots on Chinese-led lines (markdown documents, commits, PRs) |
+| [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width and `…` to ASCII dots in Chinese-led text (markdown documents, commits, PRs) |
 
 ### Git
 
