@@ -24,6 +24,7 @@ from convert import (
     is_ascii_technical,
     convert,
     changed_lines,
+    format_diff,
     main,
 )
 
@@ -196,8 +197,8 @@ class TestConvertsWhenProseHasCjk(unittest.TestCase):
         )
 
     def test_english_quote_within_chinese_prose(self) -> None:
-        """Strip the two quoted English words and 回答/和/兩種 remain, so the line
-        is Chinese-led."""
+        """Strip the two quoted English words and the line's own prose
+        (回答/和/兩種) remains, so it is Chinese-led."""
         self.assertEqual(
             convert('回答 "Yes", 和 "No" 兩種'),
             '回答 "Yes"，和 "No" 兩種',
@@ -564,24 +565,64 @@ class TestBoundaryInputs(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
-# CLI — changed_lines() and the --check (dry-run) mode
+# CLI — changed_lines(), format_diff(), and main()'s two modes
 # ---------------------------------------------------------------------------
 
 
 class TestChangedLines(unittest.TestCase):
-    def test_reports_only_changed_line_numbers(self) -> None:
-        original = '純中文\n中文, 逗號\n結尾'
-        self.assertEqual(changed_lines(original, convert(original)), [2])
+    def test_numbers_each_changed_line_by_the_file(self) -> None:
+        """The English line between the two keeps its comma, so the second pair
+        is numbered 3 by the file — not 2 by its place among the changes."""
+        original = (
+            '字級只留 sm, md, lg。\n'
+            'Use the toolbar, then reload.\n'
+            '深色模式共用 token, 不另開檔。'
+        )
+        self.assertEqual(
+            changed_lines(original, convert(original)),
+            [
+                (1, '字級只留 sm, md, lg。', '字級只留 sm，md，lg。'),
+                (3, '深色模式共用 token, 不另開檔。', '深色模式共用 token，不另開檔。'),
+            ],
+        )
 
     def test_empty_when_already_full_width(self) -> None:
         original = '這句已經是全形，結尾。'
         self.assertEqual(changed_lines(original, convert(original)), [])
 
 
-class TestCheckMode(unittest.TestCase):
-    """--check is a dry-run: report the lines that would change, set a non-zero
-    exit code, never write the file. This is the deterministic gate RULE.md
-    asks for — run before commit, convert only if it flags."""
+class TestFormatDiff(unittest.TestCase):
+    def test_heads_the_file_once_then_one_hunk_per_change(self) -> None:
+        """The given numbers are echoed as they are — neither renumbered from
+        one nor merged into a single hunk because they sit apart."""
+        pending = [
+            (2, '按鈕改用主色, 邊框留白。', '按鈕改用主色，邊框留白。'),
+            (5, '間距單位統一, 不混用 px。', '間距單位統一，不混用 px。'),
+        ]
+        self.assertEqual(
+            format_diff('RULE.md', pending),
+            [
+                '--- RULE.md',
+                '+++ RULE.md',
+                '@@ -2 +2 @@',
+                '-按鈕改用主色, 邊框留白。',
+                '+按鈕改用主色，邊框留白。',
+                '@@ -5 +5 @@',
+                '-間距單位統一, 不混用 px。',
+                '+間距單位統一，不混用 px。',
+            ],
+        )
+
+    def test_nothing_pending_yields_nothing(self) -> None:
+        """Not even the file header — a clean run says nothing at all."""
+        self.assertEqual(format_diff('RULE.md', []), [])
+
+
+class TestMain(unittest.TestCase):
+    """Two modes: with --check it is a dry-run — print the diff, set a non-zero
+    exit code, leave the file alone; without it, write the conversion in place.
+    The dry-run is the deterministic gate RULE.md asks for — run it before
+    commit, convert only if it flags."""
 
     def _run(self, argv: list[str], content: str) -> tuple[int, str, str]:
         with tempfile.NamedTemporaryFile(
@@ -610,12 +651,13 @@ class TestCheckMode(unittest.TestCase):
         code, stdout, after = self._run(['--check'], content)
         self.assertEqual(code, 1)         # non-zero: conversion pending
         self.assertEqual(after, content)  # file untouched
-        self.assertIn('would convert', stdout)
+        self.assertIn('+中文，需要轉', stdout)  # the diff reached stdout
 
-    def test_check_clean_exits_zero(self) -> None:
+    def test_check_clean_is_silent_and_exits_zero(self) -> None:
         content = '這句已經是全形，結尾。'
-        code, _, after = self._run(['--check'], content)
+        code, stdout, after = self._run(['--check'], content)
         self.assertEqual(code, 0)
+        self.assertEqual(stdout, '')
         self.assertEqual(after, content)
 
     def test_no_check_writes_conversion(self) -> None:

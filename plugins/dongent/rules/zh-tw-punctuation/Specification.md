@@ -68,6 +68,12 @@ ASCII technical patterns kept half-width:
 - `:` letter before, letter after → ASCII identifier (`A:B`, `Tab:Detail`, `key:value`)
 - `?` followed by `.` → optional chaining (`cfg?.theme`)
 
+## Check output
+
+`--check` prints a unified diff with no context lines: the `---` / `+++` header once, then one `@@ -n +n @@` hunk per changed line carrying its before and after. Both forms of a mark look alike, so a line number alone leaves the author converting the file just to learn what that line becomes.
+
+Hunks are never coalesced: every change rewrites one line in place, so adjacent changed lines gain nothing from sharing a hunk. What the shape costs is a `path:line` locator, which an editor turns into a jump; the hunk header keeps the number, and with both forms in view there is rarely anywhere to jump to.
+
 ## Considered alternatives
 
 - **Ratio threshold** (line has X% Chinese chars → convert): tried; produced false positives in long mostly-English lines that quoted CJK + false negatives in short lines where the threshold rejected legitimate Chinese-led prose.

@@ -29,7 +29,7 @@ When writing or editing any zh-TW markdown content (documents, commit messages, 
 
 ## How to apply
 
-At that checkpoint, run [convert.py][convert.py] with `--check` from the file's directory: it reports any punctuation that needs converting and exits non-zero. Convert (run without `--check`) only when it flags something. The converter is idempotent — safe to re-run.
+At that checkpoint, run [convert.py][convert.py] with `--check` from the file's directory: it prints a unified diff of every line whose punctuation needs converting and exits non-zero. Convert (run without `--check`) only when it flags something. The converter is idempotent — safe to re-run.
 
 Trust `--check`, not a visual glance: a half-width comma buried in a long zh-TW file is exactly what the eye skips, and the script's job is to catch deterministically what a writer (or model) misses.
 

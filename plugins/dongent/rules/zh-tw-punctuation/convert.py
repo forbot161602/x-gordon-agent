@@ -4,8 +4,8 @@ Convert punctuation to its zh-TW form on Chinese-led text.
 
 Usage: python3 convert.py [--check] <file.md>
 
---check reports the lines that would change and exits non-zero if any, without
-writing the file (exit 0 when nothing needs converting).
+--check prints a unified diff of the lines that would change and exits non-zero
+if any, without writing the file (exit 0 when nothing needs converting).
 
 Idempotent — safe to re-run. See sibling RULE.md for the rule contract.
 """
@@ -260,15 +260,26 @@ def convert(text: str) -> str:
     return '\n'.join(out_lines)
 
 
-def changed_lines(original: str, converted: str) -> list[int]:
-    """1-based line numbers where conversion would change the text."""
+def changed_lines(original: str, converted: str) -> list[tuple[int, str, str]]:
+    """Each line conversion would change, as (1-based number, before, after)."""
     return [
-        n
+        (n, before, after)
         for n, (before, after) in enumerate(
             zip(original.split('\n'), converted.split('\n')), 1
         )
         if before != after
     ]
+
+
+def format_diff(path: str, pending: list[tuple[int, str, str]]) -> list[str]:
+    """Unified-diff output lines for what changed_lines found — and nothing at
+    all, not even the file header, when nothing pends."""
+    if not pending:
+        return []
+    out = [f"--- {path}", f"+++ {path}"]
+    for n, before, after in pending:
+        out.extend((f"@@ -{n} +{n} @@", f"-{before}", f"+{after}"))
+    return out
 
 
 def main() -> None:
@@ -279,13 +290,15 @@ def main() -> None:
         print(f"Usage: {sys.argv[0]} [--check] <file.md>", file=sys.stderr)
         sys.exit(1)
     path = paths[0]
+
     with open(path, 'r', encoding='utf-8') as f:
         text = f.read()
     converted = convert(text)
+
     if check:
         pending = changed_lines(text, converted)
-        for n in pending:
-            print(f"{path}:{n}: would convert punctuation")
+        for line in format_diff(path, pending):
+            print(line)
         sys.exit(1 if pending else 0)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(converted)
