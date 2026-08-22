@@ -237,14 +237,15 @@ def _convert_span(text: str, start: int, end: int, out_chars: list[str]) -> None
             _convert_prose(text, segment_start, segment_end, has_cjk_prose, out_chars)
 
 
-def convert(text: str) -> str:
+def convert_lines(lines: list[str]) -> list[str]:
     """Per line: when the prose has a Han ideograph (see prose_has_cjk),
     rewrite ASCII , : ; ? to full-width and … to ... — except ASCII technical
     patterns, and content inside backticks / fenced code which is preserved
-    verbatim. A delimited span is judged on its own prose, not the line's."""
+    verbatim. A delimited span is judged on its own prose, not the line's. One
+    output line per input line, so the two lists pair up by position."""
     out_lines = []
     in_fence = False
-    for line in text.split('\n'):
+    for line in lines:
         if line.lstrip().startswith('```'):
             in_fence = not in_fence
             out_lines.append(line)
@@ -257,16 +258,21 @@ def convert(text: str) -> str:
         _convert_span(line, 0, len(line), out_chars)
         out_lines.append(''.join(out_chars))
 
-    return '\n'.join(out_lines)
+    return out_lines
 
 
-def changed_lines(original: str, converted: str) -> list[tuple[int, str, str]]:
+def convert(text: str) -> str:
+    """A whole file's text at once — see convert_lines for the per-line rule."""
+    return '\n'.join(convert_lines(text.split('\n')))
+
+
+def changed_lines(
+    original: list[str], converted: list[str]
+) -> list[tuple[int, str, str]]:
     """Each line conversion would change, as (1-based number, before, after)."""
     return [
         (n, before, after)
-        for n, (before, after) in enumerate(
-            zip(original.split('\n'), converted.split('\n')), 1
-        )
+        for n, (before, after) in enumerate(zip(original, converted), 1)
         if before != after
     ]
 
@@ -292,16 +298,16 @@ def main() -> None:
     path = paths[0]
 
     with open(path, 'r', encoding='utf-8') as f:
-        text = f.read()
-    converted = convert(text)
+        lines = f.read().split('\n')
+    converted_lines = convert_lines(lines)
 
     if check:
-        pending = changed_lines(text, converted)
+        pending = changed_lines(lines, converted_lines)
         for line in format_diff(path, pending):
             print(line)
         sys.exit(1 if pending else 0)
     with open(path, 'w', encoding='utf-8') as f:
-        f.write(converted)
+        f.write('\n'.join(converted_lines))
 
 
 if __name__ == '__main__':

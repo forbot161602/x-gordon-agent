@@ -22,6 +22,7 @@ from convert import (
     is_cjk_ideograph,
     prose_has_cjk,
     is_ascii_technical,
+    convert_lines,
     convert,
     changed_lines,
     format_diff,
@@ -565,6 +566,20 @@ class TestBoundaryInputs(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
+# convert_lines() — the line-list core that convert() and the CLI share
+# ---------------------------------------------------------------------------
+
+
+class TestConvertLines(unittest.TestCase):
+    def test_one_output_line_per_input_line(self) -> None:
+        """Lines that pass through untouched — a fence, its content, a blank one
+        — are still emitted, which is what lets changed_lines pair the input and
+        output lists by position."""
+        lines = ['中文, 要轉', '```', 'a, b', '```', '']
+        self.assertEqual(len(convert_lines(lines)), len(lines))
+
+
+# ---------------------------------------------------------------------------
 # CLI — changed_lines(), format_diff(), and main()'s two modes
 # ---------------------------------------------------------------------------
 
@@ -573,13 +588,13 @@ class TestChangedLines(unittest.TestCase):
     def test_numbers_each_changed_line_by_the_file(self) -> None:
         """The English line between the two keeps its comma, so the second pair
         is numbered 3 by the file — not 2 by its place among the changes."""
-        original = (
-            '字級只留 sm, md, lg。\n'
-            'Use the toolbar, then reload.\n'
-            '深色模式共用 token, 不另開檔。'
-        )
+        original = [
+            '字級只留 sm, md, lg。',
+            'Use the toolbar, then reload.',
+            '深色模式共用 token, 不另開檔。',
+        ]
         self.assertEqual(
-            changed_lines(original, convert(original)),
+            changed_lines(original, convert_lines(original)),
             [
                 (1, '字級只留 sm, md, lg。', '字級只留 sm，md，lg。'),
                 (3, '深色模式共用 token, 不另開檔。', '深色模式共用 token，不另開檔。'),
@@ -587,8 +602,8 @@ class TestChangedLines(unittest.TestCase):
         )
 
     def test_empty_when_already_full_width(self) -> None:
-        original = '這句已經是全形，結尾。'
-        self.assertEqual(changed_lines(original, convert(original)), [])
+        original = ['這句已經是全形，結尾。']
+        self.assertEqual(changed_lines(original, convert_lines(original)), [])
 
 
 class TestFormatDiff(unittest.TestCase):
