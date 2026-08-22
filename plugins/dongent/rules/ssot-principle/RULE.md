@@ -15,7 +15,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-Three principles, in priority order. A _fact_ is any unit of content — a statement, a value, a behaviour; a _link_ is any reference to its home — a document link, an import, a call, inheritance.
+The principles below run in priority order. A _fact_ is any unit of content — a statement, a value, a behaviour; a _link_ is any reference to its home — a document link, an import, a call, inheritance.
 
 ### 1. Single source of truth
 
@@ -36,8 +36,12 @@ Each fact lives in exactly one canonical home; everywhere else MUST link to it i
 
 Keep content concise and precise. Where a fact already has a canonical home and appears again, decide by context: link to the home, or cut a redundant copy or link. Cut outright:
 
-- **speculative structure** — built for a scope you don't have yet (a "just in case").
+- **verbal excess** — more words, sentences, or explanation than the point requires, where one direct sentence would carry the same information.
+- **peripheral detail** — marginal facts heaped around the load-bearing one, leaving the reader to work out which is which.
 - **zero-information filler** — a line that only restates the title or states the obvious.
+- **speculative structure** — built for a scope that does not exist yet (a "just in case").
+
+Concision has a floor: cutting removes excess, never information. A passage carrying the only statement of a fact is not redundant, however long it reads.
 
 **Why:** padding and vagueness make the reader work harder; every redundant copy is a future inconsistency, and unused complexity is dead weight to maintain.
 
@@ -50,6 +54,8 @@ Before writing or substantially editing any artifact. Also a pre-publish checkpo
 - **Before writing a fact**, ask whether it already lives somewhere. If so, link to it rather than restating it.
 - **When a fact could live in several places**, make its home the most foundational one — lowest layer, most-depended-on, longest-lived (based on dependency role and expected stability, not seniority; being written first doesn't make a copy authoritative).
 - **When a fact already sits in several places**, resolve the duplicates against the canonical home — link where a reference is needed, cut where it isn't.
+- **When cutting**, delete the redundant words rather than rewriting the passage — a rewrite resamples every clause and drifts — and restructure only where the passage never states the point.
+- **After cutting or restructuring**, read the result against what it replaced: no fact lost, no claim moved.
 - **Before changing a fact**, grep for it across files and update every occurrence so no copy drifts.
 - **On rename or move**, update every link that pointed at the old name or path.
 - **When asked for "a complete summary"**, assemble it by linking, not by copying.
