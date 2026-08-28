@@ -15,16 +15,16 @@ Event hooks this plugin ships. The harness auto-loads [`hooks.json`][hooks.json]
 <!-- prettier-ignore -->
 | Event | Payload | What it does |
 |---|---|---|
-| `UserPromptSubmit` | [`reply-language.json`][contexts/reply-language.json] | Injects the reply-language reminder as fresh context each turn. Enforces the [reply-language][../bedrocks/reply-language/BEDROCK.md] bedrock. |
+| `UserPromptSubmit` | [`reply-convention.json`][contexts/reply-convention.json] | Injects the reply-convention reminder as fresh context each turn. Enforces the [reply-convention][../bedrocks/reply-convention/BEDROCK.md] bedrock. |
 
 ## References
 
 - [`hooks.json`][hooks.json]
 - [`contexts/`][contexts/]
-- [`reply-language.json`][contexts/reply-language.json]
-- [reply-language][../bedrocks/reply-language/BEDROCK.md]
+- [`reply-convention.json`][contexts/reply-convention.json]
+- [reply-convention][../bedrocks/reply-convention/BEDROCK.md]
 
 [hooks.json]: hooks.json
 [contexts/]: contexts/
-[contexts/reply-language.json]: contexts/reply-language.json
-[../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
+[contexts/reply-convention.json]: contexts/reply-convention.json
+[../bedrocks/reply-convention/BEDROCK.md]: ../bedrocks/reply-convention/BEDROCK.md

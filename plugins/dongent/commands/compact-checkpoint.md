@@ -11,7 +11,7 @@ MUST read these first — this command relies on them:
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
-- [reply-language][../bedrocks/reply-language/BEDROCK.md]
+- [reply-convention][../bedrocks/reply-convention/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 
@@ -52,14 +52,14 @@ Syncing the rule library into memory — that's [memory-sync][memory-sync.md]. T
 
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
-- [reply-language][../bedrocks/reply-language/BEDROCK.md]
+- [reply-convention][../bedrocks/reply-convention/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [memory-sync][memory-sync.md]
 
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
-[../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
+[../bedrocks/reply-convention/BEDROCK.md]: ../bedrocks/reply-convention/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [memory-sync.md]: memory-sync.md

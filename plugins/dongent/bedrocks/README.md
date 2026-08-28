@@ -29,22 +29,22 @@ Cross-cutting foundations every rule and document builds on; tied to no particul
 
 ### Interaction
 
-How the agent deals with whoever gave it the instruction — the language it answers in, and the authority it acts under.
+How the agent deals with whoever gave it the instruction — the language and order of what it says back, and the authority it acts under.
 
 <!-- prettier-ignore -->
 | Folder | Summary |
 |---|---|
-| [`reply-language/`][reply-language/] | Reply to the user in their customary language — separate from the language of the artifacts produced |
+| [`reply-convention/`][reply-convention/] | Answer in the user's own language — not the artifacts' — and open with the judgement when the reply carries one |
 | [`agent-autonomy/`][agent-autonomy/] | Stepwise under the user until a grant says otherwise, automatic within the grant where no answer can arrive during the run, and a report of what was done owed back either way |
 
 ## References
 
 - [`wording-rule/`][wording-rule/]
 - [`governance-scope/`][governance-scope/]
-- [`reply-language/`][reply-language/]
+- [`reply-convention/`][reply-convention/]
 - [`agent-autonomy/`][agent-autonomy/]
 
 [wording-rule/]: wording-rule/
 [governance-scope/]: governance-scope/
-[reply-language/]: reply-language/
+[reply-convention/]: reply-convention/
 [agent-autonomy/]: agent-autonomy/
