@@ -14,12 +14,13 @@ MUST read these first — this command relies on them:
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
 - [reply-language][../bedrocks/reply-language/BEDROCK.md]
+- [agent-autonomy][../bedrocks/agent-autonomy/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 
 ## Steps
 
-**The work splits by reader.** Each source's rule-grounded work (steps 4-7) goes to one subagent: it reads the source with its closure as background, distills the rule, resolves the Prerequisites it can detect itself, and drafts the source's project-specific content — returning a drafted section, and flagging any Prerequisite only the user can answer. The main agent sets up and dispatches, batches any necessary clarifying questions, checks the drafts against memory and reconciles across them, then writes, verifies, indexes, and reports — working from the returns, so it holds the global shape, not every rule's detail.
+**The work splits by reader.** Each source's rule-grounded work (steps 4-7) goes to one subagent: it reads the source with its closure as background, distills the rule, resolves the Prerequisites it can detect itself, and drafts the source's project-specific content — returning a drafted section, and flagging any Prerequisite only the user can answer. The agent running this command sets up and dispatches, batches any necessary clarifying questions, checks the drafts against memory and reconciles across them, then writes, verifies, indexes, and reports — working from the returns, so it holds the global shape, not every rule's detail.
 
 > **Per-source atomicity**: each source is processed independently across the steps below. If any step fails for a source (e.g. `RULE.md` unreadable, file write fails), stop and report — don't write partial state for that source's section; leave its existing section intact. Sources handled earlier in the same run keep their updated sections; the failing source retries on the next sync.
 
@@ -176,6 +177,7 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 - [wording-rule][../bedrocks/wording-rule/BEDROCK.md]
 - [governance-scope][../bedrocks/governance-scope/BEDROCK.md]
 - [reply-language][../bedrocks/reply-language/BEDROCK.md]
+- [agent-autonomy][../bedrocks/agent-autonomy/BEDROCK.md]
 - [ssot-principle][../rules/ssot-principle/RULE.md]
 - [private-content][../rules/private-content/RULE.md]
 - [publish-check][publish-check.md]
@@ -184,6 +186,7 @@ Reconciling the rest of project memory — beyond the rules this command syncs (
 [../bedrocks/wording-rule/BEDROCK.md]: ../bedrocks/wording-rule/BEDROCK.md
 [../bedrocks/governance-scope/BEDROCK.md]: ../bedrocks/governance-scope/BEDROCK.md
 [../bedrocks/reply-language/BEDROCK.md]: ../bedrocks/reply-language/BEDROCK.md
+[../bedrocks/agent-autonomy/BEDROCK.md]: ../bedrocks/agent-autonomy/BEDROCK.md
 [../rules/ssot-principle/RULE.md]: ../rules/ssot-principle/RULE.md
 [../rules/private-content/RULE.md]: ../rules/private-content/RULE.md
 [publish-check.md]: publish-check.md

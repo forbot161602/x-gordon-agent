@@ -24,16 +24,27 @@ Cross-cutting foundations every rule and document builds on; tied to no particul
 <!-- prettier-ignore -->
 | Folder | Summary |
 |---|---|
-| [`wording-rule/`][wording-rule] | Requirement-level keywords (MUST / SHOULD / …) and behavior-trigger words, each with one fixed meaning |
-| [`governance-scope/`][governance-scope] | Whose conventions content follows — the author's own established convention for private content, the team's for public, and the plugin's defaults where neither has established one |
-| [`reply-language/`][reply-language] | Reply to the user in their customary language — separate from the language of the artifacts produced |
+| [`wording-rule/`][wording-rule/] | Requirement-level keywords (MUST / SHOULD / …) and behavior-trigger words, each with one fixed meaning |
+| [`governance-scope/`][governance-scope/] | Whose conventions content follows — the author's own established convention for private content, the team's for public, and the plugin's defaults where neither has established one |
+
+### Interaction
+
+How the agent deals with whoever gave it the instruction — the language it answers in, and the authority it acts under.
+
+<!-- prettier-ignore -->
+| Folder | Summary |
+|---|---|
+| [`reply-language/`][reply-language/] | Reply to the user in their customary language — separate from the language of the artifacts produced |
+| [`agent-autonomy/`][agent-autonomy/] | Stepwise under the user until a grant says otherwise, automatic within the grant where no answer can arrive during the run, and a report of what was done owed back either way |
 
 ## References
 
-- [`wording-rule/`][wording-rule]
-- [`governance-scope/`][governance-scope]
-- [`reply-language/`][reply-language]
+- [`wording-rule/`][wording-rule/]
+- [`governance-scope/`][governance-scope/]
+- [`reply-language/`][reply-language/]
+- [`agent-autonomy/`][agent-autonomy/]
 
-[wording-rule]: wording-rule/
-[governance-scope]: governance-scope/
-[reply-language]: reply-language/
+[wording-rule/]: wording-rule/
+[governance-scope/]: governance-scope/
+[reply-language/]: reply-language/
+[agent-autonomy/]: agent-autonomy/
