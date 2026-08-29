@@ -67,7 +67,7 @@ When writing or editing any markdown document. Also a pre-publish checkpoint: re
 
 ## How to apply
 
-Follow [document-convention][../document-convention/RULE.md]'s How to apply; for Markdown its two domain inputs are:
+Follow [document-convention][../document-convention/RULE.md]'s How to apply; for Markdown its domain inputs are:
 
 - **The established style to observe** — the conventions the nearby Markdown files in the document's own layer follow (sibling `.md` files, a same-folder `README.md`, a `docs/` index): the **author-only** files for a private document, the **shared** ones for a public one.
 - **The defaults** to fall back to — the conventions above.

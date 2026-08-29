@@ -19,7 +19,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-Two principles. A commit message has three semantic parts with different format expectations; the whole message stays scoped to the current project's reviewers. These principles are **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether the team's commit style takes precedence — see [How to apply][how-to-apply] for what to observe.
+A commit message has three semantic parts with different format expectations; the whole message stays scoped to the current project's reviewers. These principles are **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether the team's commit style takes precedence — see [How to apply][how-to-apply] for what to observe.
 
 ### 1. Three-part commit structure (header / body / footer)
 
@@ -45,7 +45,7 @@ When writing or editing any commit message. Also a pre-publish (pre-commit) chec
 
 ## How to apply
 
-- **Before writing**, run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its two domain inputs:
+- **Before writing**, run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its domain inputs:
   - **The team style to observe** — the team's documented commit style, or recent commits as a style reference where none is documented.
   - **The defaults** to fall back to are the principles above.
 - **Before commit**, the agent reads the staged diff and the drafted message, then verifies header / body / footer against the applied principles plus inherited content rules; fix anything flagged.

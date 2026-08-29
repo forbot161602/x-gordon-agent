@@ -5,7 +5,7 @@ description: How the agent addresses the user — in their customary language, s
 
 # Reply convention — which language, and what comes first
 
-Two things about what the agent says back: the language it uses, and where a judgement sits when the reply carries one. Neither governs the artifacts it writes.
+This covers what the agent says back: the language it uses, and where a judgement sits when the reply carries one. None of it reaches the artifacts it writes.
 
 ## Rule
 

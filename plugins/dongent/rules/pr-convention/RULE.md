@@ -20,7 +20,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-Two principles. These are **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether the repo's PR template takes precedence — see [How to apply][how-to-apply] for what to observe.
+The principles below are **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether the repo's PR template takes precedence — see [How to apply][how-to-apply] for what to observe.
 
 ### 1. Title defaults to the commit-header shape
 
@@ -30,7 +30,7 @@ By default the PR title shares the same format constraints as the commit header 
 
 ### 2. Body is terse and template-driven
 
-The PR body has two jobs: a **precise, concise summary** of the change — what, why, and how (approach + verification) — and **pointers** to ticket / related PRs / specs. Code-level explanations stay in in-code comments, not the body.
+The PR body carries a **precise, concise summary** of the change — what, why, and how (approach + verification) — and **pointers** to ticket / related PRs / specs. Code-level explanations stay in in-code comments, not the body.
 
 - **Length**: short. Each section is a sentence or a few bullets; rarely more than a screen. A long body usually means the diff itself needs splitting, or better in-code comments.
 - **Sections**: defined by the repo's PR template — follow its section names verbatim; don't rename, reorder, or add. When no template, keep the minimum that frames the change (typically Why / What).
@@ -45,7 +45,7 @@ When opening or editing any PR. Also a pre-publish checkpoint: run the audit bef
 
 ## How to apply
 
-- **Before writing**, run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its two domain inputs:
+- **Before writing**, run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its domain inputs:
   - **The team style to observe** — the repo's PR template (`.github/pull_request_template.md` or `.github/PULL_REQUEST_TEMPLATE/*`), followed verbatim when present; failing that, recent merged PRs as a style reference: `gh pr list --state merged --limit 10` then `gh pr view <pr-number>` (if `gh` is unavailable, `git log --grep="^Merge pull request" --merges -n 10` to find merge commits and look up bodies through whatever interface is reachable).
   - **The defaults** to fall back to are the principles above.
 - **Before opening**, the agent reads the diff and the drafted body, then verifies title and body against the applied principles plus inherited content rules; fix anything flagged.

@@ -110,14 +110,14 @@ Beyond those sections, the private layer is **personal-first** by default — pe
 
 ### 7. Report
 
-The report has two groups — **Coverage**, then the audit's **Findings** — each a top-level heading. The sections within a group are one heading level below, so both groups share one shape.
+The report opens with **Coverage**, then the audit's **Findings**, each a top-level heading whose sections sit one level below — so the groups share one shape.
 
 🗂️ **Coverage** — a complete ledger: every target file appears under one section, so under-coverage shows outright rather than by absence.
 
 - 📖 **Read in full** — the files read top-to-EOF this run.
 - 🧭 **Covered another way** — large code files or binaries, where a full read is disproportionate or doesn't apply; each with a one-line note on how it was covered instead of a full read.
 
-🔍 **Findings** — the four buckets below; in Auto-fixed and Needs decision, group entries by the rule they came from (the audit runs per rule), then by file — one line per finding, with its line number where it has one. Auto-fixed entries are typically the bulk, already in the worktree as unstaged changes for `git diff` review; where "Needs decision" or "Delete candidates" is non-empty, the author MAY resolve them before publishing.
+🔍 **Findings** — the buckets below; in Auto-fixed and Needs decision, group entries by the rule they came from (the audit runs per rule), then by file — one line per finding, with its line number where it has one. Auto-fixed entries are typically the bulk, already in the worktree as unstaged changes for `git diff` review; where "Needs decision" or "Delete candidates" is non-empty, the author MAY resolve them before publishing.
 
 - 🔄 **Auto-fixed** — the changes applied (file path, line where applicable, one-line description per fix).
 - ❌ **Needs decision** — escalated items (file path, line, the ambiguity, options the author can pick). **Usually empty**; non-empty signals a truly unresolvable case (see step 6).

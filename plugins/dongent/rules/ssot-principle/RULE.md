@@ -27,7 +27,7 @@ Each fact lives in exactly one canonical home; everywhere else MUST link to it i
 
 ### 2. Consistency
 
-- _fact_ — two separate checks: (1) every occurrence of a fact agrees, no contradictions; (2) every reference stays live — a rename or move updates all links so none goes stale.
+- _fact_ — separate checks: (1) every occurrence of a fact agrees, no contradictions; (2) every reference stays live — a rename or move updates all links so none goes stale.
 - _style_ — a new file follows its same-type siblings in naming, structure, order, and conventions (a doc's section order, tone, terminology; code's error-handling, module layout, tests).
 
 **Why:** contradictory facts mislead the reader; a stale link wastes their time; mismatched style inflates reading cost.

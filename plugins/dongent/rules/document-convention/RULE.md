@@ -19,7 +19,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-The conventions below are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether an established style in the document's own layer takes precedence — see [How to apply][how-to-apply]. They fall in three groups: the **file shape** of the document system (how its files and folders are laid out), the **document format** (how a document is structured and presented), and the **authoring discipline** every document observes.
+The conventions below are this domain's **defaults**; [governance-scope][../../bedrocks/governance-scope/BEDROCK.md] governs whether an established style in the document's own layer takes precedence — see [How to apply][how-to-apply]. They cover the **file shape** of the document system (how its files and folders are laid out), the **document format** (how a document is structured and presented), and the **authoring discipline** every document observes.
 
 ### File shape
 
@@ -78,6 +78,11 @@ Apply [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]'s requirement-level
 - State a fact as generally as it actually holds — no narrower (which shrinks the rule into needless enumeration), no broader (which overstates it). A genuinely domain-specific fact stays specific.
 - For the execution plane, prefer a generic term to a product name (agent / harness / runtime, not Codex or Claude Code); demote a genuinely product-specific detail to a parenthetical or "e.g." aside (e.g. a `~/.claude/…` path).
 
+#### Explicit counts
+
+- A list states its own length; don't restate that in the prose around it, where an added or removed item leaves the number wrong (per [ssot-principle][../ssot-principle/RULE.md]).
+- A count that is itself the fact stays: the test is whether one more item would change what the thing is, or only lengthen its list.
+
 #### Impersonal prose
 
 - Directive guidance SHOULD NOT use personal pronouns (you, we, I) or "please"; write it as a plain statement or a subjectless imperative.
@@ -95,7 +100,7 @@ When writing or editing any document, in any format. Also a pre-publish checkpoi
 
 ## How to apply
 
-- **Before writing**, place the document by layer ([private-content][../private-content/RULE.md]), then run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its two domain inputs:
+- **Before writing**, place the document by layer ([private-content][../private-content/RULE.md]), then run [governance-scope][../../bedrocks/governance-scope/BEDROCK.md]'s cascade — this rule supplies its domain inputs:
   - **The established style to observe** — the conventions the nearby artifacts in the document's own layer follow (sibling documents, a same-folder README, an index doc): the **author-only** artifacts for a private document, the **shared** ones for a public one.
   - **The defaults** to fall back to — the conventions above.
 - **Before publishing**, re-check each convention against whichever source won its cascade; fix anything flagged.

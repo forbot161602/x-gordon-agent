@@ -17,7 +17,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-Three principles, applied within the private and public layers each project declares (see [Prerequisites][prerequisites]).
+The principles below apply within the private and public layers each project declares (see [Prerequisites][prerequisites]).
 
 ### 1. Place content in the right layer
 

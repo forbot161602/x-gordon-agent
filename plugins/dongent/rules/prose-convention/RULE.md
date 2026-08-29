@@ -15,7 +15,7 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-Two principles, both serving one goal: **self-contained meaning** — every claim MUST be decodable without access to the original context. A future reader — next session, next week, or outside your team — cannot be expected to guess or reverse-engineer what you meant.
+The principles below serve one goal: **self-contained meaning** — every claim MUST be decodable without access to the original context. A future reader — next session, next week, or outside your team — cannot be expected to guess or reverse-engineer what you meant.
 
 ### 1. Time-bound references are out
 
@@ -40,7 +40,7 @@ When writing or editing any shared prose (README, design doc, code comment, comm
 
 - **Before writing**, ask: would a reader who lacks my session, my clock, and my team understand this? If not, restate it.
 - **Before publishing**, run the audit:
-  - Agent reads each shared artifact and checks against both principles; flag anything that depends on outside context.
+  - Agent reads each shared artifact and checks against each principle; flag anything that depends on outside context.
   - Cheap pass: grep against the project's forbidden list.
 - **Whenever a violation slips through and surfaces later**, add the specific term or pattern to the project's forbidden list — anchored in agent memory (inline or by pointer) — so future audits catch it. The list is **memory of past mistakes**, not a pre-seeded enumeration; the pre-publish grep assembles it from there.
 
