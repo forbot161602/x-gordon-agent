@@ -60,7 +60,7 @@ When writing or editing any artifact, private or public. Also a pre-publish chec
 
 ## Out of scope
 
-- Behaviors within a layer — see [ssot-principle][../ssot-principle/RULE.md]; this rule is about _which_ layer, ssot-principle covers what happens within one.
+- Behaviors within a layer — see [ssot-principle][../ssot-principle/RULE.md]; this rule is about _which_ layer, `ssot-principle` covers what happens within one.
 - Prose quality of shared text — see [prose-convention][../prose-convention/RULE.md]. Some terms (e.g. session shorthand) are addressed by more than one rule from different angles.
 
 ## References

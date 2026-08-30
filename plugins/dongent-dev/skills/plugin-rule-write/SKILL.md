@@ -30,7 +30,7 @@ A rule's frontmatter follows the unit [markdown-frontmatter][plugin:dongent/refe
 
 ### Sections
 
-Use the sections the sibling `RULE.md` files use rather than inventing new ones — this list is both the whitelist and the order: `## Builds on`, `## Rule`, `## When to apply`, `## How to apply`, `## Out of scope`, `## References`. `## Prerequisites` (when the rule needs it) sits after `## How to apply`; add domain-specific sections only where genuinely needed. This is the style-consistency facet applied to rule files (per [ssot-principle][plugin:dongent/rules/ssot-principle/RULE.md]).
+Use the sections the sibling `RULE.md` files use rather than inventing new ones — this list is both the whitelist and the order: `## Builds on`, `## Rule`, `## When to apply`, `## How to apply`, optional `## Prerequisites`, optional `## Left to supply`, `## Out of scope`, `## References`. Include `## Prerequisites` when the rule has preconditions to resolve, and `## Left to supply` when it leaves something for its downstream domain to fill; add domain-specific sections only where genuinely needed. This is the style-consistency facet applied to rule files (per [ssot-principle][plugin:dongent/rules/ssot-principle/RULE.md]).
 
 ### Builds on
 
@@ -44,6 +44,10 @@ When a rule has upstream dependencies — base rules or bedrocks it builds on �
 ### Prerequisites
 
 A `## Prerequisites` section lists what must be resolved before the rule can be applied — information the user provides or the agent detects on its own. It differs from `## Builds on`: Prerequisites is per-project preconditions to resolve, while Builds on is the static upstream rules and bedrocks read first. Omit it when the rule has no preconditions.
+
+### Left to supply
+
+A `## Left to supply` section names what this source leaves for the rules that build on it — the part of its own rule that cannot be stated without a domain. It is the reverse of `## Builds on`: that section points upstream at what this rule reads, this one downstream at what other rules owe it. A dependency carrying such a section asks for something this rule must supply, in whichever of its sections fits. Omit it when the rule is complete on its own.
 
 ## File shape
 

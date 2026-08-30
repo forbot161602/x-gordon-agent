@@ -34,4 +34,6 @@ An established convention — the author's own in the private layer, the team's 
 
 **Why:** the defaults exist to govern wherever the layer has not spoken; reading deference into silence invents a rule that isn't there and discards a sound default for nothing.
 
-A rule that builds on this supplies the rest for its own domain — what counts as "the relevant artifacts" to observe, and what its own defaults are.
+## Left to supply
+
+The cascade above needs a domain to run in. A rule that builds on this supplies the rest for its own: what counts as "the relevant artifacts" to observe, and what its own defaults are.

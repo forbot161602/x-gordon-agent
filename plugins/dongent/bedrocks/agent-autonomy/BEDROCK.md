@@ -53,7 +53,7 @@ The points:
 - **a contradiction** — a finding that undercuts what the instruction assumed, where carrying on means building on a premise already known to be false.
 - **a stall** — the approaches in reach are exhausted and the failure has not changed, or the work is retreading its own steps; one failure is not a stall.
 
-Whatever the instruction settled proceeds without asking; work it never asked for stops for consent. A rule that builds on this names its own domain's instances — which of its operations publish, which cannot be undone, and what its coherent unit is.
+Whatever the instruction settled proceeds without asking; work it never asked for stops for consent.
 
 **Why:** how major something is cannot be checked, so two runs will draw that line in two places; each of the points asks something checkable instead. The planned stop answers a different need: even a clear instruction cannot settle every turn or cost the work runs into, a reviewer can only judge what they can hold in view, and a choice the instruction left open is cheapest to revisit before the work rests on it.
 
@@ -67,3 +67,7 @@ Work sometimes calls for the user — a decision to escalate, a question to ask,
 When the work ends, the agent reports to its upstream what it actually did, leading with whatever the upstream would not predict — a boundary reached, a contradiction, an approach abandoned for another.
 
 **Why:** the upstream's next decision rests on what actually happened, so a report that restates the instruction leaves it deciding blind. Routing a step's question the same way is what lets commands and skills be written for a single agent, with no delegation caveats in them.
+
+## Left to supply
+
+The stops above hold everywhere; the operations they land on are domain-specific. A rule that builds on this names its own instances: what its coherent unit is, which of its operations publish, and which cannot be undone.

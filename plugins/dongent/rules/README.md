@@ -40,16 +40,17 @@ Rules for written documents — prose and markup.
 | Folder | Tier | Summary |
 |---|---|---|
 | [`document-convention/`][document-convention/] | required | Format-agnostic document authoring — file shape, document format, and authoring discipline; the base that format rules build on |
-| [`markdown-convention/`][markdown-convention/] | required | Markdown-specific mechanics layered on document-convention — frontmatter, lists, tables, reference-style links, fenced code |
+| [`markdown-convention/`][markdown-convention/] | required | Markdown-specific mechanics layered on `document-convention` — frontmatter, lists, tables, reference-style links, fenced code |
 | [`zh-tw-punctuation/`][zh-tw-punctuation/] | required | Convert ASCII `,` `:` `;` `?` to full-width and `…` to ASCII dots in Chinese-led text (markdown documents, commits, PRs) |
 
 ### Git
 
-Rules for git artifacts — commits and PRs.
+Rules for git — how a change is branched, committed, and published, and what its messages say.
 
 <!-- prettier-ignore -->
 | Folder | Tier | Summary |
 |---|---|---|
+| [`git-workflow/`][git-workflow/] | required | Where work branches from and returns to, where one commit ends, and what must hold before anything is published |
 | [`commit-convention/`][commit-convention/] | required | Conventional commits with three-part structure (header / body / footer); messages scoped to the project's reviewers |
 | [`pr-convention/`][pr-convention/] | required | PR title defaults to the commit-header shape; body is terse, template-driven; cross-domain references and code snippets only when load-bearing |
 
@@ -61,6 +62,7 @@ Rules for git artifacts — commits and PRs.
 - [`document-convention/`][document-convention/]
 - [`markdown-convention/`][markdown-convention/]
 - [`zh-tw-punctuation/`][zh-tw-punctuation/]
+- [`git-workflow/`][git-workflow/]
 - [`commit-convention/`][commit-convention/]
 - [`pr-convention/`][pr-convention/]
 
@@ -70,5 +72,6 @@ Rules for git artifacts — commits and PRs.
 [document-convention/]: document-convention/
 [markdown-convention/]: markdown-convention/
 [zh-tw-punctuation/]: zh-tw-punctuation/
+[git-workflow/]: git-workflow/
 [commit-convention/]: commit-convention/
 [pr-convention/]: pr-convention/

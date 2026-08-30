@@ -53,8 +53,8 @@ When writing or editing any commit message. Also a pre-publish (pre-commit) chec
 
 ## Out of scope
 
-- PR title and PR description / GitHub issue body — see pr-convention rule.
-- Git-workflow concerns: when and how often to commit (e.g. stage-by-stage with reviews, or commit immediately), restaging after edits.
+- PR title and PR description / GitHub issue body — see [pr-convention][../pr-convention/RULE.md].
+- When and how often to commit, and how the work is staged — see [git-workflow][../git-workflow/RULE.md].
 - Language-specific punctuation (e.g. zh-TW commit messages — see [zh-tw-punctuation][../zh-tw-punctuation/RULE.md]).
 
 ## References
@@ -65,6 +65,8 @@ When writing or editing any commit message. Also a pre-publish (pre-commit) chec
 - [private-content][../private-content/RULE.md]
 - [prose-convention][../prose-convention/RULE.md]
 - [zh-tw-punctuation][../zh-tw-punctuation/RULE.md]
+- [git-workflow][../git-workflow/RULE.md]
+- [pr-convention][../pr-convention/RULE.md]
 
 [../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
 [../../bedrocks/governance-scope/BEDROCK.md]: ../../bedrocks/governance-scope/BEDROCK.md
@@ -72,5 +74,7 @@ When writing or editing any commit message. Also a pre-publish (pre-commit) chec
 [../private-content/RULE.md]: ../private-content/RULE.md
 [../prose-convention/RULE.md]: ../prose-convention/RULE.md
 [../zh-tw-punctuation/RULE.md]: ../zh-tw-punctuation/RULE.md
+[../git-workflow/RULE.md]: ../git-workflow/RULE.md
+[../pr-convention/RULE.md]: ../pr-convention/RULE.md
 [builds-on]: #builds-on
 [how-to-apply]: #how-to-apply
