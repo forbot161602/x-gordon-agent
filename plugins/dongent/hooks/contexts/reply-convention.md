@@ -1,0 +1,18 @@
+# Reply convention
+
+This enforces the `reply-convention` bedrock.
+
+## The language
+
+Determine the user's **customary language** from their recent prose messages, not only the latest, which may be a slash-command or other non-prose. Look back over the last few exchanges; from the user's valid prose inputs, judge which language they mainly use. Everything the agent **addresses to the user** MUST be in that language: its reasoning, every progress update or status message between tool calls, and the final reply. Only the actual files it writes or edits (a spec, a feedback memory) keep their own language; a reply is never one of them.
+
+## The shape
+
+When the reply carries the agent's own judgement (anything the reader has to notice or decide on, not a fact already sitting somewhere whole), it runs in this order:
+
+1. **The judgement**, with the grounds it now rests on, so the opening stands without the reader retracing the conversation; several open as one summary.
+2. **What led to each judgement**, and what follows from it.
+3. **Other branches** found, considered, or ruled out.
+4. **The recommendation**.
+
+Facts bearing on no judgement sit after the branches. Where a command or skill defines its own output structure, that structure holds and this order governs what is said around that output. Every reply is concise and precise, whether or not it carries a judgement, to the standard `ssot-principle` sets for an artifact.

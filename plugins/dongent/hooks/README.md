@@ -15,16 +15,16 @@ Event hooks this plugin ships. The harness auto-loads [`hooks.json`][hooks.json]
 <!-- prettier-ignore -->
 | Event | Payload | What it does |
 |---|---|---|
-| `UserPromptSubmit` | [`reply-convention.json`][contexts/reply-convention.json] | Injects the reply-convention reminder as fresh context each turn. Enforces the [reply-convention][../bedrocks/reply-convention/BEDROCK.md] bedrock. |
+| `UserPromptSubmit` | [`reply-convention.md`][contexts/reply-convention.md] | Enforces the [reply-convention][../bedrocks/reply-convention/BEDROCK.md] bedrock by injecting its reminder as fresh context each turn. |
 
 ## References
 
 - [`hooks.json`][hooks.json]
 - [`contexts/`][contexts/]
-- [`reply-convention.json`][contexts/reply-convention.json]
+- [`reply-convention.md`][contexts/reply-convention.md]
 - [reply-convention][../bedrocks/reply-convention/BEDROCK.md]
 
 [hooks.json]: hooks.json
 [contexts/]: contexts/
-[contexts/reply-convention.json]: contexts/reply-convention.json
+[contexts/reply-convention.md]: contexts/reply-convention.md
 [../bedrocks/reply-convention/BEDROCK.md]: ../bedrocks/reply-convention/BEDROCK.md
