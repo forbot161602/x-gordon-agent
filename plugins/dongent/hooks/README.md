@@ -16,15 +16,18 @@ Event hooks this plugin ships. The harness auto-loads [`hooks.json`][hooks.json]
 | Event | Payload | What it does |
 |---|---|---|
 | `UserPromptSubmit` | [`reply-convention.md`][contexts/reply-convention.md] | Enforces the [reply-convention][../bedrocks/reply-convention/BEDROCK.md] bedrock by injecting its reminder as fresh context each turn. |
+| `UserPromptSubmit` | [`harness-compat.md`][contexts/harness-compat.md] | Keeps a harness instruction from overriding the steps the agent is following, by restating the user's standing instructions as fresh context each turn. |
 
 ## References
 
 - [`hooks.json`][hooks.json]
 - [`contexts/`][contexts/]
 - [`reply-convention.md`][contexts/reply-convention.md]
+- [`harness-compat.md`][contexts/harness-compat.md]
 - [reply-convention][../bedrocks/reply-convention/BEDROCK.md]
 
 [hooks.json]: hooks.json
 [contexts/]: contexts/
 [contexts/reply-convention.md]: contexts/reply-convention.md
+[contexts/harness-compat.md]: contexts/harness-compat.md
 [../bedrocks/reply-convention/BEDROCK.md]: ../bedrocks/reply-convention/BEDROCK.md
