@@ -10,12 +10,11 @@ rules/
 └── <rule-name>/
     ├── RULE.md                # canonical rule (ALL-CAPS, agent reads first)
     ├── Specification.md       # optional supplementary doc (Initial-Cap)
-    ├── <script>.py            # if the rule has implementation logic, pair it with…
-    ├── <script>_test.py       # …a test file pinning the behavior
-    └── ...                    # other optional files (fixtures, templates, sub-modules)
+    ├── scripts/               # implementation logic when the rule has any, with its own tests
+    └── ...                    # other optional files (fixtures, templates)
 ```
 
-Each rule folder has at minimum a `RULE.md`. Other Initial-Cap markdown files (`Specification.md`, etc.) are supplementary, read on demand. Lowercase files are helpers — whatever the rule needs to operate (scripts, templates, tests, fixtures). When a rule has implementation logic, always pair the script with a test file so behavior is verifiable.
+Each rule folder has at minimum a `RULE.md`; the other file roles, and how each is named, live in [file-structure][../references/unit/file-structure.md].
 
 ## Rules
 
@@ -65,6 +64,7 @@ Rules for git — how a change is branched, committed, and published, and what i
 - [`git-workflow/`][git-workflow/]
 - [`commit-convention/`][commit-convention/]
 - [`pr-convention/`][pr-convention/]
+- [file-structure][../references/unit/file-structure.md]
 
 [ssot-principle/]: ssot-principle/
 [private-content/]: private-content/
@@ -75,3 +75,4 @@ Rules for git — how a change is branched, committed, and published, and what i
 [git-workflow/]: git-workflow/
 [commit-convention/]: commit-convention/
 [pr-convention/]: pr-convention/
+[../references/unit/file-structure.md]: ../references/unit/file-structure.md
