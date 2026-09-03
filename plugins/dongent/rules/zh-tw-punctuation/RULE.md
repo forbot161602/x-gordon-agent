@@ -1,6 +1,6 @@
 ---
 name: zh-tw-punctuation
-description: "zh-TW punctuation conventions — in Chinese-led markdown content (documents, commit messages, PRs), convert ASCII , : ; ? to full-width and the ellipsis character to ASCII dots. Script + tests at convert.py / convert_test.py; design rationale at Specification.md."
+description: "zh-TW punctuation conventions — in Chinese-led markdown content (documents, commit messages, PRs), convert ASCII , : ; ? to full-width and the ellipsis character to ASCII dots. Converter and tests under scripts/converter/; design rationale at Specification.md."
 ---
 
 # zh-TW punctuation — full-width
@@ -15,7 +15,11 @@ MUST read and follow these first — this rule builds on them:
 
 ## Rule
 
-In zh-TW markdown text that is Chinese-led (see [Algorithm summary][algorithm-summary]):
+The principles below cover what converts, where, and who decides. Full algorithm, delimiter set, rationale in [Specification.md][Specification.md]; behavior matrix in [the converter's tests][scripts/converter/tests/].
+
+### 1. What converts
+
+In zh-TW markdown text that is Chinese-led:
 
 - ASCII `,` → 「，」
 - ASCII `:` → 「：」 (including after markdown bold prefixes like `**標題**:`)
@@ -23,21 +27,25 @@ In zh-TW markdown text that is Chinese-led (see [Algorithm summary][algorithm-su
 - ASCII `?` → 「？」
 - Unicode `…` (U+2026) → ASCII `...`
 
+### 2. What counts as prose
+
+Per span: set aside the nested spans — matched quote, bracket and emphasis pairs — along with inline backtick spans; if any Han ideograph remains in what the span itself says, it is **Chinese-led** and every eligible punctuation in that text converts (except ASCII technical patterns). A line is the outermost span, and each nested one is judged the same way on its own text, so a Chinese aside inside an English sentence — or the reverse — keeps its own punctuation.
+
+### 3. What the script settles, and what stays a judgement
+
+Trust `--check`, not a visual glance: a half-width comma buried in a long zh-TW file is exactly what the eye skips, and the script's job is to catch deterministically what a writer (or model) misses.
+
+The script settles what qualifies; applying it stays a judgement. Converting rewrites the whole file, so read what changed before keeping it: restore by hand anything the conversion was never meant to touch — a false positive, a region the caller has declared off-limits — then give it the markup its own content calls for (brackets, quotes, and the like), so the next run stops flagging it. Such a flag is usually a known edge case rather than something to reason out afresh: [Specification.md][Specification.md] tables them with the way out for each.
+
 ## When to apply
 
 When writing or editing any zh-TW markdown content (documents, commit messages, PRs, etc.). Also a pre-publish checkpoint before declaring work done.
 
 ## How to apply
 
-At that checkpoint, run [convert.py][convert.py] with `--check` from the file's directory: it prints a unified diff of every line whose punctuation needs converting and exits non-zero. Convert (run without `--check`) only when it flags something. The converter is idempotent — safe to re-run.
+At that checkpoint, run [the converter][scripts/converter/] with `--check`: it prints a unified diff of every line whose punctuation needs converting and exits non-zero. Convert (run without `--check`) only when the flags are right. The converter is idempotent — safe to re-run.
 
-Trust `--check`, not a visual glance: a half-width comma buried in a long zh-TW file is exactly what the eye skips, and the script's job is to catch deterministically what a writer (or model) misses.
-
-Converting rewrites the whole file, so read what changed before keeping it. `--check` settles what qualifies, but applying it stays a judgement: restore by hand anything the conversion was never meant to touch — a false positive, a region the caller has declared off-limits — then give it the markup its own content calls for (brackets, quotes, and the like), so the next run stops flagging it.
-
-## Algorithm summary
-
-Per span: set aside the nested spans — matched quote, bracket and emphasis pairs — along with inline backtick spans; if any Han ideograph remains in what the span itself says, it is **Chinese-led** and every eligible punctuation in that text converts (except ASCII technical patterns). A line is the outermost span, and each nested one is judged the same way on its own text, so a Chinese aside inside an English sentence — or the reverse — keeps its own punctuation. Full algorithm, delimiter set, rationale in [Specification.md][Specification.md]; behavior matrix in [convert_test.py][convert_test.py].
+It runs as a module — `python3 -m scripts.converter [--as <kind>] [--check] <file.md>` — from this folder, which is what `scripts.converter` resolves against; the file to check usually sits elsewhere, so give it an absolute path. `--as` takes the kind: `document` by default, `commit-message` for a commit message.
 
 ## Out of scope
 
@@ -52,11 +60,10 @@ NEVER convert:
 
 - [wording-rule][../../bedrocks/wording-rule/BEDROCK.md]
 - [Specification.md][Specification.md]
-- [convert.py][convert.py]
-- [convert_test.py][convert_test.py]
+- [scripts/converter/][scripts/converter/]
+- [scripts/converter/tests/][scripts/converter/tests/]
 
 [../../bedrocks/wording-rule/BEDROCK.md]: ../../bedrocks/wording-rule/BEDROCK.md
-[algorithm-summary]: #algorithm-summary
 [Specification.md]: Specification.md
-[convert.py]: convert.py
-[convert_test.py]: convert_test.py
+[scripts/converter/]: scripts/converter/
+[scripts/converter/tests/]: scripts/converter/tests/

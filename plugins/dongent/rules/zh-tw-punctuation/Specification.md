@@ -5,7 +5,19 @@ description: Design rationale and detailed specification for the zh-tw-punctuati
 
 # zh-TW punctuation — spec
 
-Companion to [RULE.md][RULE.md]. Detailed algorithm, design choices, accepted trade-offs.
+Companion to [RULE.md][RULE.md]. Detailed algorithm, design choices, accepted trade-offs, and where the code lives.
+
+## Input kinds
+
+The caller names the kind with `--as`, or omits it for the default. Each kind supplies its own conversion logic:
+
+<!-- prettier-ignore -->
+| Kind | What its converter does |
+|---|---|
+| `document` | The default: the whole line is one span, judged on its own prose |
+| `commit-message` | The `type(scope): ` prefix on the first line is copied through; the rest converts as `document` does |
+
+A fenced block is copied verbatim whatever the kind, since a fence spans lines rather than sitting inside one.
 
 ## Conversion decision
 
@@ -16,6 +28,16 @@ Per candidate punctuation mark, the checks run in order:
 3. **If yes → convert; otherwise keep.** All-or-nothing per span: apply the mappings from [RULE.md][RULE.md].
 
 The `…` → `...` substitution runs through this same decision, so English prose keeps its ellipsis: there it is English typography, not a zh-TW punctuation slip.
+
+## Skip when
+
+ASCII technical patterns kept half-width:
+
+- `,` between digits → number formatting (`1,000`)
+- `:` between digits → ratio or time (`7:1`, `3:45`)
+- `:` letter before, digit or `/` after → file-line (`App.css:24`) or URL scheme (`https://`)
+- `:` letter before, letter after → ASCII identifier (`A:B`, `Tab:Detail`, `key:value`)
+- `?` followed by `.` → optional chaining (`cfg?.theme`)
 
 ## Spans
 
@@ -58,22 +80,6 @@ Where the answer differs from what a reader might expect, it is accepted rather 
 - **Span-level, all-or-nothing.** Within one span, simpler than per-punctuation context detection, and it matches the writer's mental model: "this text is Chinese prose, so its punctuation should look Chinese." Recursing gives each aside its own answer without importing per-punctuation heuristics.
 - **Neighbours come from the line, not the span.** A mark at a span's edge still sees its real neighbours — the colon in `字級（rem）: 相對單位` sees `）` — so an exemption behaves the same wherever delimiters land, and the recursion carries indexes into the line rather than slicing it.
 
-## Skip when
-
-ASCII technical patterns kept half-width:
-
-- `,` between digits → number formatting (`1,000`)
-- `:` between digits → ratio or time (`7:1`, `3:45`)
-- `:` letter before, digit or `/` after → file-line (`App.css:24`) or URL scheme (`https://`)
-- `:` letter before, letter after → ASCII identifier (`A:B`, `Tab:Detail`, `key:value`)
-- `?` followed by `.` → optional chaining (`cfg?.theme`)
-
-## Check output
-
-`--check` prints a unified diff with no context lines: the `---` / `+++` header once, then one `@@ -n +n @@` hunk per changed line carrying its before and after. Both forms of a mark look alike, so a line number alone leaves the author converting the file just to learn what that line becomes.
-
-Hunks are never coalesced: every change rewrites one line in place, so adjacent changed lines gain nothing from sharing a hunk. What the shape costs is a `path:line` locator, which an editor turns into a jump; the hunk header keeps the number, and with both forms in view there is rarely anywhere to jump to.
-
 ## Considered alternatives
 
 - **Ratio threshold** (line has X% Chinese chars → convert): tried; produced false positives in long mostly-English lines that quoted CJK + false negatives in short lines where the threshold rejected legitimate Chinese-led prose.
@@ -81,6 +87,31 @@ Hunks are never coalesced: every change rewrites one line in place, so adjacent 
 - **Line-level, all-or-nothing** (the original shape): one gate per line, with delimited text dropped from the gate yet still converted by it. Simpler, but a mixed line forced one language's punctuation onto the other — an English list inside a Chinese sentence flipped, a Chinese aside inside an English one was missed. Delimiters already mark where one language stops, so recursing on them fixes both directions.
 
 The span-level set-aside-then-check rule is simpler than the per-punctuation alternatives and avoids their failure modes.
+
+## Check output
+
+`--check` prints a unified diff with no context lines: the `---` / `+++` header once, then one `@@ -n +n @@` hunk per changed line carrying its before and after. Both forms of a mark look alike, so a line number alone leaves the author converting the file just to learn what that line becomes.
+
+Hunks are never coalesced: every change rewrites one line in place, so adjacent changed lines gain nothing from sharing a hunk. What the shape costs is a `path:line` locator, which an editor turns into a jump; the hunk header keeps the number, and with both forms in view there is rarely anywhere to jump to.
+
+## Exit codes
+
+`--check` reports through its status as well as its output: 0 when nothing needs converting, 1 when something does; converting exits 0. A rejected invocation exits 2 — a bad argument, or a path that cannot be read — so a caller can tell a mistyped command from a file that needs work, which one non-zero code cannot.
+
+## Code layout
+
+The whole converter lives in one package, `scripts/converter/` — [RULE.md][RULE.md] gives the invocation. Its modules split by what each decides:
+
+<!-- prettier-ignore -->
+| Module | Holds |
+|---|---|
+| `engine.py` | Every conversion decision in this document |
+| `kinds/` | One module per input kind |
+| `pipeline.py` | The kind registry, and the line-by-line walk |
+| `cli.py` | Arguments, file IO, the diff, the exit codes |
+| `tests/` | One test module per module above |
+
+Shared logic belongs to `engine.py`, NEVER to a kind's converter: a converter holds only what its kind departs from a plain document by, so anything two kinds would share has one home.
 
 ## References
 

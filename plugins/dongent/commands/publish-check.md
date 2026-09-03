@@ -66,7 +66,7 @@ Read each rule in the table below — the `RULE.md` files — **in full** before
 | [prose-convention][../rules/prose-convention/RULE.md] | Grep against the project's forbidden list; agent inspection per the rule's principles | All files | 3 |
 | [document-convention][../rules/document-convention/RULE.md] | Agent inspection of file shape, document format, and authoring discipline, per the rule's How to apply cascade | All files | 4 |
 | [markdown-convention][../rules/markdown-convention/RULE.md] | Per the rule's How to apply — its private/public style cascade | All files | 5 |
-| [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md] | Run the rule's `convert.py --check` from the rule folder | Chinese-led text | 1 |
+| [zh-tw-punctuation][../rules/zh-tw-punctuation/RULE.md] | Run the rule's converter with `--check` | Chinese-led text | 1 |
 
 The **project's forbidden list** the grep checks use is assembled at audit time, not fixed here: gather it from these rules plus the project's agent memory — where, per [private-content][../rules/private-content/RULE.md] and [prose-convention][../rules/prose-convention/RULE.md], the project records the terms it must keep out — walking the memory index so no recorded term is missed.
 

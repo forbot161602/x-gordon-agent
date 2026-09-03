@@ -1,16 +1,13 @@
-#!/usr/bin/env python3
 """
-Convert punctuation to its zh-TW form on Chinese-led text.
+The span engine: split a line into spans, decide which of them are Chinese-led,
+and rewrite the eligible punctuation in those.
 
-Usage: python3 convert.py [--check] <file.md>
-
---check prints a unified diff of the lines that would change and exits non-zero
-if any, without writing the file (exit 0 when nothing needs converting).
-
-Idempotent — safe to re-run. See sibling RULE.md for the rule contract.
+A span is the unit of judgement — a line is the outermost one, and each nested
+quote, bracket or emphasis pair is judged on its own text — so a caller converts
+a range and that range carries its own gate. Full algorithm and rationale in the
+rule folder's Specification.md.
 """
 
-import sys
 from enum import Enum
 
 
@@ -37,10 +34,8 @@ def is_cjk_ideograph(ch: str) -> bool:
     return (0x4E00 <= o <= 0x9FFF) or (0x3400 <= o <= 0x4DBF)
 
 
-# Delimiter pairs that open a nested span. A span is judged on its own text, so
-# a Chinese aside inside an English sentence keeps its own punctuation, and the
-# reverse. `'` is deliberately absent: in prose it is an apostrophe (`it's`,
-# `the author's`), not a paired delimiter.
+# Delimiter pairs that open a nested span. `'` is deliberately absent: in prose
+# it is an apostrophe (`it's`, `the author's`), not a paired delimiter.
 _DELIMITERS = {
     '(': ')',      # round bracket
     '[': ']',      # square bracket
@@ -222,7 +217,7 @@ def _convert_prose(
         out_chars.append(ch)
 
 
-def _convert_span(text: str, start: int, end: int, out_chars: list[str]) -> None:
+def convert_span(text: str, start: int, end: int, out_chars: list[str]) -> None:
     """Convert one span: its own prose under its own gate, each nested span
     recursively under its own. out_chars is shared across the recursion so the
     whitespace cleanup still sees the character emitted before it."""
@@ -230,85 +225,8 @@ def _convert_span(text: str, start: int, end: int, out_chars: list[str]) -> None
     has_cjk_prose = prose_has_cjk(text, segments)
     for kind, segment_start, segment_end in segments:
         if kind is _SegmentKind.SPAN:
-            _convert_span(text, segment_start, segment_end, out_chars)
+            convert_span(text, segment_start, segment_end, out_chars)
         elif kind is _SegmentKind.VERBATIM:
             out_chars.extend(text[segment_start:segment_end])
         else:
             _convert_prose(text, segment_start, segment_end, has_cjk_prose, out_chars)
-
-
-def convert_lines(lines: list[str]) -> list[str]:
-    """Per line: when the prose has a Han ideograph (see prose_has_cjk),
-    rewrite ASCII , : ; ? to full-width and … to ... — except ASCII technical
-    patterns, and content inside backticks / fenced code which is preserved
-    verbatim. A delimited span is judged on its own prose, not the line's. One
-    output line per input line, so the two lists pair up by position."""
-    out_lines = []
-    in_fence = False
-    for line in lines:
-        if line.lstrip().startswith('```'):
-            in_fence = not in_fence
-            out_lines.append(line)
-            continue
-        if in_fence:
-            out_lines.append(line)
-            continue
-
-        out_chars = []
-        _convert_span(line, 0, len(line), out_chars)
-        out_lines.append(''.join(out_chars))
-
-    return out_lines
-
-
-def convert(text: str) -> str:
-    """A whole file's text at once — see convert_lines for the per-line rule."""
-    return '\n'.join(convert_lines(text.split('\n')))
-
-
-def changed_lines(
-    original: list[str], converted: list[str]
-) -> list[tuple[int, str, str]]:
-    """Each line conversion would change, as (1-based number, before, after)."""
-    return [
-        (n, before, after)
-        for n, (before, after) in enumerate(zip(original, converted), 1)
-        if before != after
-    ]
-
-
-def format_diff(path: str, pending: list[tuple[int, str, str]]) -> list[str]:
-    """Unified-diff output lines for what changed_lines found — and nothing at
-    all, not even the file header, when nothing pends."""
-    if not pending:
-        return []
-    out = [f"--- {path}", f"+++ {path}"]
-    for n, before, after in pending:
-        out.extend((f"@@ -{n} +{n} @@", f"-{before}", f"+{after}"))
-    return out
-
-
-def main() -> None:
-    args = sys.argv[1:]
-    check = '--check' in args
-    paths = [a for a in args if a != '--check']
-    if len(paths) != 1:
-        print(f"Usage: {sys.argv[0]} [--check] <file.md>", file=sys.stderr)
-        sys.exit(1)
-    path = paths[0]
-
-    with open(path, 'r', encoding='utf-8') as f:
-        lines = f.read().split('\n')
-    converted_lines = convert_lines(lines)
-
-    if check:
-        pending = changed_lines(lines, converted_lines)
-        for line in format_diff(path, pending):
-            print(line)
-        sys.exit(1 if pending else 0)
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(converted_lines))
-
-
-if __name__ == '__main__':
-    main()
