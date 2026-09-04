@@ -1,6 +1,6 @@
 ---
 name: prose-convention
-description: Shared prose reads without access to the original session, clock, or team. Forbids time-bound references (session shorthand, relative time) and space-bound references (in-group abbreviations, names, addressee imperatives).
+description: Shared prose reads without access to the original session, clock, or team. Forbids time-bound references (session shorthand, relative time, stale measurements) and space-bound references (in-group abbreviations, names, addressee imperatives).
 ---
 
 # Prose convention — self-contained shared prose
@@ -21,6 +21,7 @@ The principles below serve one goal: **self-contained meaning** — every claim 
 
 - **Session shorthand** (P1, Q1, T1, ...) — bound to a specific conversation; meaningless to anyone outside that session.
 - **Relative time references** ("yesterday", "recently", "will fix next week") — use absolute dates (e.g. 2026-05-29) or directly restate the event the writer had in mind.
+- **Measurements that go stale** ("12 files in this folder", "p99 is 180ms", "40 timeouts an hour") — true when measured, silently false later; cut it unless the number is load-bearing, and where it is, name the commit or date it was taken at.
 
 **Why:** the future reader has no clock and no session log; anything relative to a moment of writing goes stale once the writing ages.
 
